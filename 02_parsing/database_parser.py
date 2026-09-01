@@ -24,6 +24,7 @@ from project_parser import (
     _decode_fixed_array,
     _decode_raw,
     _decode_schema,
+    _parse_music,
     _parse_event_commands,
     _source_metadata,
 )
@@ -100,23 +101,6 @@ def _parse_sound(chunk: LcfChunk, encoding: str) -> dict:
         {
             "fields": {
                 0x01: "name",
-                0x03: "volume",
-                0x04: "tempo",
-                0x05: "balance",
-            },
-            "text_fields": (0x01,),
-        },
-    )
-
-
-def _parse_music(chunk: LcfChunk, encoding: str) -> dict:
-    return _struct_payload(
-        chunk,
-        encoding,
-        {
-            "fields": {
-                0x01: "name",
-                0x02: "fadein",
                 0x03: "volume",
                 0x04: "tempo",
                 0x05: "balance",

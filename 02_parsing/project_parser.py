@@ -262,6 +262,27 @@ def _parse_move_route(chunk: LcfChunk, encoding: str) -> dict:
     return result
 
 
+def _parse_music(chunk: LcfChunk, encoding: str) -> dict:
+    reader = LcfReader(
+        chunk.payload,
+        source_name="Music",
+        base_offset=chunk.payload_offset,
+    )
+    result, _ = _decode_schema(
+        reader,
+        fields={
+            0x01: "name",
+            0x02: "fadein",
+            0x03: "volume",
+            0x04: "tempo",
+            0x05: "balance",
+        },
+        encoding=encoding,
+        text_fields=(0x01,),
+    )
+    return result
+
+
 def _parse_event_commands(chunk: LcfChunk, encoding: str) -> dict:
     reader = LcfReader(
         chunk.payload,
@@ -469,9 +490,9 @@ def _parse_map_info(reader: LcfReader, map_id: int, index: int, encoding: str) -
         bool_fields=(0x07,),
         fixed_fields={0x33: _decode_area_rect},
         partial_fields={
-            0x0C: "music",
             0x29: "encounter",
         },
+        nested_fields={0x0C: _parse_music},
     )
     result["id"] = map_id
     result["index"] = index

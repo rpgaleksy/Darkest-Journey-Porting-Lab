@@ -78,6 +78,7 @@ class SemanticParserTests(unittest.TestCase):
             chunk(0x02, encode_int(3)),
             chunk(0x03, encode_int(1)),
             chunk(0x04, encode_int(1)),
+            chunk(0x0C, struct_payload(chunk(0x01, b"Theme"))),
             chunk(0x33, struct.pack("<4I", 1, 2, 20, 15)),
         )
         body = (
@@ -98,6 +99,7 @@ class SemanticParserTests(unittest.TestCase):
         self.assertEqual(parsed["map_count"], 1)
         self.assertEqual(parsed["maps"][0]["name"], "Büro")
         self.assertEqual(parsed["maps"][0]["parent_map"], 3)
+        self.assertEqual(parsed["maps"][0]["music"]["name"], "Theme")
         self.assertEqual(parsed["maps"][0]["area_rect"], [1, 2, 20, 15])
         self.assertEqual(parsed["tree_order"], [7])
         self.assertEqual(parsed["start"]["party_map_id"], 7)

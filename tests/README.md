@@ -11,4 +11,6 @@ python3 -m unittest discover -s tests -v
 Der Testlauf prüft unter anderem komprimierte Integer, Chunk-Grenzen,
 Windows-1252-Texte, little-endian-Festfelder, Tile-Layer, Eventbedingungen,
 ein synthetisches `ShowMessage`-Kommando sowie eine LDB ohne Root-
-Terminator mit Actors, Items, Terms, Systemdaten und Common Event.
+Terminator mit Actors, Items, Terms, Systemdaten und Common Event. Die
+Ressourcen-Fixture prüft außerdem case-insensitive Dateinamen, RTP-Fallback,
+bekannte `ShowPicture`-Referenzen und die Auflösung eines `.link.wav`-Ziels.

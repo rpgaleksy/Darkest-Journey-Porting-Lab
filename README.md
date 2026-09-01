@@ -13,7 +13,7 @@ Kein Tool in diesem Arbeitsbereich schreibt in das Originalspiel. Analysebericht
 ## Struktur
 
 - `01_inventory/` – Dateiinventar, Projektmarker, Maps und Ressourcen
-- `02_parsing/` – LCF/LDB/LMT/LMU-Parser und XML/JSON-Export
+- `02_parsing/` – LCF/LDB/LMT/LMU-Parser, Ressourcenauflösung und JSON-Export
 - `03_rendering/` – Map-Vorschauen und Ressourcen-Renderer
 - `04_compatibility/` – EasyRPG-/Runtime-Kompatibilität und bekannte Abweichungen
 - `05_runtime/` – spätere Laufzeit- oder Portierungsprototypen
@@ -46,3 +46,10 @@ liest `RPG_RT.ldb`, `RPG_RT.lmt` und eine ausgewählte `Map*.lmu` read-only und
 exportiert Datenbankeinträge, Map-Metadaten, Layer, Events und Event-Kommandos
 als JSON. Die Nutzung und die bewusst noch offenen Teilbereiche sind in
 `02_parsing/README.md` beschrieben.
+
+Der nächste Analysebaustein ist `02_parsing/scan_resources.py`. Er prüft die
+bekannten Ressourcenfelder und Event-Kommandos gegen die Dateien des Projekts,
+unterstützt optionale RTP-Verzeichnisse mit Projektdateien als Priorität und
+erkennt RPG-Maker-`.link.wav`-Wrapper einschließlich ihres MP3-Ziels. Der
+Scanner arbeitet read-only und erzeugt auf Wunsch einen JSON- sowie einen
+Markdown-Bericht.
