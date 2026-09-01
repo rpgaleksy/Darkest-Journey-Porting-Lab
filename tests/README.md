@@ -21,4 +21,7 @@ Palettenindex 0, die A-/B-Autotile-Komposition, direkte E/F-Tiles, C-/D-Tiles
 sowie das statische Event-Sprite und sein JSON-Manifest reproduzierbar geprüft.
 Außerdem wird ein synthetischer `ShowPicture`-Befehl für die optionale
 Lightmap-Ebene mit Command-gesteuerter Palette-0-Transparenz und Opacity geprüft.
-Es werden keine Originalressourcen benötigt.
+Mehrseitige Events prüfen zusätzlich die Rückwärtspriorität, Switch-A,
+Switch-B, 2k3-Variablenbedingungen, den RPG-Maker-Standardwert für ID 0 und
+die Beschränkung von Picture-Commands auf die aktive Seite. Es werden keine
+Originalressourcen benötigt.

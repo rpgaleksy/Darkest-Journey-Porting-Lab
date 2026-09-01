@@ -11,7 +11,14 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "03_rendering"))
 sys.path.insert(0, str(REPO_ROOT / "02_parsing"))
 
-from map_renderer import PNG_SIGNATURE, read_png, render_map, write_png
+from map_renderer import (
+    PNG_SIGNATURE,
+    EventState,
+    read_png,
+    render_map,
+    select_event_page,
+    write_png,
+)
 
 
 def encode_int(value):
@@ -139,7 +146,23 @@ def make_fixture_project(root):
         chunk(0x33, encode_int(len(picture_command))),
         chunk(0x34, picture_command),
     )
-    pages = encode_int(1) + encode_int(1) + page
+    conditional_page = struct_payload(
+        chunk(
+            0x02,
+            struct_payload(
+                chunk(0x01, encode_int(4)),
+                chunk(0x04, encode_int(7)),
+                chunk(0x05, encode_int(1)),
+            ),
+        ),
+    )
+    pages = (
+        encode_int(2)
+        + encode_int(1)
+        + page
+        + encode_int(2)
+        + conditional_page
+    )
     event = struct_payload(
         chunk(0x01, b"NPC"),
         chunk(0x02, encode_int(5)),
@@ -187,6 +210,17 @@ class MapRendererTests(unittest.TestCase):
                 scale=1,
                 show_lightmap=True,
             )
+            state_image, state_manifest = render_map(
+                project,
+                scale=1,
+                show_lightmap=True,
+                event_state=EventState(variables={7: 1}),
+            )
+            mismatch_manifest = render_map(
+                project,
+                scale=1,
+                event_state=EventState(variables={7: 2}),
+            )[1]
 
             output_path = project / "preview.png"
             write_png(output_path, image)
@@ -204,8 +238,13 @@ class MapRendererTests(unittest.TestCase):
         self.assertEqual(manifest["tiles"]["rendered_tiles"], 12)
         self.assertEqual(manifest["tiles"]["unsupported_tiles"], 0)
         self.assertEqual(manifest["events"]["events_total"], 1)
+        self.assertEqual(manifest["events"]["active_pages"], 1)
         self.assertEqual(manifest["events"]["sprites_drawn"], 1)
         self.assertEqual(manifest["events"]["missing_sprites"], [])
+        self.assertEqual(
+            manifest["events"]["page_selections"][0]["selected_page_index"],
+            0,
+        )
         self.assertEqual(lightmap_image.pixel(8, 8), (23, 44, 114, 255))
         self.assertNotEqual(lightmap_image.pixel(8, 8), image.pixel(8, 8))
         self.assertTrue(lightmap_manifest["pictures"]["enabled"])
@@ -216,6 +255,126 @@ class MapRendererTests(unittest.TestCase):
             "Lightmap",
         )
         self.assertEqual(lightmap_manifest["pictures"]["missing_pictures"], [])
+        self.assertNotEqual(state_image.pixel(80, 8), image.pixel(80, 8))
+        self.assertEqual(state_manifest["events"]["sprites_drawn"], 0)
+        self.assertEqual(
+            state_manifest["events"]["page_selections"][0]["selected_page_index"],
+            1,
+        )
+        self.assertEqual(state_manifest["pictures"]["commands_found"], 0)
+        self.assertEqual(
+            state_manifest["event_state"]["variables"],
+            [{"id": 7, "value": 1}],
+        )
+        self.assertEqual(
+            mismatch_manifest["events"]["page_selections"][0]["selected_page_index"],
+            0,
+        )
+
+    def test_event_page_selection_uses_both_switches_and_highest_priority(self):
+        event = {
+            "pages": {
+                "pages": [
+                    {"id": 1, "index": 0, "condition": {"flags": 0}},
+                    {
+                        "id": 2,
+                        "index": 1,
+                        "condition": {
+                            "flags": 3,
+                            "switch_a_id": 10,
+                            "switch_b_id": 11,
+                        },
+                    },
+                ]
+            }
+        }
+
+        default_page, default_decision = select_event_page(event, EventState())
+        active_page, active_decision = select_event_page(
+            event,
+            EventState(switches={10: True, 11: True}),
+        )
+        zero_id_page, zero_id_decision = select_event_page(
+            {
+                "pages": {
+                    "pages": [
+                        {
+                            "id": 1,
+                            "index": 0,
+                            "condition": {"flags": 4, "variable_value": 1},
+                        }
+                    ]
+                }
+            },
+            EventState(),
+        )
+
+        self.assertEqual(default_page["index"], 0)
+        self.assertEqual(default_decision["selected_page_index"], 0)
+        self.assertEqual(active_page["index"], 1)
+        self.assertEqual(active_decision["selected_page_index"], 1)
+        self.assertEqual(
+            [check["actual"] for check in active_decision["page_checks"][0]["checks"]],
+            [True, True],
+        )
+        self.assertIsNone(zero_id_page)
+        self.assertEqual(zero_id_decision["status"], "no_active_page")
+
+    def test_event_page_selection_supports_2k3_variable_operators(self):
+        cases = (
+            (0, 5, 5, True),
+            (1, 5, 4, True),
+            (2, 5, 4, False),
+            (3, 5, 4, True),
+            (4, 5, 4, False),
+            (5, 5, 4, True),
+        )
+        for operator, actual, expected, matched in cases:
+            with self.subTest(operator=operator):
+                event = {
+                    "pages": {
+                        "pages": [
+                            {"id": 1, "index": 0, "condition": {"flags": 0}},
+                            {
+                                "id": 2,
+                                "index": 1,
+                                "condition": {
+                                    "flags": 4,
+                                    "variable_id": 7,
+                                    "variable_value": expected,
+                                    "compare_operator": operator,
+                                },
+                            },
+                        ]
+                    }
+                }
+
+                page, decision = select_event_page(
+                    event,
+                    EventState(variables={7: actual}),
+                )
+
+                self.assertEqual(page["index"], 1 if matched else 0)
+                self.assertEqual(
+                    decision["selected_page_index"],
+                    1 if matched else 0,
+                )
+
+    def test_event_page_selection_marks_unsupported_higher_page_ambiguous(self):
+        event = {
+            "pages": {
+                "pages": [
+                    {"id": 1, "index": 0, "condition": {"flags": 0}},
+                    {"id": 2, "index": 1, "condition": {"flags": 8}},
+                ]
+            }
+        }
+
+        page, decision = select_event_page(event, EventState())
+
+        self.assertIsNone(page)
+        self.assertEqual(decision["status"], "ambiguous")
+        self.assertEqual(decision["candidate_page_index"], 0)
 
 
 if __name__ == "__main__":

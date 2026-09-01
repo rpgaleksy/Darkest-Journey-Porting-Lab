@@ -60,3 +60,5 @@ eine JSON-Manifestdatei, ohne das Originalprojekt zu verändern. Die bewusst
 begrenzte Renderer-Semantik und ein reproduzierbarer Aufruf sind in
 `03_rendering/README.md` dokumentiert. Für die erkannte Lightmap-Komposition
 auf `Map0041` kann die optionale `--lightmap`-Ebene zugeschaltet werden.
+Switches und Variablen lassen sich als expliziter Vorschauzustand übergeben;
+der Renderer wählt daraus die aktive Eventseite nach RPG-Maker-2003-Priorität.

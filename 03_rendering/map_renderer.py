@@ -2,10 +2,10 @@
 
 The renderer intentionally produces a diagnostic preview, not a replacement
 runtime.  It decodes the indexed PNG format used by the project with the
-standard library, composes the known chipset blocks, and overlays the first
-event page that has a character graphic.  Runtime state, tile substitutions,
-animation frames other than the selected static frame, and passability-based
-z-order are kept outside this first rendering pass.
+standard library, composes the known chipset blocks, and overlays the active
+event pages for an explicit preview state.  Runtime event execution, tile
+substitutions, animation frames other than the selected static frame, and
+passability-based z-order are kept outside this rendering pass.
 """
 
 from __future__ import annotations
@@ -15,7 +15,7 @@ import struct
 import sys
 import zlib
 from collections import Counter
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Iterable, List, Mapping, Optional, Sequence, Tuple
 
@@ -38,6 +38,22 @@ CHARACTER_BLOCK_HEIGHT = 128
 PICTURE_SCREEN_WIDTH = 320
 PICTURE_SCREEN_HEIGHT = 240
 
+CONDITION_SWITCH_A = 1 << 0
+CONDITION_SWITCH_B = 1 << 1
+CONDITION_VARIABLE = 1 << 2
+SUPPORTED_CONDITION_FLAGS = (
+    CONDITION_SWITCH_A | CONDITION_SWITCH_B | CONDITION_VARIABLE
+)
+
+VARIABLE_OPERATORS = {
+    0: "==",
+    1: ">=",
+    2: "<=",
+    3: ">",
+    4: "<",
+    5: "!=",
+}
+
 BLOCK_RANGES = (
     ("A", 0, 2000),
     ("B", 2000, 3000),
@@ -48,6 +64,14 @@ BLOCK_RANGES = (
 )
 
 Pixel = Tuple[int, int, int, int]
+
+
+@dataclass(frozen=True)
+class EventState:
+    """Explicit RPG Maker preview state used for event-page selection."""
+
+    switches: Mapping[int, bool] = field(default_factory=dict)
+    variables: Mapping[int, int] = field(default_factory=dict)
 
 
 class PngError(ValueError):
@@ -700,53 +724,264 @@ def _resolve_asset(
     return None, None, 0
 
 
-def _event_page(event: Mapping[str, object]) -> Optional[Mapping[str, object]]:
-    pages = event.get("pages")
-    if not isinstance(pages, Mapping):
-        return None
-    page_list = pages.get("pages")
-    if not isinstance(page_list, list):
-        return None
-    for page in page_list:
-        if isinstance(page, Mapping):
-            character_name = page.get("character_name")
-            if isinstance(character_name, str) and character_name.strip():
-                return page
-    return None
+def _normalize_event_state(state: Optional[EventState]) -> EventState:
+    if state is None:
+        return EventState()
+    if not isinstance(state, EventState):
+        raise TypeError("event_state must be an EventState instance")
+    if not isinstance(state.switches, Mapping):
+        raise TypeError("event_state.switches must be a mapping")
+    if not isinstance(state.variables, Mapping):
+        raise TypeError("event_state.variables must be a mapping")
+
+    switches = {}
+    for switch_id, value in state.switches.items():
+        if isinstance(switch_id, bool) or not isinstance(switch_id, int) or switch_id < 1:
+            raise ValueError("event switch IDs must be positive integers")
+        if not isinstance(value, bool):
+            raise ValueError("event switch values must be booleans")
+        switches[switch_id] = value
+
+    variables = {}
+    for variable_id, value in state.variables.items():
+        if isinstance(variable_id, bool) or not isinstance(variable_id, int) or variable_id < 1:
+            raise ValueError("event variable IDs must be positive integers")
+        if isinstance(value, bool) or not isinstance(value, int):
+            raise ValueError("event variable values must be integers")
+        variables[variable_id] = value
+
+    return EventState(
+        switches=dict(sorted(switches.items())),
+        variables=dict(sorted(variables.items())),
+    )
 
 
-def _picture_commands(map_data: Mapping[str, object]) -> List[dict]:
-    """Collect ShowPicture commands without trying to execute event logic."""
+def _variable_matches(actual: int, expected: int, operator: int) -> bool:
+    if operator == 0:
+        return actual == expected
+    if operator == 1:
+        return actual >= expected
+    if operator == 2:
+        return actual <= expected
+    if operator == 3:
+        return actual > expected
+    if operator == 4:
+        return actual < expected
+    if operator == 5:
+        return actual != expected
+    return False
 
+
+def _page_condition_result(
+    page: Mapping[str, object],
+    state: EventState,
+) -> dict:
+    condition = page.get("condition", {})
+    if condition is None:
+        condition = {}
+    if not isinstance(condition, Mapping):
+        return {
+            "result": "invalid",
+            "reason": "event page condition is not a mapping",
+            "checks": [],
+        }
+    flags = condition.get("flags", 0)
+    if isinstance(flags, bool) or not isinstance(flags, int) or flags < 0:
+        return {
+            "result": "invalid",
+            "reason": "event page condition flags are not a non-negative integer",
+            "checks": [],
+        }
+    unsupported_flags = flags & ~SUPPORTED_CONDITION_FLAGS
+    if unsupported_flags:
+        return {
+            "result": "unsupported",
+            "reason": f"unsupported event page condition flags: {unsupported_flags}",
+            "condition_flags": flags,
+            "unsupported_flags": unsupported_flags,
+            "checks": [],
+        }
+
+    checks = []
+    for flag, field_name, label in (
+        (CONDITION_SWITCH_A, "switch_a_id", "switch_a"),
+        (CONDITION_SWITCH_B, "switch_b_id", "switch_b"),
+    ):
+        if not flags & flag:
+            continue
+        switch_id = condition.get(field_name, 0)
+        if isinstance(switch_id, bool) or not isinstance(switch_id, int) or switch_id < 0:
+            return {
+                "result": "invalid",
+                "reason": f"{label} has no non-negative integer ID",
+                "condition_flags": flags,
+                "checks": checks,
+            }
+        actual = state.switches.get(switch_id, False)
+        checks.append(
+            {
+                "kind": label,
+                "id": switch_id,
+                "actual": actual,
+                "expected": True,
+                "matched": actual,
+            }
+        )
+
+    if flags & CONDITION_VARIABLE:
+        variable_id = condition.get("variable_id", 0)
+        expected = condition.get("variable_value", 0)
+        operator = condition.get("compare_operator", 0)
+        if isinstance(variable_id, bool) or not isinstance(variable_id, int) or variable_id < 0:
+            return {
+                "result": "invalid",
+                "reason": "variable condition has no non-negative integer ID",
+                "condition_flags": flags,
+                "checks": checks,
+            }
+        if isinstance(expected, bool) or not isinstance(expected, int):
+            return {
+                "result": "invalid",
+                "reason": "variable condition has no integer comparison value",
+                "condition_flags": flags,
+                "checks": checks,
+            }
+        if isinstance(operator, bool) or not isinstance(operator, int) or operator not in VARIABLE_OPERATORS:
+            return {
+                "result": "unsupported",
+                "reason": f"unsupported variable comparison operator: {operator!r}",
+                "condition_flags": flags,
+                "checks": checks,
+            }
+        actual = state.variables.get(variable_id, 0)
+        checks.append(
+            {
+                "kind": "variable",
+                "id": variable_id,
+                "actual": actual,
+                "operator": VARIABLE_OPERATORS[operator],
+                "expected": expected,
+                "matched": _variable_matches(actual, expected, operator),
+            }
+        )
+
+    return {
+        "result": "matched" if all(check["matched"] for check in checks) else "not_matched",
+        "condition_flags": flags,
+        "checks": checks,
+    }
+
+
+def select_event_page(
+    event: Mapping[str, object],
+    state: EventState,
+) -> Tuple[Optional[Mapping[str, object]], dict]:
+    """Select the highest-priority page whose supported conditions are met."""
+
+    pages_data = event.get("pages")
+    pages = pages_data.get("pages", []) if isinstance(pages_data, Mapping) else []
+    if not isinstance(pages, list):
+        pages = []
+    page_checks = []
+    uncertain_pages = []
+    for page in reversed(pages):
+        if not isinstance(page, Mapping):
+            result = {
+                "result": "invalid",
+                "reason": "event page is not a mapping",
+                "checks": [],
+            }
+            page_index = None
+            page_id = None
+        else:
+            result = _page_condition_result(page, state)
+            page_index = page.get("index")
+            page_id = page.get("id")
+        check = {
+            "page_index": page_index,
+            "page_id": page_id,
+            **result,
+        }
+        page_checks.append(check)
+        if result["result"] in ("unsupported", "invalid"):
+            uncertain_pages.append(check)
+            continue
+        if result["result"] != "matched":
+            continue
+        if uncertain_pages:
+            return None, {
+                "status": "ambiguous",
+                "selected_page_index": None,
+                "selected_page_id": None,
+                "candidate_page_index": page_index,
+                "candidate_page_id": page_id,
+                "page_checks": page_checks,
+            }
+        return page, {
+            "status": "selected",
+            "selected_page_index": page_index,
+            "selected_page_id": page_id,
+            "page_checks": page_checks,
+        }
+
+    return None, {
+        "status": "ambiguous" if uncertain_pages else "no_active_page",
+        "selected_page_index": None,
+        "selected_page_id": None,
+        "page_checks": page_checks,
+    }
+
+
+def _event_page_selections(
+    map_data: Mapping[str, object],
+    state: EventState,
+) -> List[dict]:
     events_data = map_data.get("events", {})
     events = events_data.get("events", []) if isinstance(events_data, Mapping) else []
     result = []
     for event in events:
         if not isinstance(event, Mapping):
             continue
-        pages_data = event.get("pages", {})
-        pages = pages_data.get("pages", []) if isinstance(pages_data, Mapping) else []
-        for page in pages:
-            if not isinstance(page, Mapping):
+        page, decision = select_event_page(event, state)
+        result.append(
+            {
+                "event": event,
+                "page": page,
+                "decision": decision,
+            }
+        )
+    return result
+
+
+def _picture_commands(event_page_selections: Sequence[Mapping[str, object]]) -> List[dict]:
+    """Collect ShowPicture commands from the selected event pages."""
+
+    result = []
+    for selection in event_page_selections:
+        event = selection.get("event")
+        page = selection.get("page")
+        if not isinstance(event, Mapping):
+            continue
+        if not isinstance(page, Mapping):
+            continue
+        commands_data = page.get("event_commands", {})
+        commands = (
+            commands_data.get("commands", [])
+            if isinstance(commands_data, Mapping)
+            else []
+        )
+        for command_index, command in enumerate(commands):
+            if not isinstance(command, Mapping) or command.get("code") != 11110:
                 continue
-            commands_data = page.get("event_commands", {})
-            commands = (
-                commands_data.get("commands", [])
-                if isinstance(commands_data, Mapping)
-                else []
+            result.append(
+                {
+                    "event_id": event.get("id"),
+                    "event_name": event.get("name"),
+                    "page_index": page.get("index"),
+                    "command_index": command_index,
+                    "command": command,
+                }
             )
-            for command_index, command in enumerate(commands):
-                if not isinstance(command, Mapping) or command.get("code") != 11110:
-                    continue
-                result.append(
-                    {
-                        "event_id": event.get("id"),
-                        "event_name": event.get("name"),
-                        "page_index": page.get("index"),
-                        "command_index": command_index,
-                        "command": command,
-                    }
-                )
     return result
 
 
@@ -804,6 +1039,7 @@ def render_map(
     scale: int = 2,
     show_events: bool = True,
     show_lightmap: bool = False,
+    event_state: Optional[EventState] = None,
 ) -> Tuple[RgbaImage, dict]:
     """Render one map to an RGBA image and return image plus manifest data."""
 
@@ -832,6 +1068,8 @@ def render_map(
     map_report = parse_lmu(map_path)
     database = database_report["database"]
     map_data = map_report["map"]
+    preview_state = _normalize_event_state(event_state)
+    event_page_selections = _event_page_selections(map_data, preview_state)
 
     chipset_names = {
         record["id"]: record.get("chipset_name")
@@ -900,26 +1138,45 @@ def render_map(
             canvas.blit(tile, 0, 0, TILE_SIZE, TILE_SIZE, x * TILE_SIZE, y * TILE_SIZE)
 
     event_statistics = {
-        "events_total": 0,
+        "enabled": show_events,
+        "events_total": len(event_page_selections),
+        "active_pages": sum(
+            1 for selection in event_page_selections if selection["page"] is not None
+        ),
+        "ambiguous_events": [],
+        "page_selections": [],
         "pages_with_graphics": 0,
         "sprites_drawn": 0,
         "missing_sprites": [],
         "ambiguous_sprites": [],
         "invalid_sprites": [],
     }
+    for selection in event_page_selections:
+        event = selection["event"]
+        decision = selection["decision"]
+        event_identity = {
+            "event_id": event.get("id"),
+            "event_name": event.get("name"),
+        }
+        event_statistics["page_selections"].append(
+            {**event_identity, **decision}
+        )
+        if decision["status"] == "ambiguous":
+            event_statistics["ambiguous_events"].append(event_identity)
+
     if show_events:
-        events_data = map_data.get("events", {})
-        events = events_data.get("events", []) if isinstance(events_data, Mapping) else []
-        event_statistics["events_total"] = len(events)
         charset_cache = {}
-        for event in events:
+        for selection in event_page_selections:
+            event = selection["event"]
+            page = selection["page"]
             if not isinstance(event, Mapping):
                 continue
-            page = _event_page(event)
-            if page is None:
+            if not isinstance(page, Mapping):
+                continue
+            character_name = page.get("character_name")
+            if not isinstance(character_name, str) or not character_name.strip():
                 continue
             event_statistics["pages_with_graphics"] += 1
-            character_name = page.get("character_name")
             charset_path, charset_descriptor, charset_matches = _resolve_asset(
                 indexes,
                 "charset",
@@ -928,6 +1185,7 @@ def render_map(
             event_identity = {
                 "event_id": event.get("id"),
                 "event_name": event.get("name"),
+                "page_index": page.get("index"),
                 "character_name": character_name,
             }
             if charset_path is None or charset_descriptor is None:
@@ -1011,7 +1269,7 @@ def render_map(
         "skipped_pictures": [],
     }
     if show_lightmap:
-        for picture_command in _picture_commands(map_data):
+        for picture_command in _picture_commands(event_page_selections):
             command = picture_command["command"]
             picture_name = command.get("string")
             if not _lightmap_name(picture_name):
@@ -1135,14 +1393,31 @@ def render_map(
             "height": height,
             "dimensions_defaults_used": dimensions.get("defaults_used", []),
         },
+        "event_state": {
+            "semantics": "RPG Maker 2003 event page snapshot",
+            "defaults": {
+                "switch": False,
+                "variable": 0,
+            },
+            "switches": [
+                {"id": switch_id, "value": value}
+                for switch_id, value in preview_state.switches.items()
+            ],
+            "variables": [
+                {"id": variable_id, "value": value}
+                for variable_id, value in preview_state.variables.items()
+            ],
+        },
         "tiles": tile_statistics,
         "events": event_statistics,
         "pictures": picture_statistics,
         "limitations": [
             "runtime tile substitutions are not applied",
             "autotiles use animation frame 0",
-            "event page conditions and passability-based z-order are not evaluated",
-            "lightmap selection does not execute event conditions or picture replacement order",
+            "event page selection uses an explicit preview state rather than a live save",
+            "item, actor, timer, and unknown event page conditions are not evaluated",
+            "passability-based event z-order is not evaluated",
+            "lightmap selection does not execute picture replacement order",
             "picture tones, effects, and variable coordinates are not evaluated",
         ],
     }
