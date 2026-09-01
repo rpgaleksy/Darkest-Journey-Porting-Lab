@@ -1,0 +1,3582 @@
+{
+  "source": "/Users/aleksl/Library/CloudStorage/Dropbox/CODING PRODUCTION/ChatGPT Codex Experiments/Darkest Journey",
+  "read_only": true,
+  "file_count": 455,
+  "total_bytes": 45698638,
+  "extensions": {
+    ".png": 216,
+    ".wav": 117,
+    ".lmu": 84,
+    ".mp3": 15,
+    ".html": 10,
+    ".mid": 3,
+    ".dll": 2,
+    ".fon": 2,
+    ".bak": 1,
+    ".exe": 1,
+    ".ini": 1,
+    ".ldb": 1,
+    ".lmt": 1,
+    ".txt": 1
+  },
+  "top_level_file_counts": {
+    "Backdrop": 1,
+    "Battle": 4,
+    "CharSet": 36,
+    "ChipSet": 12,
+    "Darkest Walktrough": 10,
+    "FaceSet": 1,
+    "GameOver": 1,
+    "Monster": 1,
+    "Music": 20,
+    "Panorama": 30,
+    "Picture": 124,
+    "Sound": 100,
+    "System": 4,
+    "Title": 2,
+    "[root]": 94,
+    "mp3": 15
+  },
+  "rpg_maker_ini": {
+    "RPG_RT": {
+      "GameTitle": "DarkestJourney",
+      "MapEditMode": "2",
+      "MapEditZoom": "0",
+      "FullPackageFlag": "1"
+    }
+  },
+  "maps": {
+    "count": 84,
+    "first_id": 1,
+    "last_id": 87,
+    "gaps": [
+      39,
+      40,
+      81
+    ],
+    "maps": [
+      {
+        "id": 1,
+        "file": "Map0001.lmu",
+        "size": 2917,
+        "event_id_count_signal": 0,
+        "highest_event_id_signal": null
+      },
+      {
+        "id": 2,
+        "file": "Map0002.lmu",
+        "size": 5753,
+        "event_id_count_signal": 9,
+        "highest_event_id_signal": 10
+      },
+      {
+        "id": 3,
+        "file": "Map0003.lmu",
+        "size": 1230,
+        "event_id_count_signal": 0,
+        "highest_event_id_signal": null
+      },
+      {
+        "id": 4,
+        "file": "Map0004.lmu",
+        "size": 25995,
+        "event_id_count_signal": 30,
+        "highest_event_id_signal": 51
+      },
+      {
+        "id": 5,
+        "file": "Map0005.lmu",
+        "size": 2056,
+        "event_id_count_signal": 0,
+        "highest_event_id_signal": null
+      },
+      {
+        "id": 6,
+        "file": "Map0006.lmu",
+        "size": 17960,
+        "event_id_count_signal": 112,
+        "highest_event_id_signal": 123
+      },
+      {
+        "id": 7,
+        "file": "Map0007.lmu",
+        "size": 1230,
+        "event_id_count_signal": 0,
+        "highest_event_id_signal": null
+      },
+      {
+        "id": 8,
+        "file": "Map0008.lmu",
+        "size": 5244,
+        "event_id_count_signal": 6,
+        "highest_event_id_signal": 14
+      },
+      {
+        "id": 9,
+        "file": "Map0009.lmu",
+        "size": 4282,
+        "event_id_count_signal": 11,
+        "highest_event_id_signal": 15
+      },
+      {
+        "id": 10,
+        "file": "Map0010.lmu",
+        "size": 3188,
+        "event_id_count_signal": 13,
+        "highest_event_id_signal": 14
+      },
+      {
+        "id": 11,
+        "file": "Map0011.lmu",
+        "size": 13041,
+        "event_id_count_signal": 34,
+        "highest_event_id_signal": 38
+      },
+      {
+        "id": 12,
+        "file": "Map0012.lmu",
+        "size": 3125,
+        "event_id_count_signal": 12,
+        "highest_event_id_signal": 12
+      },
+      {
+        "id": 13,
+        "file": "Map0013.lmu",
+        "size": 9118,
+        "event_id_count_signal": 32,
+        "highest_event_id_signal": 34
+      },
+      {
+        "id": 14,
+        "file": "Map0014.lmu",
+        "size": 9820,
+        "event_id_count_signal": 9,
+        "highest_event_id_signal": 22
+      },
+      {
+        "id": 15,
+        "file": "Map0015.lmu",
+        "size": 12115,
+        "event_id_count_signal": 38,
+        "highest_event_id_signal": 41
+      },
+      {
+        "id": 16,
+        "file": "Map0016.lmu",
+        "size": 7222,
+        "event_id_count_signal": 30,
+        "highest_event_id_signal": 34
+      },
+      {
+        "id": 17,
+        "file": "Map0017.lmu",
+        "size": 16481,
+        "event_id_count_signal": 17,
+        "highest_event_id_signal": 18
+      },
+      {
+        "id": 18,
+        "file": "Map0018.lmu",
+        "size": 3012,
+        "event_id_count_signal": 4,
+        "highest_event_id_signal": 5
+      },
+      {
+        "id": 19,
+        "file": "Map0019.lmu",
+        "size": 6939,
+        "event_id_count_signal": 32,
+        "highest_event_id_signal": 32
+      },
+      {
+        "id": 20,
+        "file": "Map0020.lmu",
+        "size": 6697,
+        "event_id_count_signal": 20,
+        "highest_event_id_signal": 21
+      },
+      {
+        "id": 21,
+        "file": "Map0021.lmu",
+        "size": 2874,
+        "event_id_count_signal": 11,
+        "highest_event_id_signal": 11
+      },
+      {
+        "id": 22,
+        "file": "Map0022.lmu",
+        "size": 2625,
+        "event_id_count_signal": 9,
+        "highest_event_id_signal": 9
+      },
+      {
+        "id": 23,
+        "file": "Map0023.lmu",
+        "size": 16689,
+        "event_id_count_signal": 163,
+        "highest_event_id_signal": 166
+      },
+      {
+        "id": 24,
+        "file": "Map0024.lmu",
+        "size": 5015,
+        "event_id_count_signal": 19,
+        "highest_event_id_signal": 21
+      },
+      {
+        "id": 25,
+        "file": "Map0025.lmu",
+        "size": 5510,
+        "event_id_count_signal": 47,
+        "highest_event_id_signal": 48
+      },
+      {
+        "id": 26,
+        "file": "Map0026.lmu",
+        "size": 8786,
+        "event_id_count_signal": 16,
+        "highest_event_id_signal": 30
+      },
+      {
+        "id": 27,
+        "file": "Map0027.lmu",
+        "size": 6470,
+        "event_id_count_signal": 53,
+        "highest_event_id_signal": 54
+      },
+      {
+        "id": 28,
+        "file": "Map0028.lmu",
+        "size": 6168,
+        "event_id_count_signal": 15,
+        "highest_event_id_signal": 17
+      },
+      {
+        "id": 29,
+        "file": "Map0029.lmu",
+        "size": 8638,
+        "event_id_count_signal": 41,
+        "highest_event_id_signal": 48
+      },
+      {
+        "id": 30,
+        "file": "Map0030.lmu",
+        "size": 6007,
+        "event_id_count_signal": 54,
+        "highest_event_id_signal": 55
+      },
+      {
+        "id": 31,
+        "file": "Map0031.lmu",
+        "size": 2956,
+        "event_id_count_signal": 11,
+        "highest_event_id_signal": 11
+      },
+      {
+        "id": 32,
+        "file": "Map0032.lmu",
+        "size": 3351,
+        "event_id_count_signal": 6,
+        "highest_event_id_signal": 8
+      },
+      {
+        "id": 33,
+        "file": "Map0033.lmu",
+        "size": 4753,
+        "event_id_count_signal": 23,
+        "highest_event_id_signal": 28
+      },
+      {
+        "id": 34,
+        "file": "Map0034.lmu",
+        "size": 2932,
+        "event_id_count_signal": 11,
+        "highest_event_id_signal": 11
+      },
+      {
+        "id": 35,
+        "file": "Map0035.lmu",
+        "size": 3344,
+        "event_id_count_signal": 7,
+        "highest_event_id_signal": 12
+      },
+      {
+        "id": 36,
+        "file": "Map0036.lmu",
+        "size": 3104,
+        "event_id_count_signal": 15,
+        "highest_event_id_signal": 37
+      },
+      {
+        "id": 37,
+        "file": "Map0037.lmu",
+        "size": 2454,
+        "event_id_count_signal": 12,
+        "highest_event_id_signal": 12
+      },
+      {
+        "id": 38,
+        "file": "Map0038.lmu",
+        "size": 3718,
+        "event_id_count_signal": 16,
+        "highest_event_id_signal": 16
+      },
+      {
+        "id": 41,
+        "file": "Map0041.lmu",
+        "size": 12099,
+        "event_id_count_signal": 31,
+        "highest_event_id_signal": 49
+      },
+      {
+        "id": 42,
+        "file": "Map0042.lmu",
+        "size": 3080,
+        "event_id_count_signal": 18,
+        "highest_event_id_signal": 18
+      },
+      {
+        "id": 43,
+        "file": "Map0043.lmu",
+        "size": 2806,
+        "event_id_count_signal": 7,
+        "highest_event_id_signal": 7
+      },
+      {
+        "id": 44,
+        "file": "Map0044.lmu",
+        "size": 2664,
+        "event_id_count_signal": 6,
+        "highest_event_id_signal": 6
+      },
+      {
+        "id": 45,
+        "file": "Map0045.lmu",
+        "size": 3160,
+        "event_id_count_signal": 6,
+        "highest_event_id_signal": 6
+      },
+      {
+        "id": 46,
+        "file": "Map0046.lmu",
+        "size": 6479,
+        "event_id_count_signal": 43,
+        "highest_event_id_signal": 43
+      },
+      {
+        "id": 47,
+        "file": "Map0047.lmu",
+        "size": 12805,
+        "event_id_count_signal": 48,
+        "highest_event_id_signal": 50
+      },
+      {
+        "id": 48,
+        "file": "Map0048.lmu",
+        "size": 9920,
+        "event_id_count_signal": 39,
+        "highest_event_id_signal": 45
+      },
+      {
+        "id": 49,
+        "file": "Map0049.lmu",
+        "size": 3975,
+        "event_id_count_signal": 9,
+        "highest_event_id_signal": 13
+      },
+      {
+        "id": 50,
+        "file": "Map0050.lmu",
+        "size": 8352,
+        "event_id_count_signal": 17,
+        "highest_event_id_signal": 17
+      },
+      {
+        "id": 51,
+        "file": "Map0051.lmu",
+        "size": 4637,
+        "event_id_count_signal": 18,
+        "highest_event_id_signal": 18
+      },
+      {
+        "id": 52,
+        "file": "Map0052.lmu",
+        "size": 6799,
+        "event_id_count_signal": 20,
+        "highest_event_id_signal": 22
+      },
+      {
+        "id": 53,
+        "file": "Map0053.lmu",
+        "size": 5347,
+        "event_id_count_signal": 20,
+        "highest_event_id_signal": 20
+      },
+      {
+        "id": 54,
+        "file": "Map0054.lmu",
+        "size": 4984,
+        "event_id_count_signal": 33,
+        "highest_event_id_signal": 35
+      },
+      {
+        "id": 55,
+        "file": "Map0055.lmu",
+        "size": 4129,
+        "event_id_count_signal": 7,
+        "highest_event_id_signal": 7
+      },
+      {
+        "id": 56,
+        "file": "Map0056.lmu",
+        "size": 10900,
+        "event_id_count_signal": 14,
+        "highest_event_id_signal": 15
+      },
+      {
+        "id": 57,
+        "file": "Map0057.lmu",
+        "size": 5400,
+        "event_id_count_signal": 22,
+        "highest_event_id_signal": 22
+      },
+      {
+        "id": 58,
+        "file": "Map0058.lmu",
+        "size": 3410,
+        "event_id_count_signal": 10,
+        "highest_event_id_signal": 10
+      },
+      {
+        "id": 59,
+        "file": "Map0059.lmu",
+        "size": 4778,
+        "event_id_count_signal": 5,
+        "highest_event_id_signal": 25
+      },
+      {
+        "id": 60,
+        "file": "Map0060.lmu",
+        "size": 2832,
+        "event_id_count_signal": 16,
+        "highest_event_id_signal": 16
+      },
+      {
+        "id": 61,
+        "file": "Map0061.lmu",
+        "size": 3161,
+        "event_id_count_signal": 13,
+        "highest_event_id_signal": 14
+      },
+      {
+        "id": 62,
+        "file": "Map0062.lmu",
+        "size": 5954,
+        "event_id_count_signal": 33,
+        "highest_event_id_signal": 33
+      },
+      {
+        "id": 63,
+        "file": "Map0063.lmu",
+        "size": 5140,
+        "event_id_count_signal": 23,
+        "highest_event_id_signal": 24
+      },
+      {
+        "id": 64,
+        "file": "Map0064.lmu",
+        "size": 11897,
+        "event_id_count_signal": 19,
+        "highest_event_id_signal": 25
+      },
+      {
+        "id": 65,
+        "file": "Map0065.lmu",
+        "size": 2858,
+        "event_id_count_signal": 9,
+        "highest_event_id_signal": 9
+      },
+      {
+        "id": 66,
+        "file": "Map0066.lmu",
+        "size": 2202,
+        "event_id_count_signal": 4,
+        "highest_event_id_signal": 5
+      },
+      {
+        "id": 67,
+        "file": "Map0067.lmu",
+        "size": 1330,
+        "event_id_count_signal": 1,
+        "highest_event_id_signal": 1
+      },
+      {
+        "id": 68,
+        "file": "Map0068.lmu",
+        "size": 12910,
+        "event_id_count_signal": 105,
+        "highest_event_id_signal": 106
+      },
+      {
+        "id": 69,
+        "file": "Map0069.lmu",
+        "size": 8918,
+        "event_id_count_signal": 30,
+        "highest_event_id_signal": 33
+      },
+      {
+        "id": 70,
+        "file": "Map0070.lmu",
+        "size": 20466,
+        "event_id_count_signal": 70,
+        "highest_event_id_signal": 73
+      },
+      {
+        "id": 71,
+        "file": "Map0071.lmu",
+        "size": 3043,
+        "event_id_count_signal": 9,
+        "highest_event_id_signal": 11
+      },
+      {
+        "id": 72,
+        "file": "Map0072.lmu",
+        "size": 5933,
+        "event_id_count_signal": 1,
+        "highest_event_id_signal": 1
+      },
+      {
+        "id": 73,
+        "file": "Map0073.lmu",
+        "size": 2853,
+        "event_id_count_signal": 13,
+        "highest_event_id_signal": 13
+      },
+      {
+        "id": 74,
+        "file": "Map0074.lmu",
+        "size": 4102,
+        "event_id_count_signal": 9,
+        "highest_event_id_signal": 9
+      },
+      {
+        "id": 75,
+        "file": "Map0075.lmu",
+        "size": 4657,
+        "event_id_count_signal": 0,
+        "highest_event_id_signal": null
+      },
+      {
+        "id": 76,
+        "file": "Map0076.lmu",
+        "size": 2119,
+        "event_id_count_signal": 1,
+        "highest_event_id_signal": 1
+      },
+      {
+        "id": 77,
+        "file": "Map0077.lmu",
+        "size": 6642,
+        "event_id_count_signal": 26,
+        "highest_event_id_signal": 30
+      },
+      {
+        "id": 78,
+        "file": "Map0078.lmu",
+        "size": 5167,
+        "event_id_count_signal": 19,
+        "highest_event_id_signal": 20
+      },
+      {
+        "id": 79,
+        "file": "Map0079.lmu",
+        "size": 1980,
+        "event_id_count_signal": 4,
+        "highest_event_id_signal": 5
+      },
+      {
+        "id": 80,
+        "file": "Map0080.lmu",
+        "size": 3960,
+        "event_id_count_signal": 10,
+        "highest_event_id_signal": 12
+      },
+      {
+        "id": 82,
+        "file": "Map0082.lmu",
+        "size": 2753,
+        "event_id_count_signal": 8,
+        "highest_event_id_signal": 9
+      },
+      {
+        "id": 83,
+        "file": "Map0083.lmu",
+        "size": 2202,
+        "event_id_count_signal": 8,
+        "highest_event_id_signal": 9
+      },
+      {
+        "id": 84,
+        "file": "Map0084.lmu",
+        "size": 1952,
+        "event_id_count_signal": 9,
+        "highest_event_id_signal": 9
+      },
+      {
+        "id": 85,
+        "file": "Map0085.lmu",
+        "size": 3396,
+        "event_id_count_signal": 16,
+        "highest_event_id_signal": 18
+      },
+      {
+        "id": 86,
+        "file": "Map0086.lmu",
+        "size": 4719,
+        "event_id_count_signal": 17,
+        "highest_event_id_signal": 17
+      },
+      {
+        "id": 87,
+        "file": "Map0087.lmu",
+        "size": 4308,
+        "event_id_count_signal": 0,
+        "highest_event_id_signal": null
+      }
+    ]
+  },
+  "project_signals": {
+    "printable_run_counts": {
+      "RPG_RT.ldb": 1113,
+      "RPG_RT.lmt": 173,
+      "Map0001.lmu": 49,
+      "Map0002.lmu": 94,
+      "Map0003.lmu": 1,
+      "Map0004.lmu": 531,
+      "Map0005.lmu": 30,
+      "Map0006.lmu": 313,
+      "Map0007.lmu": 1,
+      "Map0008.lmu": 111,
+      "Map0009.lmu": 89,
+      "Map0010.lmu": 65,
+      "Map0011.lmu": 313,
+      "Map0012.lmu": 50,
+      "Map0013.lmu": 236,
+      "Map0014.lmu": 251,
+      "Map0015.lmu": 317,
+      "Map0016.lmu": 143,
+      "Map0017.lmu": 415,
+      "Map0018.lmu": 15,
+      "Map0019.lmu": 81,
+      "Map0020.lmu": 81,
+      "Map0021.lmu": 57,
+      "Map0022.lmu": 43,
+      "Map0023.lmu": 362,
+      "Map0024.lmu": 105,
+      "Map0025.lmu": 109,
+      "Map0026.lmu": 123,
+      "Map0027.lmu": 134,
+      "Map0028.lmu": 152,
+      "Map0029.lmu": 184,
+      "Map0030.lmu": 135,
+      "Map0031.lmu": 56,
+      "Map0032.lmu": 63,
+      "Map0033.lmu": 91,
+      "Map0034.lmu": 58,
+      "Map0035.lmu": 67,
+      "Map0036.lmu": 49,
+      "Map0037.lmu": 37,
+      "Map0038.lmu": 80,
+      "Map0041.lmu": 309,
+      "Map0042.lmu": 55,
+      "Map0043.lmu": 48,
+      "Map0044.lmu": 45,
+      "Map0045.lmu": 74,
+      "Map0046.lmu": 154,
+      "Map0047.lmu": 301,
+      "Map0048.lmu": 218,
+      "Map0049.lmu": 83,
+      "Map0050.lmu": 196,
+      "Map0051.lmu": 100,
+      "Map0052.lmu": 168,
+      "Map0053.lmu": 109,
+      "Map0054.lmu": 92,
+      "Map0055.lmu": 92,
+      "Map0056.lmu": 262,
+      "Map0057.lmu": 114,
+      "Map0058.lmu": 61,
+      "Map0059.lmu": 91,
+      "Map0060.lmu": 48,
+      "Map0061.lmu": 55,
+      "Map0062.lmu": 146,
+      "Map0063.lmu": 106,
+      "Map0064.lmu": 223,
+      "Map0065.lmu": 53,
+      "Map0066.lmu": 23,
+      "Map0067.lmu": 4,
+      "Map0068.lmu": 286,
+      "Map0069.lmu": 205,
+      "Map0070.lmu": 442,
+      "Map0071.lmu": 56,
+      "Map0072.lmu": 77,
+      "Map0073.lmu": 47,
+      "Map0074.lmu": 79,
+      "Map0075.lmu": 83,
+      "Map0076.lmu": 15,
+      "Map0077.lmu": 106,
+      "Map0078.lmu": 111,
+      "Map0079.lmu": 33,
+      "Map0080.lmu": 85,
+      "Map0082.lmu": 51,
+      "Map0083.lmu": 32,
+      "Map0084.lmu": 17,
+      "Map0085.lmu": 72,
+      "Map0086.lmu": 110,
+      "Map0087.lmu": 35
+    },
+    "signals": {
+      "custom_menu_modules": [
+        "FirstStart",
+        "Menue_Beenden",
+        "Menue_ItemBesch",
+        "Menue_NotizenBesch",
+        "Menue_Save",
+        "Menue_Start",
+        "Menue_Steuerung",
+        "Menue_Textaufruf",
+        "Menue_aktivierbar",
+        "Menue_endAuswahl",
+        "Menue_initAuswahl",
+        "Menue_initItemanz"
+      ],
+      "menu_state_symbols": [
+        "Menue_MapID",
+        "Menue_X",
+        "Menue_Y"
+      ],
+      "inventory_slots": [
+        "Inventar[0]",
+        "Inventar[10]",
+        "Inventar[11]",
+        "Inventar[12]",
+        "Inventar[13]",
+        "Inventar[14]",
+        "Inventar[15]",
+        "Inventar[16]",
+        "Inventar[17]",
+        "Inventar[18]",
+        "Inventar[1]",
+        "Inventar[2]",
+        "Inventar[3]",
+        "Inventar[4]",
+        "Inventar[5]",
+        "Inventar[6]",
+        "Inventar[7]",
+        "Inventar[8]",
+        "Inventar[9]",
+        "Notizen[0]",
+        "Notizen[10]",
+        "Notizen[11]",
+        "Notizen[12]",
+        "Notizen[13]",
+        "Notizen[14]",
+        "Notizen[15]",
+        "Notizen[16]",
+        "Notizen[17]",
+        "Notizen[18]",
+        "Notizen[1]",
+        "Notizen[2]",
+        "Notizen[3]",
+        "Notizen[4]",
+        "Notizen[5]",
+        "Notizen[6]",
+        "Notizen[7]",
+        "Notizen[8]",
+        "Notizen[9]"
+      ],
+      "inventory_capacity_markers": [
+        "Inventar[19]",
+        "Notizen[19]"
+      ],
+      "ending_markers": [
+        "Ende 1",
+        "Ende 2",
+        "Ende 3",
+        "Ende 4",
+        "Ende 5",
+        "Ende Nummer"
+      ],
+      "light_cones": [
+        "Sichtkegel_Hoch2",
+        "Sichtkegel_Links2",
+        "Sichtkegel_Rechts2",
+        "Sichtkegel_Runter2"
+      ],
+      "combat_markers": [
+        "Gegner Hp",
+        "HP Waffe",
+        "Kampfsystem",
+        "Schaden",
+        "Schlag?",
+        "Waffe Nr.",
+        "schaden"
+      ],
+      "state_variables": [
+        "MapID",
+        "Spielzeit",
+        "Tag",
+        "X_Position",
+        "Y_Position",
+        "Ziffer 1",
+        "Ziffer 2",
+        "Ziffer 3",
+        "Ziffer 4",
+        "Ziffer 5",
+        "Ziffer 6",
+        "tag"
+      ],
+      "dynamic_assets": [
+        "Item_XXXX",
+        "Notiz_XXXX"
+      ]
+    }
+  },
+  "readme": {
+    "file": "READ-ME_DARKEST_JOURNEY.txt",
+    "characters": 5231,
+    "contains_full_version": true,
+    "contains_windows_font_instruction": true
+  },
+  "files": [
+    {
+      "path": "Backdrop/Forest2.png",
+      "size": 39040,
+      "extension": ".png",
+      "top_level": "Backdrop"
+    },
+    {
+      "path": "Battle/Explosion.png",
+      "size": 7082,
+      "extension": ".png",
+      "top_level": "Battle"
+    },
+    {
+      "path": "Battle/Fire1.png",
+      "size": 8049,
+      "extension": ".png",
+      "top_level": "Battle"
+    },
+    {
+      "path": "Battle/Sword2.png",
+      "size": 2334,
+      "extension": ".png",
+      "top_level": "Battle"
+    },
+    {
+      "path": "Battle/killedby.png",
+      "size": 4757,
+      "extension": ".png",
+      "top_level": "Battle"
+    },
+    {
+      "path": "CharSet/Animal.png",
+      "size": 8009,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/Monster1.png",
+      "size": 11249,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/Monster2.png",
+      "size": 16400,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/Pfeil.png",
+      "size": 1140,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/andere.png",
+      "size": 8268,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/animals.png",
+      "size": 7587,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/bloody.png",
+      "size": 1816,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/bunny.png",
+      "size": 1083,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/elevator.png",
+      "size": 2709,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/geschäftsleute.png",
+      "size": 4116,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/ghost.png",
+      "size": 1727,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/graffitiesusw.png",
+      "size": 2052,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/hole.png",
+      "size": 1119,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/irontwister.png",
+      "size": 4786,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/keys.png",
+      "size": 3531,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/klotür.png",
+      "size": 7023,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/menüextern.png",
+      "size": 1327,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/monster.png",
+      "size": 4857,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/objekte.png",
+      "size": 13191,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/objetke2.png",
+      "size": 8974,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/paul_armed_wood.png",
+      "size": 5413,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/paul_bloody.png",
+      "size": 5893,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/paul_eileen_final.png",
+      "size": 5140,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/paul_mainchar.png",
+      "size": 6142,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/paul_mit-löscher.png",
+      "size": 6367,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/paul_old.png",
+      "size": 2886,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/phone.png",
+      "size": 1256,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/pipesandaladder.png",
+      "size": 2853,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/plakate.png",
+      "size": 2420,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/regentropfen.png",
+      "size": 1706,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/rtpchests.png",
+      "size": 1797,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/tische.png",
+      "size": 2886,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/tropfen.png",
+      "size": 1013,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/wallman.png",
+      "size": 3084,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/weapons.png",
+      "size": 1012,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "CharSet/windowshock.png",
+      "size": 2608,
+      "extension": ".png",
+      "top_level": "CharSet"
+    },
+    {
+      "path": "ChipSet/Inner.png",
+      "size": 32330,
+      "extension": ".png",
+      "top_level": "ChipSet"
+    },
+    {
+      "path": "ChipSet/TheSubway.png",
+      "size": 39303,
+      "extension": ".png",
+      "top_level": "ChipSet"
+    },
+    {
+      "path": "ChipSet/dachbodentreppe.png",
+      "size": 50206,
+      "extension": ".png",
+      "top_level": "ChipSet"
+    },
+    {
+      "path": "ChipSet/dachbodentreppe2.png",
+      "size": 74242,
+      "extension": ".png",
+      "top_level": "ChipSet"
+    },
+    {
+      "path": "ChipSet/hotel04.png",
+      "size": 55900,
+      "extension": ".png",
+      "top_level": "ChipSet"
+    },
+    {
+      "path": "ChipSet/menü.png",
+      "size": 3280,
+      "extension": ".png",
+      "top_level": "ChipSet"
+    },
+    {
+      "path": "ChipSet/monument.png",
+      "size": 47056,
+      "extension": ".png",
+      "top_level": "ChipSet"
+    },
+    {
+      "path": "ChipSet/office_WC.png",
+      "size": 48180,
+      "extension": ".png",
+      "top_level": "ChipSet"
+    },
+    {
+      "path": "ChipSet/rusted.png",
+      "size": 67632,
+      "extension": ".png",
+      "top_level": "ChipSet"
+    },
+    {
+      "path": "ChipSet/stadt.png",
+      "size": 65571,
+      "extension": ".png",
+      "top_level": "ChipSet"
+    },
+    {
+      "path": "ChipSet/train02.png",
+      "size": 28320,
+      "extension": ".png",
+      "top_level": "ChipSet"
+    },
+    {
+      "path": "ChipSet/wasmitmaschendraht.png",
+      "size": 24734,
+      "extension": ".png",
+      "top_level": "ChipSet"
+    },
+    {
+      "path": "Darkest Walktrough/code.html",
+      "size": 568,
+      "extension": ".html",
+      "top_level": "Darkest Walktrough"
+    },
+    {
+      "path": "Darkest Walktrough/index.html",
+      "size": 1311,
+      "extension": ".html",
+      "top_level": "Darkest Walktrough"
+    },
+    {
+      "path": "Darkest Walktrough/intro.html",
+      "size": 590,
+      "extension": ".html",
+      "top_level": "Darkest Walktrough"
+    },
+    {
+      "path": "Darkest Walktrough/reise.html",
+      "size": 52913,
+      "extension": ".html",
+      "top_level": "Darkest Walktrough"
+    },
+    {
+      "path": "Darkest Walktrough/tag1.html",
+      "size": 2700,
+      "extension": ".html",
+      "top_level": "Darkest Walktrough"
+    },
+    {
+      "path": "Darkest Walktrough/tag2.html",
+      "size": 5158,
+      "extension": ".html",
+      "top_level": "Darkest Walktrough"
+    },
+    {
+      "path": "Darkest Walktrough/tag3.html",
+      "size": 3411,
+      "extension": ".html",
+      "top_level": "Darkest Walktrough"
+    },
+    {
+      "path": "Darkest Walktrough/tag4.html",
+      "size": 2278,
+      "extension": ".html",
+      "top_level": "Darkest Walktrough"
+    },
+    {
+      "path": "Darkest Walktrough/tag5.html",
+      "size": 3665,
+      "extension": ".html",
+      "top_level": "Darkest Walktrough"
+    },
+    {
+      "path": "Darkest Walktrough/tag6.html",
+      "size": 2715,
+      "extension": ".html",
+      "top_level": "Darkest Walktrough"
+    },
+    {
+      "path": "FaceSet/Face4.png",
+      "size": 9753,
+      "extension": ".png",
+      "top_level": "FaceSet"
+    },
+    {
+      "path": "GameOver/gameover.png",
+      "size": 27367,
+      "extension": ".png",
+      "top_level": "GameOver"
+    },
+    {
+      "path": "Harmony.dll",
+      "size": 364032,
+      "extension": ".dll",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0001.lmu",
+      "size": 2917,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0002.lmu",
+      "size": 5753,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0003.lmu",
+      "size": 1230,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0004.lmu",
+      "size": 25995,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0005.lmu",
+      "size": 2056,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0006.lmu",
+      "size": 17960,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0007.lmu",
+      "size": 1230,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0008.lmu",
+      "size": 5244,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0009.lmu",
+      "size": 4282,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0010.lmu",
+      "size": 3188,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0011.lmu",
+      "size": 13041,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0012.lmu",
+      "size": 3125,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0013.lmu",
+      "size": 9118,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0014.lmu",
+      "size": 9820,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0015.lmu",
+      "size": 12115,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0016.lmu",
+      "size": 7222,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0017.lmu",
+      "size": 16481,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0018.lmu",
+      "size": 3012,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0019.lmu",
+      "size": 6939,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0020.lmu",
+      "size": 6697,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0021.lmu",
+      "size": 2874,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0022.lmu",
+      "size": 2625,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0023.lmu",
+      "size": 16689,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0024.lmu",
+      "size": 5015,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0025.lmu",
+      "size": 5510,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0026.lmu",
+      "size": 8786,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0027.lmu",
+      "size": 6470,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0028.lmu",
+      "size": 6168,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0029.lmu",
+      "size": 8638,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0030.lmu",
+      "size": 6007,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0031.lmu",
+      "size": 2956,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0032.lmu",
+      "size": 3351,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0033.lmu",
+      "size": 4753,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0034.lmu",
+      "size": 2932,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0035.lmu",
+      "size": 3344,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0036.lmu",
+      "size": 3104,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0037.lmu",
+      "size": 2454,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0038.lmu",
+      "size": 3718,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0041.lmu",
+      "size": 12099,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0042.lmu",
+      "size": 3080,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0043.lmu",
+      "size": 2806,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0044.lmu",
+      "size": 2664,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0045.lmu",
+      "size": 3160,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0046.lmu",
+      "size": 6479,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0047.lmu",
+      "size": 12805,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0048.lmu",
+      "size": 9920,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0049.lmu",
+      "size": 3975,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0050.lmu",
+      "size": 8352,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0051.lmu",
+      "size": 4637,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0052.lmu",
+      "size": 6799,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0053.lmu",
+      "size": 5347,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0054.lmu",
+      "size": 4984,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0055.lmu",
+      "size": 4129,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0056.lmu",
+      "size": 10900,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0057.lmu",
+      "size": 5400,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0058.lmu",
+      "size": 3410,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0059.lmu",
+      "size": 4778,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0060.lmu",
+      "size": 2832,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0061.lmu",
+      "size": 3161,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0062.lmu",
+      "size": 5954,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0063.lmu",
+      "size": 5140,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0064.lmu",
+      "size": 11897,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0065.lmu",
+      "size": 2858,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0066.lmu",
+      "size": 2202,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0067.lmu",
+      "size": 1330,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0068.lmu",
+      "size": 12910,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0069.lmu",
+      "size": 8918,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0070.lmu",
+      "size": 20466,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0071.lmu",
+      "size": 3043,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0072.lmu",
+      "size": 5933,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0073.lmu",
+      "size": 2853,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0074.lmu",
+      "size": 4102,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0075.lmu",
+      "size": 4657,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0076.lmu",
+      "size": 2119,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0077.lmu",
+      "size": 6642,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0078.lmu",
+      "size": 5167,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0079.lmu",
+      "size": 1980,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0080.lmu",
+      "size": 3960,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0082.lmu",
+      "size": 2753,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0083.lmu",
+      "size": 2202,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0084.lmu",
+      "size": 1952,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0085.lmu",
+      "size": 3396,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0086.lmu",
+      "size": 4719,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Map0087.lmu",
+      "size": 4308,
+      "extension": ".lmu",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Monster/Ghost.png",
+      "size": 2000,
+      "extension": ".png",
+      "top_level": "Monster"
+    },
+    {
+      "path": "Music/A Perfect Circle-Weak and powerless.link.wav",
+      "size": 48,
+      "extension": ".wav",
+      "top_level": "Music"
+    },
+    {
+      "path": "Music/Anger.mid",
+      "size": 18881,
+      "extension": ".mid",
+      "top_level": "Music"
+    },
+    {
+      "path": "Music/Animal.mid",
+      "size": 9348,
+      "extension": ".mid",
+      "top_level": "Music"
+    },
+    {
+      "path": "Music/Background1.link.wav",
+      "size": 30,
+      "extension": ".wav",
+      "top_level": "Music"
+    },
+    {
+      "path": "Music/Background2.link.wav",
+      "size": 24,
+      "extension": ".wav",
+      "top_level": "Music"
+    },
+    {
+      "path": "Music/Get.mid",
+      "size": 13014,
+      "extension": ".mid",
+      "top_level": "Music"
+    },
+    {
+      "path": "Music/Rain1.wav",
+      "size": 729034,
+      "extension": ".wav",
+      "top_level": "Music"
+    },
+    {
+      "path": "Music/Tick-Tack.wav",
+      "size": 353914,
+      "extension": ".wav",
+      "top_level": "Music"
+    },
+    {
+      "path": "Music/battle.link.wav",
+      "size": 25,
+      "extension": ".wav",
+      "top_level": "Music"
+    },
+    {
+      "path": "Music/coma1.link.wav",
+      "size": 24,
+      "extension": ".wav",
+      "top_level": "Music"
+    },
+    {
+      "path": "Music/coma2.link.wav",
+      "size": 24,
+      "extension": ".wav",
+      "top_level": "Music"
+    },
+    {
+      "path": "Music/distant.link.wav",
+      "size": 26,
+      "extension": ".wav",
+      "top_level": "Music"
+    },
+    {
+      "path": "Music/gametheme.link.wav",
+      "size": 22,
+      "extension": ".wav",
+      "top_level": "Music"
+    },
+    {
+      "path": "Music/heartbeat.link.wav",
+      "size": 22,
+      "extension": ".wav",
+      "top_level": "Music"
+    },
+    {
+      "path": "Music/icreep.link.wav",
+      "size": 25,
+      "extension": ".wav",
+      "top_level": "Music"
+    },
+    {
+      "path": "Music/irontwistertheme.link.wav",
+      "size": 35,
+      "extension": ".wav",
+      "top_level": "Music"
+    },
+    {
+      "path": "Music/notturno.link.wav",
+      "size": 21,
+      "extension": ".wav",
+      "top_level": "Music"
+    },
+    {
+      "path": "Music/sadness.link.wav",
+      "size": 26,
+      "extension": ".wav",
+      "top_level": "Music"
+    },
+    {
+      "path": "Music/ventilation.link.wav",
+      "size": 30,
+      "extension": ".wav",
+      "top_level": "Music"
+    },
+    {
+      "path": "Music/voodoo.link.wav",
+      "size": 19,
+      "extension": ".wav",
+      "top_level": "Music"
+    },
+    {
+      "path": "Panorama/1.png",
+      "size": 1544,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/10.png",
+      "size": 1245,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/11.png",
+      "size": 1553,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/12.png",
+      "size": 1247,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/13.png",
+      "size": 1226,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/14.png",
+      "size": 1705,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/15.png",
+      "size": 2319,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/2.png",
+      "size": 1285,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/3.png",
+      "size": 1246,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/4.png",
+      "size": 1593,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/5.png",
+      "size": 1232,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/6.png",
+      "size": 1250,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/7.png",
+      "size": 1281,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/8.png",
+      "size": 1040,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/9.png",
+      "size": 1293,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/abfahrt.png",
+      "size": 3097,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/bath.png",
+      "size": 6774,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/blackHG.png",
+      "size": 932,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/bloody.png",
+      "size": 10955,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/eileen.png",
+      "size": 1633,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/makenshi.png",
+      "size": 1077,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/paul.png",
+      "size": 1639,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/rollin.png",
+      "size": 4612,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/street.png",
+      "size": 24901,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/street2.png",
+      "size": 28505,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/succubus.png",
+      "size": 1048,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/tracks.png",
+      "size": 2164,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/twister.png",
+      "size": 1642,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/whiteHG.png",
+      "size": 1347,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Panorama/zyl.png",
+      "size": 1019,
+      "extension": ".png",
+      "top_level": "Panorama"
+    },
+    {
+      "path": "Picture/Item_0001.png",
+      "size": 1167,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Item_0002.png",
+      "size": 1172,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Item_0003.png",
+      "size": 5217,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Item_0004.png",
+      "size": 1167,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Item_0008.png",
+      "size": 2701,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Item_0009.png",
+      "size": 5500,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Item_0011.png",
+      "size": 2522,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Item_0012.png",
+      "size": 4197,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Item_0013.png",
+      "size": 1176,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Item_0015.png",
+      "size": 1167,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Item_0016.png",
+      "size": 3356,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Item_0018.png",
+      "size": 5008,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Item_0019.png",
+      "size": 6773,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Item_0021.png",
+      "size": 7436,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Item_0022.png",
+      "size": 7151,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Item_0023.png",
+      "size": 7042,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Item_XXXX.png",
+      "size": 847,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Lightmap_(diagonal_links_oben).png",
+      "size": 11188,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Notiz_0005.png",
+      "size": 1001,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Notiz_0006.png",
+      "size": 966,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Notiz_0007.png",
+      "size": 1024,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Notiz_0010.png",
+      "size": 1009,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Notiz_0014.png",
+      "size": 1020,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Notiz_0017.png",
+      "size": 1007,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Notiz_0020.png",
+      "size": 1015,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Notiz_XXXX.png",
+      "size": 847,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Sichtkegel_Hoch2.png",
+      "size": 2329,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Sichtkegel_Links2.png",
+      "size": 2345,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Sichtkegel_Rechts2.png",
+      "size": 2367,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Sichtkegel_Runter2.png",
+      "size": 2368,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Tag 1.png",
+      "size": 930,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Tag 2.png",
+      "size": 940,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Tag 3.png",
+      "size": 940,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Tag 4.png",
+      "size": 938,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Tag 5.png",
+      "size": 935,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/Tag 6.png",
+      "size": 938,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/abstellraum.png",
+      "size": 2268,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/abstieg.png",
+      "size": 3866,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/alter zettel 1.png",
+      "size": 1001,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/alter zettel 2.png",
+      "size": 1007,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/alterfilm1.png",
+      "size": 17482,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/alterfilm2.png",
+      "size": 14595,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/alterfilm3.png",
+      "size": 11187,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/alterfilm4.png",
+      "size": 11542,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/alterfilm5.png",
+      "size": 16587,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/alterfilm6.png",
+      "size": 17997,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/alterhaken.png",
+      "size": 1089,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/alterzettel.png",
+      "size": 24602,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/animals.png",
+      "size": 7587,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/archiv.png",
+      "size": 6890,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/aufenthaltsraum1.png",
+      "size": 3862,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/aufenthaltsraum2.png",
+      "size": 3659,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/aufzugraumgänge.png",
+      "size": 3766,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/bahnschlüsselbrief.png",
+      "size": 1011,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/blackness.png",
+      "size": 935,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/block.png",
+      "size": 5407,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/bolzenschneider.png",
+      "size": 4255,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/book.png",
+      "size": 46977,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/brief an johnny.png",
+      "size": 993,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/brief von eileen.png",
+      "size": 1003,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/büro1.png",
+      "size": 6051,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/büro3.png",
+      "size": 5016,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/damenklo.png",
+      "size": 7023,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/darkest.png",
+      "size": 1343,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/darkest1.png",
+      "size": 1119,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/dasiglu.png",
+      "size": 950,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/daylight.png",
+      "size": 3137,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/decke.png",
+      "size": 1036,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/decke2.png",
+      "size": 1048,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/dunklertunnel.png",
+      "size": 54557,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/ecellstudios.png",
+      "size": 1016,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/flur.png",
+      "size": 2028,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/fog2.png",
+      "size": 51557,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/gängeeingang.png",
+      "size": 1946,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/grafikmusikstory.png",
+      "size": 981,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/halskette.png",
+      "size": 15168,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/hase.png",
+      "size": 12934,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/herrenklo.png",
+      "size": 8703,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/herz.png",
+      "size": 5960,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/herz2.png",
+      "size": 2202,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/hinterzimmer.png",
+      "size": 3193,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/hinweis.png",
+      "size": 953,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/horrorgang1.png",
+      "size": 5406,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/in.png",
+      "size": 889,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/journey1.png",
+      "size": 1033,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/kanister.png",
+      "size": 3325,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/kleine ecke.png",
+      "size": 2133,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/kleiner raum.png",
+      "size": 2367,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/kontrollraum.png",
+      "size": 4335,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/l.png",
+      "size": 3730,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/lampe.png",
+      "size": 2522,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/lichtkugel.png",
+      "size": 6562,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/lichttest.png",
+      "size": 5884,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/löscher.png",
+      "size": 10731,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/maschendrahtgang1.png",
+      "size": 6929,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/maschendrahtgang2.png",
+      "size": 4400,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/maschinenbrief.png",
+      "size": 1005,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/mitarbeiterwc.png",
+      "size": 3582,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/ostseite.png",
+      "size": 3803,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/paulsoldsted.png",
+      "size": 972,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/pausenraum.png",
+      "size": 6195,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/playboy.png",
+      "size": 35588,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/rasierklinge.png",
+      "size": 14580,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/rpgmaker2000.png",
+      "size": 996,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/schallplatte.png",
+      "size": 19442,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/schalter.png",
+      "size": 5217,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/schloss.png",
+      "size": 29006,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/schluessel.png",
+      "size": 1167,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/schraubenschluessel.png",
+      "size": 2655,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/sicherungsraum.png",
+      "size": 2872,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/streichhölzer.png",
+      "size": 6211,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/taschenlampenlicht.png",
+      "size": 9701,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/train.png",
+      "size": 3436,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/treppe1_1.png",
+      "size": 3678,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/ventilator.png",
+      "size": 1189,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/ventilator2.png",
+      "size": 1033,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/ventilraumkeller.png",
+      "size": 2210,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/vonmir.png",
+      "size": 991,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/warnung.png",
+      "size": 1730,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/westseite.png",
+      "size": 3726,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/whiteellipse.png",
+      "size": 878,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/whitesquare.png",
+      "size": 852,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/zeitung.png",
+      "size": 30545,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "Picture/zettel.png",
+      "size": 23664,
+      "extension": ".png",
+      "top_level": "Picture"
+    },
+    {
+      "path": "READ-ME_DARKEST_JOURNEY.txt",
+      "size": 5231,
+      "extension": ".txt",
+      "top_level": "[root]"
+    },
+    {
+      "path": "RM2000.fon",
+      "size": 7328,
+      "extension": ".fon",
+      "top_level": "[root]"
+    },
+    {
+      "path": "RMG2000.fon",
+      "size": 7328,
+      "extension": ".fon",
+      "top_level": "[root]"
+    },
+    {
+      "path": "RPG_RT.exe",
+      "size": 727552,
+      "extension": ".exe",
+      "top_level": "[root]"
+    },
+    {
+      "path": "RPG_RT.exe.bak",
+      "size": 727552,
+      "extension": ".bak",
+      "top_level": "[root]"
+    },
+    {
+      "path": "RPG_RT.ini",
+      "size": 85,
+      "extension": ".ini",
+      "top_level": "[root]"
+    },
+    {
+      "path": "RPG_RT.ldb",
+      "size": 36955,
+      "extension": ".ldb",
+      "top_level": "[root]"
+    },
+    {
+      "path": "RPG_RT.lmt",
+      "size": 6307,
+      "extension": ".lmt",
+      "top_level": "[root]"
+    },
+    {
+      "path": "Sound/Arg1.wav",
+      "size": 12334,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Attack2.wav",
+      "size": 15404,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Bell.wav",
+      "size": 122636,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Bite.wav",
+      "size": 22030,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Blow3.wav",
+      "size": 6012,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Breast.wav",
+      "size": 37100,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Buzzer2.wav",
+      "size": 5130,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Cansel1.wav",
+      "size": 4720,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Chaos.wav",
+      "size": 82400,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Chicken.wav",
+      "size": 53548,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Clock.wav",
+      "size": 4140,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Cold1.wav",
+      "size": 24620,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Cold8.wav",
+      "size": 73004,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Cursor1.wav",
+      "size": 678,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Damage1.wav",
+      "size": 13508,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Damage2.wav",
+      "size": 9098,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Dark1.wav",
+      "size": 71724,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Decision2.wav",
+      "size": 21548,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Dog.wav",
+      "size": 14344,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Earth7.wav",
+      "size": 19500,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Earth8.wav",
+      "size": 22700,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Earthquake2.wav",
+      "size": 285228,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Escape.wav",
+      "size": 20396,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Evasion1.wav",
+      "size": 16876,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Evasion2.wav",
+      "size": 8768,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Explosion3.wav",
+      "size": 48812,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Explosion4.wav",
+      "size": 31980,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/FT_STS.wav",
+      "size": 10120,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Failure1.wav",
+      "size": 13548,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Fight2.wav",
+      "size": 65068,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Flame1.wav",
+      "size": 19756,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Fog2.wav",
+      "size": 51244,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Glass.wav",
+      "size": 84736,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Groan.wav",
+      "size": 115078,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Holy3.wav",
+      "size": 23980,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Holy5.wav",
+      "size": 36652,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Item1.wav",
+      "size": 31528,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Item2.wav",
+      "size": 50324,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Key.wav",
+      "size": 7590,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Kill1.wav",
+      "size": 12112,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Kill10.wav",
+      "size": 6820,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Kill2.wav",
+      "size": 9320,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Kill3.wav",
+      "size": 9682,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Kill4.wav",
+      "size": 8652,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Kill5.wav",
+      "size": 8622,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Knock.wav",
+      "size": 7976,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Monster1.wav",
+      "size": 131862,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Monster2.wav",
+      "size": 66860,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Movement.wav",
+      "size": 33836,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Numbness1.wav",
+      "size": 14884,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Open1.wav",
+      "size": 16402,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Open2.wav",
+      "size": 27372,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Poltern.wav",
+      "size": 22528,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Power.wav",
+      "size": 58156,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Rain1.wav",
+      "size": 729034,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Recovery5.wav",
+      "size": 94892,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Switch1.wav",
+      "size": 8768,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Switch2.wav",
+      "size": 3728,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Sword2.wav",
+      "size": 30010,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Sword3.wav",
+      "size": 17442,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Telefonrauschen.wav",
+      "size": 605782,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Thunder2.wav",
+      "size": 18156,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Tick-Tack.wav",
+      "size": 353914,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Tiger.wav",
+      "size": 70700,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Up.wav",
+      "size": 23340,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Wall2.wav",
+      "size": 32280,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/Water2.wav",
+      "size": 45612,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/abschlag.wav",
+      "size": 1210582,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/bookpag2.wav",
+      "size": 34456,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/fiepen.wav",
+      "size": 303382,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/freizeichen.wav",
+      "size": 530774,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/gunshot.wav",
+      "size": 242950,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/hartes klopfen.wav",
+      "size": 1061350,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/human_fem_death.wav",
+      "size": 46070,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/kiss.wav",
+      "size": 13997,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/ouch.wav",
+      "size": 14800,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/phonebesetzt.wav",
+      "size": 530774,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/phonefree.wav",
+      "size": 530774,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/safetylevel1.wav",
+      "size": 908182,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/safetylevel2.wav",
+      "size": 908182,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/schrei2.wav",
+      "size": 41958,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/schritte.wav",
+      "size": 34370,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/scream.wav",
+      "size": 119178,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/scream1.wav",
+      "size": 56776,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/scream2.wav",
+      "size": 68826,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/shockhit.wav",
+      "size": 908182,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/shockhit2.wav",
+      "size": 1210582,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/shockhit_soft.wav",
+      "size": 706714,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/stoehnen.wav",
+      "size": 6790,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/stoehnen2.wav",
+      "size": 10116,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/stoehnen3.wav",
+      "size": 26632,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/stoehnen4.wav",
+      "size": 25432,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/stoehnen5.wav",
+      "size": 9198,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/stoehnenmann.wav",
+      "size": 16592,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/stoehnenmann2.wav",
+      "size": 22104,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/telefon.wav",
+      "size": 13648,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/telephonering.wav",
+      "size": 249926,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/windowshock.wav",
+      "size": 660118,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/zugabfahrt.wav",
+      "size": 840650,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "Sound/zugeinfahrt.wav",
+      "size": 968710,
+      "extension": ".wav",
+      "top_level": "Sound"
+    },
+    {
+      "path": "System/System.png",
+      "size": 2075,
+      "extension": ".png",
+      "top_level": "System"
+    },
+    {
+      "path": "System/blue.png",
+      "size": 2075,
+      "extension": ".png",
+      "top_level": "System"
+    },
+    {
+      "path": "System/systemskin.png",
+      "size": 1960,
+      "extension": ".png",
+      "top_level": "System"
+    },
+    {
+      "path": "System/systemskinblue.png",
+      "size": 2071,
+      "extension": ".png",
+      "top_level": "System"
+    },
+    {
+      "path": "Title/Title.png",
+      "size": 1995,
+      "extension": ".png",
+      "top_level": "Title"
+    },
+    {
+      "path": "Title/schwarz.png",
+      "size": 56780,
+      "extension": ".png",
+      "top_level": "Title"
+    },
+    {
+      "path": "mp3/A Perfect Circle-Weak and powerless.mp3",
+      "size": 3123114,
+      "extension": ".mp3",
+      "top_level": "mp3"
+    },
+    {
+      "path": "mp3/Background1.mp3",
+      "size": 1992898,
+      "extension": ".mp3",
+      "top_level": "mp3"
+    },
+    {
+      "path": "mp3/Background2.mp3",
+      "size": 1383513,
+      "extension": ".mp3",
+      "top_level": "mp3"
+    },
+    {
+      "path": "mp3/battle.mp3",
+      "size": 830135,
+      "extension": ".mp3",
+      "top_level": "mp3"
+    },
+    {
+      "path": "mp3/coma1.mp3",
+      "size": 1406880,
+      "extension": ".mp3",
+      "top_level": "mp3"
+    },
+    {
+      "path": "mp3/coma2.mp3",
+      "size": 1601227,
+      "extension": ".mp3",
+      "top_level": "mp3"
+    },
+    {
+      "path": "mp3/distant.mp3",
+      "size": 261293,
+      "extension": ".mp3",
+      "top_level": "mp3"
+    },
+    {
+      "path": "mp3/gametheme.mp3",
+      "size": 1224751,
+      "extension": ".mp3",
+      "top_level": "mp3"
+    },
+    {
+      "path": "mp3/heartbeat.mp3",
+      "size": 2881479,
+      "extension": ".mp3",
+      "top_level": "mp3"
+    },
+    {
+      "path": "mp3/icreep.mp3",
+      "size": 774965,
+      "extension": ".mp3",
+      "top_level": "mp3"
+    },
+    {
+      "path": "mp3/irontwistertheme.mp3",
+      "size": 1922263,
+      "extension": ".mp3",
+      "top_level": "mp3"
+    },
+    {
+      "path": "mp3/notturno.mp3",
+      "size": 3077116,
+      "extension": ".mp3",
+      "top_level": "mp3"
+    },
+    {
+      "path": "mp3/sadness.mp3",
+      "size": 201107,
+      "extension": ".mp3",
+      "top_level": "mp3"
+    },
+    {
+      "path": "mp3/ventilation.mp3",
+      "size": 1729165,
+      "extension": ".mp3",
+      "top_level": "mp3"
+    },
+    {
+      "path": "mp3/voodoo.mp3",
+      "size": 1115184,
+      "extension": ".mp3",
+      "top_level": "mp3"
+    },
+    {
+      "path": "oldharmony.dll",
+      "size": 473600,
+      "extension": ".dll",
+      "top_level": "[root]"
+    }
+  ]
+}
