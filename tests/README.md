@@ -14,3 +14,9 @@ ein synthetisches `ShowMessage`-Kommando sowie eine LDB ohne Root-
 Terminator mit Actors, Items, Terms, Systemdaten und Common Event. Die
 Ressourcen-Fixture prüft außerdem case-insensitive Dateinamen, RTP-Fallback,
 bekannte `ShowPicture`-Referenzen und die Auflösung eines `.link.wav`-Ziels.
+
+`test_map_renderer.py` ergänzt synthetische Chipset-, Charset- und Map-Fixtures.
+Damit werden die Standardbibliotheks-PNG-Roundtrips, die Transparenz über
+Palettenindex 0, die A-/B-Autotile-Komposition, direkte E/F-Tiles, C-/D-Tiles
+sowie das statische Event-Sprite und sein JSON-Manifest reproduzierbar geprüft.
+Es werden keine Originalressourcen benötigt.

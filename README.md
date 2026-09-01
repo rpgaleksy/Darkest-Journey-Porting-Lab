@@ -53,3 +53,9 @@ unterstützt optionale RTP-Verzeichnisse mit Projektdateien als Priorität und
 erkennt RPG-Maker-`.link.wav`-Wrapper einschließlich ihres MP3-Ziels. Der
 Scanner arbeitet read-only und erzeugt auf Wunsch einen JSON- sowie einen
 Markdown-Bericht.
+
+Für die erste visuelle Diagnose gibt es nun `03_rendering/render_map.py`. Das
+Werkzeug erzeugt aus einer ausgewählten Map eine statische PNG-Vorschau und
+eine JSON-Manifestdatei, ohne das Originalprojekt zu verändern. Die bewusst
+begrenzte Renderer-Semantik und ein reproduzierbarer Aufruf sind in
+`03_rendering/README.md` dokumentiert.
