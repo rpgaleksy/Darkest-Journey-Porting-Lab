@@ -11,7 +11,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "03_rendering"))
 sys.path.insert(0, str(REPO_ROOT / "02_parsing"))
 
-from map_renderer import PNG_SIGNATURE, RgbaImage, read_png, render_map, write_png
+from map_renderer import PNG_SIGNATURE, read_png, render_map, write_png
 
 
 def encode_int(value):
@@ -77,6 +77,7 @@ def indexed_png(width, height, palette, rectangles=()):
 def make_fixture_project(root):
     (root / "ChipSet").mkdir()
     (root / "CharSet").mkdir()
+    (root / "Picture").mkdir()
 
     palette = [
         (7, 8, 9),
@@ -102,6 +103,9 @@ def make_fixture_project(root):
     (root / "CharSet" / "hero.png").write_bytes(
         indexed_png(288, 256, palette, charset_rectangles)
     )
+    (root / "Picture" / "Lightmap.png").write_bytes(
+        indexed_png(4, 4, palette)
+    )
 
     chipset_record = struct_payload(
         chunk(0x01, b"Tiles"),
@@ -113,6 +117,18 @@ def make_fixture_project(root):
     )
     (root / "RPG_RT.ldb").write_bytes(lcf_file("LcfDataBase", database_body))
 
+    picture_command = (
+        encode_int(11110)
+        + encode_int(0)
+        + encode_int(len(b"Lightmap"))
+        + b"Lightmap"
+        + encode_int(14)
+        + b"".join(
+            encode_int(value)
+            for value in (1, 0, 8, 8, 0, 100, 50, 0, 100, 100, 100, 100, 0, 0)
+        )
+        + b"\x00\x00\x00\x00"
+    )
     page = struct_payload(
         chunk(0x15, b"hero"),
         chunk(0x16, encode_int(0)),
@@ -120,6 +136,8 @@ def make_fixture_project(root):
         chunk(0x18, encode_int(0)),
         chunk(0x21, encode_int(0)),
         chunk(0x22, encode_int(0)),
+        chunk(0x33, encode_int(len(picture_command))),
+        chunk(0x34, picture_command),
     )
     pages = encode_int(1) + encode_int(1) + page
     event = struct_payload(
@@ -153,15 +171,22 @@ class MapRendererTests(unittest.TestCase):
                 )
             )
             image = read_png(path)
+            opaque = read_png(path, transparent_index_zero=False)
 
         self.assertEqual(image.pixel(0, 0), (7, 8, 9, 0))
         self.assertEqual(image.pixel(1, 0), (200, 100, 50, 255))
+        self.assertEqual(opaque.pixel(0, 0), (7, 8, 9, 255))
 
     def test_render_map_composes_tiles_events_and_manifest(self):
         with tempfile.TemporaryDirectory() as temp_dir:
             project = Path(temp_dir)
             make_fixture_project(project)
             image, manifest = render_map(project, scale=1)
+            lightmap_image, lightmap_manifest = render_map(
+                project,
+                scale=1,
+                show_lightmap=True,
+            )
 
             output_path = project / "preview.png"
             write_png(output_path, image)
@@ -181,6 +206,16 @@ class MapRendererTests(unittest.TestCase):
         self.assertEqual(manifest["events"]["events_total"], 1)
         self.assertEqual(manifest["events"]["sprites_drawn"], 1)
         self.assertEqual(manifest["events"]["missing_sprites"], [])
+        self.assertEqual(lightmap_image.pixel(8, 8), (23, 44, 114, 255))
+        self.assertNotEqual(lightmap_image.pixel(8, 8), image.pixel(8, 8))
+        self.assertTrue(lightmap_manifest["pictures"]["enabled"])
+        self.assertEqual(lightmap_manifest["pictures"]["commands_found"], 1)
+        self.assertEqual(lightmap_manifest["pictures"]["pictures_drawn"], 1)
+        self.assertEqual(
+            lightmap_manifest["pictures"]["drawn_pictures"][0]["picture_name"],
+            "Lightmap",
+        )
+        self.assertEqual(lightmap_manifest["pictures"]["missing_pictures"], [])
 
 
 if __name__ == "__main__":

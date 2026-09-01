@@ -19,4 +19,6 @@ bekannte `ShowPicture`-Referenzen und die Auflösung eines `.link.wav`-Ziels.
 Damit werden die Standardbibliotheks-PNG-Roundtrips, die Transparenz über
 Palettenindex 0, die A-/B-Autotile-Komposition, direkte E/F-Tiles, C-/D-Tiles
 sowie das statische Event-Sprite und sein JSON-Manifest reproduzierbar geprüft.
+Außerdem wird ein synthetischer `ShowPicture`-Befehl für die optionale
+Lightmap-Ebene mit Command-gesteuerter Palette-0-Transparenz und Opacity geprüft.
 Es werden keine Originalressourcen benötigt.

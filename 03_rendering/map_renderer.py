@@ -35,6 +35,8 @@ CHARACTER_FRAME_WIDTH = 24
 CHARACTER_FRAME_HEIGHT = 32
 CHARACTER_BLOCK_WIDTH = 72
 CHARACTER_BLOCK_HEIGHT = 128
+PICTURE_SCREEN_WIDTH = 320
+PICTURE_SCREEN_HEIGHT = 240
 
 BLOCK_RANGES = (
     ("A", 0, 2000),
@@ -177,6 +179,33 @@ class RgbaImage:
                 result.pixels[offset:offset + len(expanded_row)] = expanded_row
         return result
 
+    def resize_nearest(self, width: int, height: int) -> "RgbaImage":
+        if width < 1 or height < 1:
+            raise ValueError("resized image dimensions must be positive")
+        if width == self.width and height == self.height:
+            return RgbaImage(self.width, self.height, bytearray(self.pixels))
+        result = RgbaImage.blank(width, height)
+        for target_y in range(height):
+            source_y = target_y * self.height // height
+            for target_x in range(width):
+                source_x = target_x * self.width // width
+                source_offset = (source_y * self.width + source_x) * 4
+                target_offset = (target_y * width + target_x) * 4
+                result.pixels[target_offset:target_offset + 4] = self.pixels[
+                    source_offset:source_offset + 4
+                ]
+        return result
+
+    def with_opacity(self, opacity: int) -> "RgbaImage":
+        if not 0 <= opacity <= 255:
+            raise ValueError("opacity must be between 0 and 255")
+        result = RgbaImage(self.width, self.height, bytearray(self.pixels))
+        if opacity == 255:
+            return result
+        for offset in range(3, len(result.pixels), 4):
+            result.pixels[offset] = result.pixels[offset] * opacity // 255
+        return result
+
 
 PNG_SIGNATURE = b"\x89PNG\r\n\x1a\n"
 
@@ -219,8 +248,17 @@ def _paeth(left: int, above: int, upper_left: int) -> int:
     return upper_left
 
 
-def read_png(path: Path | str) -> RgbaImage:
-    """Read the 8-bit non-interlaced PNG variants used by RPG Maker assets."""
+def read_png(
+    path: Path | str,
+    *,
+    transparent_index_zero: bool = True,
+) -> RgbaImage:
+    """Read the 8-bit non-interlaced PNG variants used by RPG Maker assets.
+
+    Chipsets and charsets use palette index 0 as their transparent color. For
+    Pictures, the ShowPicture command controls this behavior, so callers can
+    disable it with ``transparent_index_zero=False``.
+    """
 
     data = Path(path).read_bytes()
     header = None
@@ -326,7 +364,11 @@ def read_png(path: Path | str) -> RgbaImage:
                     # transparency.  The transparent RGB value need not be
                     # the pixel at (0, 0), so a first-pixel color key is not
                     # equivalent here.
-                    alpha = 0 if palette_index == 0 else 255
+                    alpha = (
+                        0
+                        if transparent_index_zero and palette_index == 0
+                        else 255
+                    )
                 color = (*rgb, alpha)
             elif color_type == 4:
                 value, alpha = row[offset:offset + 2]
@@ -673,6 +715,72 @@ def _event_page(event: Mapping[str, object]) -> Optional[Mapping[str, object]]:
     return None
 
 
+def _picture_commands(map_data: Mapping[str, object]) -> List[dict]:
+    """Collect ShowPicture commands without trying to execute event logic."""
+
+    events_data = map_data.get("events", {})
+    events = events_data.get("events", []) if isinstance(events_data, Mapping) else []
+    result = []
+    for event in events:
+        if not isinstance(event, Mapping):
+            continue
+        pages_data = event.get("pages", {})
+        pages = pages_data.get("pages", []) if isinstance(pages_data, Mapping) else []
+        for page in pages:
+            if not isinstance(page, Mapping):
+                continue
+            commands_data = page.get("event_commands", {})
+            commands = (
+                commands_data.get("commands", [])
+                if isinstance(commands_data, Mapping)
+                else []
+            )
+            for command_index, command in enumerate(commands):
+                if not isinstance(command, Mapping) or command.get("code") != 11110:
+                    continue
+                result.append(
+                    {
+                        "event_id": event.get("id"),
+                        "event_name": event.get("name"),
+                        "page_index": page.get("index"),
+                        "command_index": command_index,
+                        "command": command,
+                    }
+                )
+    return result
+
+
+def _signed_int32(value: int) -> int:
+    if value >= 0x80000000:
+        return value - 0x100000000
+    return value
+
+
+def _parse_show_picture(command: Mapping[str, object]) -> Optional[dict]:
+    parameters = command.get("parameters")
+    if not isinstance(parameters, list) or len(parameters) < 14:
+        return None
+    if not all(isinstance(value, int) for value in parameters[:14]):
+        return None
+    return {
+        "picture_id": parameters[0],
+        "position_mode": parameters[1] & 0xFF,
+        "x": _signed_int32(parameters[2]),
+        "y": _signed_int32(parameters[3]),
+        "fixed_to_map": parameters[4] > 0,
+        "zoom": max(0, min(parameters[5], 2000)),
+        "top_transparency": max(0, min(parameters[6], 100)),
+        "use_transparent_color": parameters[7] > 0,
+        "tone": parameters[8:12],
+        "effect_mode": parameters[12],
+        "effect_power": parameters[13],
+    }
+
+
+def _lightmap_name(name: object) -> bool:
+    return isinstance(name, str) and "lightmap" in name.casefold()
+
+
 def _unsupported_tile(
     tile_id: object,
     *,
@@ -695,6 +803,7 @@ def render_map(
     rtp_dirs: Iterable[Path | str] = (),
     scale: int = 2,
     show_events: bool = True,
+    show_lightmap: bool = False,
 ) -> Tuple[RgbaImage, dict]:
     """Render one map to an RGBA image and return image plus manifest data."""
 
@@ -886,6 +995,111 @@ def render_map(
             )
             event_statistics["sprites_drawn"] += 1
 
+    picture_statistics = {
+        "enabled": show_lightmap,
+        "selector": "ShowPicture names containing 'lightmap'",
+        "reference_screen": {
+            "width": PICTURE_SCREEN_WIDTH,
+            "height": PICTURE_SCREEN_HEIGHT,
+        },
+        "commands_found": 0,
+        "pictures_drawn": 0,
+        "drawn_pictures": [],
+        "missing_pictures": [],
+        "ambiguous_pictures": [],
+        "invalid_pictures": [],
+        "skipped_pictures": [],
+    }
+    if show_lightmap:
+        for picture_command in _picture_commands(map_data):
+            command = picture_command["command"]
+            picture_name = command.get("string")
+            if not _lightmap_name(picture_name):
+                continue
+            picture_statistics["commands_found"] += 1
+            identity = {
+                "picture_id": None,
+                "picture_name": picture_name,
+                "event_id": picture_command.get("event_id"),
+                "event_name": picture_command.get("event_name"),
+                "page_index": picture_command.get("page_index"),
+                "command_index": picture_command.get("command_index"),
+            }
+            picture = _parse_show_picture(command)
+            if picture is None:
+                picture_statistics["skipped_pictures"].append(
+                    {**identity, "reason": "ShowPicture has fewer than 14 integer parameters"}
+                )
+                continue
+            identity["picture_id"] = picture["picture_id"]
+            identity.update(
+                {
+                    "position": [picture["x"], picture["y"]],
+                    "fixed_to_map": picture["fixed_to_map"],
+                    "zoom": picture["zoom"],
+                    "top_transparency": picture["top_transparency"],
+                    "use_transparent_color": picture["use_transparent_color"],
+                }
+            )
+            if picture["position_mode"] != 0:
+                picture_statistics["skipped_pictures"].append(
+                    {**identity, "reason": "variable picture coordinates are not evaluated"}
+                )
+                continue
+            picture_path, picture_descriptor, picture_matches = _resolve_asset(
+                indexes,
+                "picture",
+                picture_name,
+            )
+            if picture_path is None or picture_descriptor is None:
+                picture_statistics["missing_pictures"].append(identity)
+                continue
+            if picture_matches > 1:
+                picture_statistics["ambiguous_pictures"].append(identity)
+            try:
+                picture_image = read_png(
+                    picture_path,
+                    transparent_index_zero=picture["use_transparent_color"],
+                )
+            except (OSError, PngError) as error:
+                picture_statistics["invalid_pictures"].append(
+                    {**identity, "message": str(error)}
+                )
+                continue
+            if picture["zoom"] == 0:
+                picture_statistics["skipped_pictures"].append(
+                    {**identity, "reason": "picture zoom is zero"}
+                )
+                continue
+            if picture["zoom"] != 100:
+                picture_image = picture_image.resize_nearest(
+                    max(1, picture_image.width * picture["zoom"] // 100),
+                    max(1, picture_image.height * picture["zoom"] // 100),
+                )
+            opacity = 255 * (100 - picture["top_transparency"]) // 100
+            picture_image = picture_image.with_opacity(opacity)
+            destination_x = picture["x"] - picture_image.width // 2
+            destination_y = picture["y"] - picture_image.height // 2
+            canvas.blit(
+                picture_image,
+                0,
+                0,
+                picture_image.width,
+                picture_image.height,
+                destination_x,
+                destination_y,
+            )
+            picture_statistics["pictures_drawn"] += 1
+            picture_statistics["drawn_pictures"].append(
+                {
+                    **identity,
+                    "source": {
+                        "root": picture_descriptor["root"],
+                        "path": picture_descriptor["path"],
+                    },
+                }
+            )
+
     tile_statistics["by_block"] = dict(sorted(tile_statistics["by_block"].items()))
     tile_statistics["unsupported_tile_ids"] = sorted(tile_statistics["unsupported_tile_ids"])[:100]
     output_image = canvas.scale_nearest(scale)
@@ -923,10 +1137,13 @@ def render_map(
         },
         "tiles": tile_statistics,
         "events": event_statistics,
+        "pictures": picture_statistics,
         "limitations": [
             "runtime tile substitutions are not applied",
             "autotiles use animation frame 0",
             "event page conditions and passability-based z-order are not evaluated",
+            "lightmap selection does not execute event conditions or picture replacement order",
+            "picture tones, effects, and variable coordinates are not evaluated",
         ],
     }
     return output_image, manifest

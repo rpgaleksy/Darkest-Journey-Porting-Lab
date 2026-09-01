@@ -58,4 +58,5 @@ Für die erste visuelle Diagnose gibt es nun `03_rendering/render_map.py`. Das
 Werkzeug erzeugt aus einer ausgewählten Map eine statische PNG-Vorschau und
 eine JSON-Manifestdatei, ohne das Originalprojekt zu verändern. Die bewusst
 begrenzte Renderer-Semantik und ein reproduzierbarer Aufruf sind in
-`03_rendering/README.md` dokumentiert.
+`03_rendering/README.md` dokumentiert. Für die erkannte Lightmap-Komposition
+auf `Map0041` kann die optionale `--lightmap`-Ebene zugeschaltet werden.

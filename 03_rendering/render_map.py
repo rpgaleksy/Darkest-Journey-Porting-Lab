@@ -56,6 +56,11 @@ def build_parser() -> argparse.ArgumentParser:
         help="render tile layers without the static event-sprite overlay",
     )
     parser.add_argument(
+        "--lightmap",
+        action="store_true",
+        help="overlay ShowPicture commands whose resource name contains 'lightmap'",
+    )
+    parser.add_argument(
         "--out",
         type=Path,
         required=True,
@@ -80,6 +85,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             rtp_dirs=args.rtp_dirs,
             scale=args.scale,
             show_events=not args.no_events,
+            show_lightmap=args.lightmap,
         )
     except (OSError, LcfParseError, ValueError) as error:
         parser.error(str(error))
