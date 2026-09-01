@@ -1,0 +1,6772 @@
+{
+  "lmt": {
+    "active_node": 0,
+    "file": {
+      "name": "RPG_RT.lmt",
+      "sha256": "5103b4f0e73b2d2f9cee5a20029b465b7bdca00d77cd592a3e8f75811586607b",
+      "size_bytes": 6307
+    },
+    "header": {
+      "length": 10,
+      "offset": 0,
+      "raw_hex": "4c 63 66 4d 61 70 54 72 65 65",
+      "value": "LcfMapTree"
+    },
+    "map_count": 85,
+    "maps": [
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounter_steps": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 59,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 0,
+        "index": 0,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 37,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "DarkestJourney",
+        "present_chunk_ids": [
+          1,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          44,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 0
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 1,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 136,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 1,
+        "id": 1,
+        "indentation": 1,
+        "index": 1,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 114,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Eingangs/Büroebene",
+        "present_chunk_ids": [
+          1,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 1,
+        "struct_terminated": true,
+        "teleport": 1,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 1,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 214,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 1,
+        "id": 2,
+        "indentation": 2,
+        "index": 2,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 192,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Gleisebeneintro",
+        "parent_map": 5,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 1,
+        "scrollbar_x": 302,
+        "struct_terminated": true,
+        "teleport": 1,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 1,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 288,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 1,
+        "id": 3,
+        "indentation": 1,
+        "index": 3,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 266,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Kellerebene",
+        "present_chunk_ids": [
+          1,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 1,
+        "scrollbar_x": 160,
+        "scrollbar_y": 104,
+        "struct_terminated": true,
+        "teleport": 1,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 360,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 4,
+        "indentation": 2,
+        "index": 4,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 338,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Eingangshalle",
+        "parent_map": 1,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 1,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 431,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 1,
+        "id": 5,
+        "indentation": 1,
+        "index": 5,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 409,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Black Map Intro",
+        "present_chunk_ids": [
+          1,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 1,
+        "struct_terminated": true,
+        "teleport": 1,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 1,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 501,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 1,
+        "id": 6,
+        "indentation": 1,
+        "index": 6,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 479,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Gleisebene",
+        "present_chunk_ids": [
+          1,
+          3,
+          4,
+          5,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 1,
+        "scrollbar_x": 628,
+        "struct_terminated": true,
+        "teleport": 1,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 1,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 567,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 1,
+        "id": 7,
+        "indentation": 1,
+        "index": 7,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 545,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Itemuse",
+        "present_chunk_ids": [
+          1,
+          3,
+          4,
+          5,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 1,
+        "scrollbar_x": 2,
+        "struct_terminated": true,
+        "teleport": 1,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 639,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 8,
+        "indentation": 3,
+        "index": 8,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 617,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Damentoilette",
+        "parent_map": 4,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 716,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 9,
+        "indentation": 3,
+        "index": 9,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 694,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Herrentoilette",
+        "parent_map": 4,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_y": 296,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 794,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 10,
+        "indentation": 3,
+        "index": 10,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 17,
+            "payload_offset": 763,
+            "payload_preview_hex": "01 0e 68 65 61 72 74 62 65 61 74 2e 6c 69 6e 6b 00",
+            "payload_sha256": "6a376df0624229a61bc2ab3bb8155a9832cd48c3d6f7bafa3a80db5cc8153f5f"
+          }
+        },
+        "music_type": 2,
+        "name": "Flur",
+        "parent_map": 4,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 96,
+        "scrollbar_y": 72,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 862,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 11,
+        "indentation": 2,
+        "index": 11,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 12,
+            "payload_offset": 836,
+            "payload_preview_hex": "01 09 54 69 63 6b 2d 54 61 63 6b 00",
+            "payload_sha256": "53503958c082919f58ff9ccaa9d0a02f7b7e54bc1bdf0921d481ff524a7b2825"
+          }
+        },
+        "music_type": 2,
+        "name": "Büros",
+        "parent_map": 1,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 935,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 12,
+        "indentation": 3,
+        "index": 12,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 913,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Mitarbeiter WC",
+        "parent_map": 11,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 1010,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 13,
+        "indentation": 3,
+        "index": 13,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 988,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Büro2/Pausenraum",
+        "parent_map": 11,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 1089,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 14,
+        "indentation": 2,
+        "index": 14,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 1067,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Kontrollraum",
+        "parent_map": 6,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 320,
+        "scrollbar_y": 296,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 1157,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 15,
+        "indentation": 3,
+        "index": 15,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 1135,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Büro3",
+        "parent_map": 11,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 172,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 1228,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 16,
+        "indentation": 3,
+        "index": 16,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 1206,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Büro4/Archiv",
+        "parent_map": 11,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 1297,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 17,
+        "indentation": 2,
+        "index": 17,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 1275,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 2,
+        "name": "Im Zug",
+        "parent_map": 6,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 172,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 1,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 1360,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 1,
+        "id": 18,
+        "indentation": 1,
+        "index": 18,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 1338,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Tunnels",
+        "present_chunk_ids": [
+          1,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 1,
+        "struct_terminated": true,
+        "teleport": 1,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 1438,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 19,
+        "indentation": 2,
+        "index": 19,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 19,
+            "payload_offset": 1405,
+            "payload_preview_hex": "01 10 42 61 63 6b 67 72 6f 75 6e 64 31 2e 6c 69 6e 6b 00",
+            "payload_sha256": "1d1f2a958b042a95fad7398be276df9a69b8fc38d6e69d70779bab6a31a6d3d3"
+          }
+        },
+        "music_type": 2,
+        "name": "Tunnel 1",
+        "parent_map": 18,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 1516,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 20,
+        "indentation": 2,
+        "index": 20,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 19,
+            "payload_offset": 1483,
+            "payload_preview_hex": "01 10 42 61 63 6b 67 72 6f 75 6e 64 31 2e 6c 69 6e 6b 00",
+            "payload_sha256": "1d1f2a958b042a95fad7398be276df9a69b8fc38d6e69d70779bab6a31a6d3d3"
+          }
+        },
+        "music_type": 2,
+        "name": "Tunnel 2",
+        "parent_map": 18,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 1602,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 21,
+        "indentation": 3,
+        "index": 21,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 22,
+            "payload_offset": 1566,
+            "payload_preview_hex": "01 10 42 61 63 6b 67 72 6f 75 6e 64 32 2e 6c 69 6e 6b 04 01 46 00",
+            "payload_sha256": "5f72ab4491fdf7f2131ce7999f74de08b701ee9513f6b14d1811988a3d575964"
+          }
+        },
+        "music_type": 2,
+        "name": "Verteilerraum",
+        "parent_map": 20,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 1685,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 22,
+        "indentation": 3,
+        "index": 22,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 1663,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Verkaufshäuschen",
+        "parent_map": 4,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 128,
+        "scrollbar_y": 232,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 1768,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 23,
+        "indentation": 2,
+        "index": 23,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 19,
+            "payload_offset": 1735,
+            "payload_preview_hex": "01 10 42 61 63 6b 67 72 6f 75 6e 64 31 2e 6c 69 6e 6b 00",
+            "payload_sha256": "1d1f2a958b042a95fad7398be276df9a69b8fc38d6e69d70779bab6a31a6d3d3"
+          }
+        },
+        "music_type": 2,
+        "name": "Tunnelende",
+        "parent_map": 18,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 32,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 1,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 1845,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 1,
+        "id": 24,
+        "indentation": 1,
+        "index": 24,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 17,
+            "payload_offset": 1814,
+            "payload_preview_hex": "01 0b 69 63 72 65 65 70 2e 6c 69 6e 6b 04 01 50 00",
+            "payload_sha256": "46d76c190df797ef7a4c5b39465906ab291d23230bdcc400594e64244026d343"
+          }
+        },
+        "music_type": 2,
+        "name": "Gängeeingang",
+        "present_chunk_ids": [
+          1,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 1,
+        "struct_terminated": true,
+        "teleport": 1,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 1924,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 25,
+        "indentation": 2,
+        "index": 25,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 1902,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "OstseiteÜberschwemmt",
+        "parent_map": 24,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 2000,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 26,
+        "indentation": 2,
+        "index": 26,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 1978,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Westseite",
+        "parent_map": 24,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 224,
+        "scrollbar_y": 136,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 2075,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 27,
+        "indentation": 2,
+        "index": 27,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 2053,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Ostseite trocken",
+        "parent_map": 24,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 2149,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 28,
+        "indentation": 3,
+        "index": 28,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 2127,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Aufenthaltsraum",
+        "parent_map": 27,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 2222,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 29,
+        "indentation": 2,
+        "index": 29,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 2200,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Horrorgang",
+        "parent_map": 24,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_y": 332,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 2292,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 30,
+        "indentation": 2,
+        "index": 30,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 2270,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Block",
+        "parent_map": 24,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 32,
+        "scrollbar_y": 104,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 2352,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 31,
+        "indentation": 2,
+        "index": 31,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 2330,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "L",
+        "parent_map": 24,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 2424,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 32,
+        "indentation": 2,
+        "index": 32,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 2402,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Aufzug",
+        "parent_map": 24,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 96,
+        "scrollbar_y": 168,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 2499,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 33,
+        "indentation": 2,
+        "index": 33,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 2477,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Maschendrahtgang",
+        "parent_map": 24,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 2569,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 34,
+        "indentation": 2,
+        "index": 34,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 2547,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Kleine Ecke",
+        "parent_map": 24,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 2650,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 35,
+        "indentation": 2,
+        "index": 35,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 2628,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Sicherungsraum",
+        "parent_map": 24,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 192,
+        "scrollbar_y": 136,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 2727,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 36,
+        "indentation": 2,
+        "index": 36,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 2705,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Ventilraum",
+        "parent_map": 24,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 128,
+        "scrollbar_y": 296,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 2801,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 37,
+        "indentation": 2,
+        "index": 37,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 2779,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Abstieg",
+        "parent_map": 24,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 128,
+        "scrollbar_y": 296,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 2885,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 38,
+        "indentation": 3,
+        "index": 38,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 2863,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Ventilraum Keller",
+        "parent_map": 46,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 128,
+        "scrollbar_y": 168,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 1,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 2956,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 1,
+        "expanded_node": true,
+        "id": 41,
+        "indentation": 1,
+        "index": 39,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 2934,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "No. Way ave.",
+        "present_chunk_ids": [
+          1,
+          3,
+          4,
+          7,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 1,
+        "struct_terminated": true,
+        "teleport": 1,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 3031,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 42,
+        "indentation": 2,
+        "index": 40,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 3009,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Treppe 1",
+        "parent_map": 3,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 160,
+        "scrollbar_y": 232,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 3102,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 43,
+        "indentation": 2,
+        "index": 41,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 3080,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Treppenhaus1",
+        "parent_map": 41,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 3176,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "expanded_node": true,
+        "id": 44,
+        "indentation": 2,
+        "index": 42,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 3154,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Treppenhaus2",
+        "parent_map": 41,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          7,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 3257,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "expanded_node": true,
+        "id": 45,
+        "indentation": 2,
+        "index": 43,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 3235,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Treppenhaus3",
+        "parent_map": 41,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 160,
+        "scrollbar_y": 104,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 3330,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 46,
+        "indentation": 2,
+        "index": 44,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 3308,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "GANG 1",
+        "parent_map": 3,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 256,
+        "scrollbar_y": 168,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 3399,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 47,
+        "indentation": 2,
+        "index": 45,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 3377,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "GANG 2",
+        "parent_map": 3,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 172,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 3468,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 48,
+        "indentation": 2,
+        "index": 46,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 3446,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "GANG 3",
+        "parent_map": 3,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 172,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 3543,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 49,
+        "indentation": 3,
+        "index": 47,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 3521,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 2,
+        "name": "Aufzugraum",
+        "parent_map": 47,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 96,
+        "scrollbar_y": 72,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 3618,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "expanded_node": true,
+        "id": 50,
+        "indentation": 3,
+        "index": 48,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 3596,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Pauls Wohnung",
+        "parent_map": 44,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          7,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 3694,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 51,
+        "indentation": 4,
+        "index": 49,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 3672,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Wohnzimmer",
+        "parent_map": 50,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 192,
+        "scrollbar_y": 40,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 3765,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 52,
+        "indentation": 4,
+        "index": 50,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 3743,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Schlafzimmer",
+        "parent_map": 50,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 3829,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 53,
+        "indentation": 4,
+        "index": 51,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 3807,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Küche",
+        "parent_map": 50,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 3893,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 54,
+        "indentation": 2,
+        "index": 52,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 3871,
+            "payload_preview_hex": "01 05 52 61 69 6e 31 00",
+            "payload_sha256": "f0b26bff11ce1043ec406e25954b7dfaa39044977a008fb8a20b57d63f0ef1f4"
+          }
+        },
+        "music_type": 2,
+        "name": "Gasse",
+        "parent_map": 41,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 3978,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "expanded_node": true,
+        "id": 55,
+        "indentation": 3,
+        "index": 53,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 3956,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Nachbarswohnung",
+        "parent_map": 45,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 224,
+        "scrollbar_y": 168,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 4049,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 56,
+        "indentation": 4,
+        "index": 54,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 4027,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Kinderzimmer",
+        "parent_map": 55,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 4120,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 57,
+        "indentation": 4,
+        "index": 55,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 4098,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Schlafzimmer",
+        "parent_map": 55,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 4188,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 58,
+        "indentation": 4,
+        "index": 56,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 4166,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Wohnküche",
+        "parent_map": 55,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 4257,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 59,
+        "indentation": 4,
+        "index": 57,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 4235,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Bad",
+        "parent_map": 50,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 32,
+        "scrollbar_y": 168,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 4332,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 60,
+        "indentation": 2,
+        "index": 58,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 4310,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Treppe 2",
+        "parent_map": 3,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 128,
+        "scrollbar_y": 232,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 4405,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 61,
+        "indentation": 2,
+        "index": 59,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 4383,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Zwischenteil 1",
+        "parent_map": 3,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 4483,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 62,
+        "indentation": 3,
+        "index": 60,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 4461,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Abwasserraum",
+        "parent_map": 48,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 160,
+        "scrollbar_y": 72,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 4551,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 63,
+        "indentation": 3,
+        "index": 61,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 4529,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Stromraum",
+        "parent_map": 46,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 4617,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 64,
+        "indentation": 3,
+        "index": 62,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 4595,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Zentrum",
+        "parent_map": 48,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 4681,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 65,
+        "indentation": 3,
+        "index": 63,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 4659,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Lager",
+        "parent_map": 42,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 1,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 4763,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 1,
+        "id": 66,
+        "indentation": 1,
+        "index": 64,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 23,
+            "payload_offset": 4726,
+            "payload_preview_hex": "01 10 76 65 6e 74 69 6c 61 74 69 6f 6e 2e 6c 69 6e 6b 02 02 8f 50 00",
+            "payload_sha256": "11ae02f6c8667e477de2f07247d531e7cdf8a30c9f404db916f9c536bf027b47"
+          }
+        },
+        "music_type": 2,
+        "name": "Underground",
+        "present_chunk_ids": [
+          1,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 1,
+        "struct_terminated": true,
+        "teleport": 1,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 4836,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 67,
+        "indentation": 2,
+        "index": 65,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 4814,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Abfahrt",
+        "parent_map": 66,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 128,
+        "scrollbar_y": 72,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 4903,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 68,
+        "indentation": 2,
+        "index": 66,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 4881,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Abstieg1",
+        "parent_map": 66,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 4982,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 69,
+        "indentation": 2,
+        "index": 67,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 4960,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Irontwisters Lair",
+        "parent_map": 66,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_y": 125,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 5054,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 70,
+        "indentation": 2,
+        "index": 68,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 5032,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Gefängnis",
+        "parent_map": 66,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 172,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 5133,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 71,
+        "indentation": 2,
+        "index": 69,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 5111,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Lüftungsraum",
+        "parent_map": 66,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 288,
+        "scrollbar_y": 136,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 1,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 5208,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 1,
+        "id": 72,
+        "indentation": 1,
+        "index": 70,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 19,
+            "payload_offset": 5175,
+            "payload_preview_hex": "01 10 42 61 63 6b 67 72 6f 75 6e 64 31 2e 6c 69 6e 6b 00",
+            "payload_sha256": "1d1f2a958b042a95fad7398be276df9a69b8fc38d6e69d70779bab6a31a6d3d3"
+          }
+        },
+        "music_type": 2,
+        "name": "Testraum",
+        "present_chunk_ids": [
+          1,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 1,
+        "struct_terminated": true,
+        "teleport": 1,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 5287,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 73,
+        "indentation": 3,
+        "index": 71,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 5265,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Duschraum",
+        "parent_map": 70,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 4294967200,
+        "scrollbar_y": 136,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 5357,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 74,
+        "indentation": 4,
+        "index": 72,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 5335,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Bad",
+        "parent_map": 55,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 160,
+        "scrollbar_y": 200,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 1,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 5417,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 1,
+        "id": 75,
+        "indentation": 1,
+        "index": 73,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 5395,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Ende",
+        "present_chunk_ids": [
+          1,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 1,
+        "struct_terminated": true,
+        "teleport": 1,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 1,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 5480,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 1,
+        "id": 76,
+        "indentation": 1,
+        "index": 74,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 5458,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Abspann",
+        "present_chunk_ids": [
+          1,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 1,
+        "struct_terminated": true,
+        "teleport": 1,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 1,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 5553,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 1,
+        "id": 77,
+        "indentation": 1,
+        "index": 75,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 5531,
+            "payload_preview_hex": "01 05 52 61 69 6e 31 00",
+            "payload_sha256": "f0b26bff11ce1043ec406e25954b7dfaa39044977a008fb8a20b57d63f0ef1f4"
+          }
+        },
+        "music_type": 2,
+        "name": "Bahnhofsruine",
+        "present_chunk_ids": [
+          1,
+          3,
+          4,
+          5,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 1,
+        "scrollbar_x": 167,
+        "struct_terminated": true,
+        "teleport": 1,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 5620,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 78,
+        "indentation": 3,
+        "index": 76,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 5598,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Daylight",
+        "parent_map": 26,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 5698,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 79,
+        "indentation": 3,
+        "index": 77,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 5676,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Kleiner Raum",
+        "parent_map": 26,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 96,
+        "scrollbar_y": 136,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 5776,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 80,
+        "indentation": 4,
+        "index": 78,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 5754,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Abstellraum",
+        "parent_map": 79,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 128,
+        "scrollbar_y": 200,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 5855,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 82,
+        "indentation": 4,
+        "index": 79,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 5833,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "Hinterzimmer",
+        "parent_map": 79,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 160,
+        "scrollbar_y": 200,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 5921,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 83,
+        "indentation": 3,
+        "index": 80,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 5899,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Treppe1",
+        "parent_map": 33,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 5987,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 84,
+        "indentation": 3,
+        "index": 81,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 5965,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Treppe2",
+        "parent_map": 33,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 6064,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 85,
+        "indentation": 3,
+        "index": 82,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 6042,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Geräteraum",
+        "parent_map": 33,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "scrollbar_x": 160,
+        "scrollbar_y": 264,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 0,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 6130,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 0,
+        "id": 86,
+        "indentation": 3,
+        "index": 83,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 6108,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 0,
+        "name": "Vorraum",
+        "parent_map": 33,
+        "present_chunk_ids": [
+          1,
+          2,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 0,
+        "struct_terminated": true,
+        "teleport": 0,
+        "type": 1
+      },
+      {
+        "area_rect": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "background_type": 1,
+        "encounters": {
+          "count": 0,
+          "decoded": false,
+          "note": "encounter records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 1,
+            "payload_offset": 6196,
+            "payload_preview_hex": "00",
+            "payload_sha256": "6e340b9cffb37a989ca544e6bb780a2c78901d3fb33738768511a30617afa01d"
+          }
+        },
+        "escape": 1,
+        "id": 87,
+        "indentation": 1,
+        "index": 84,
+        "music": {
+          "count": 1,
+          "decoded": false,
+          "note": "music records are retained as raw payload for a later parser pass",
+          "raw_payload": {
+            "length": 8,
+            "payload_offset": 6174,
+            "payload_preview_hex": "01 05 28 4f 46 46 29 00",
+            "payload_sha256": "2065cc26c87b2d5a6a5a1c13e4dcf2e1bfde80d21251b44da0efc8b093c55a26"
+          }
+        },
+        "music_type": 1,
+        "name": "neuesMenue",
+        "present_chunk_ids": [
+          1,
+          3,
+          4,
+          11,
+          12,
+          21,
+          31,
+          32,
+          33,
+          41,
+          51
+        ],
+        "save": 1,
+        "struct_terminated": true,
+        "teleport": 1,
+        "type": 1
+      }
+    ],
+    "start": {
+      "party_map_id": 5,
+      "present_chunk_ids": [
+        1
+      ],
+      "struct_terminated": true
+    },
+    "tree_order": [
+      0,
+      1,
+      4,
+      9,
+      8,
+      10,
+      22,
+      11,
+      12,
+      13,
+      15,
+      16,
+      6,
+      14,
+      17,
+      3,
+      46,
+      38,
+      63,
+      42,
+      65,
+      60,
+      47,
+      49,
+      61,
+      48,
+      62,
+      64,
+      18,
+      19,
+      20,
+      21,
+      23,
+      24,
+      25,
+      27,
+      28,
+      26,
+      78,
+      79,
+      80,
+      82,
+      29,
+      30,
+      31,
+      32,
+      33,
+      83,
+      84,
+      86,
+      85,
+      34,
+      35,
+      36,
+      37,
+      41,
+      43,
+      44,
+      50,
+      51,
+      52,
+      53,
+      59,
+      45,
+      55,
+      56,
+      57,
+      58,
+      74,
+      54,
+      66,
+      67,
+      68,
+      69,
+      70,
+      73,
+      71,
+      5,
+      2,
+      77,
+      7,
+      87,
+      72,
+      75,
+      76
+    ]
+  },
+  "lmu": {
+    "file": {
+      "name": "Map0001.lmu",
+      "sha256": "4a05ef0c05049ecd28d19e2c3e333ed66e88ad066a2bcd352dee78ee23b78dc6",
+      "size_bytes": 2917
+    },
+    "header": {
+      "length": 10,
+      "offset": 0,
+      "raw_hex": "4c 63 66 4d 61 70 55 6e 69 74",
+      "value": "LcfMapUnit"
+    },
+    "map": {
+      "chipset_id": 2,
+      "dimensions": {
+        "defaults_used": [
+          "width",
+          "height"
+        ],
+        "height": 15,
+        "width": 20
+      },
+      "events": {
+        "count": 2,
+        "events": [
+          {
+            "id": 1,
+            "index": 0,
+            "name": "Eileen",
+            "pages": {
+              "count": 1,
+              "pages": [
+                {
+                  "animation_type": 0,
+                  "character_direction": 3,
+                  "character_name": "andere",
+                  "condition": {
+                    "actor_id": 1,
+                    "flags": 0,
+                    "present_chunk_ids": [
+                      1,
+                      7
+                    ],
+                    "struct_terminated": true
+                  },
+                  "event_commands": {
+                    "command_count": 0,
+                    "commands": [],
+                    "payload_length": 4,
+                    "terminated": true
+                  },
+                  "event_commands_size": 4,
+                  "id": 1,
+                  "index": 0,
+                  "layer": 1,
+                  "move_route": {
+                    "move_commands": {
+                      "decoded": false,
+                      "note": "move command payload is retained for a later parser pass",
+                      "raw_payload": {
+                        "length": 0,
+                        "payload_offset": 1291,
+                        "payload_preview_hex": "",
+                        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                      }
+                    },
+                    "present_chunk_ids": [
+                      12
+                    ],
+                    "struct_terminated": true
+                  },
+                  "move_speed": 2,
+                  "move_type": 0,
+                  "overlap_forbidden": false,
+                  "present_chunk_ids": [
+                    2,
+                    21,
+                    23,
+                    25,
+                    31,
+                    33,
+                    34,
+                    35,
+                    36,
+                    37,
+                    41,
+                    51,
+                    52
+                  ],
+                  "struct_terminated": true,
+                  "translucent": false,
+                  "trigger": 0
+                }
+              ],
+              "remaining_bytes": 0
+            },
+            "present_chunk_ids": [
+              1,
+              2,
+              3,
+              5
+            ],
+            "struct_terminated": true,
+            "x": 11,
+            "y": 7
+          },
+          {
+            "id": 2,
+            "index": 1,
+            "name": "Sequenz",
+            "pages": {
+              "count": 1,
+              "pages": [
+                {
+                  "animation_type": 0,
+                  "character_direction": 2,
+                  "condition": {
+                    "actor_id": 1,
+                    "flags": 0,
+                    "present_chunk_ids": [
+                      1,
+                      7
+                    ],
+                    "struct_terminated": true
+                  },
+                  "event_commands": {
+                    "command_count": 83,
+                    "commands": [
+                      {
+                        "code": 10120,
+                        "code_name": "MessageOptions",
+                        "indent": 0,
+                        "offset": 1360,
+                        "parameters": [
+                          1,
+                          1,
+                          0,
+                          1
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11030,
+                        "code_name": "TintScreen",
+                        "indent": 0,
+                        "offset": 1369,
+                        "parameters": [
+                          80,
+                          70,
+                          80,
+                          40,
+                          0,
+                          0
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11410,
+                        "code_name": "Wait",
+                        "indent": 0,
+                        "offset": 1380,
+                        "parameters": [
+                          40
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 10110,
+                        "code_name": "ShowMessage",
+                        "indent": 0,
+                        "offset": 1386,
+                        "parameters": [],
+                        "string": "\\C[3]Paul:\\C[0] Eileen..."
+                      },
+                      {
+                        "code": 11410,
+                        "code_name": "Wait",
+                        "indent": 0,
+                        "offset": 1416,
+                        "parameters": [
+                          10
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11330,
+                        "code_name": "MoveEvent",
+                        "indent": 0,
+                        "offset": 1422,
+                        "parameters": [
+                          10001,
+                          7,
+                          0,
+                          0,
+                          34,
+                          11,
+                          112,
+                          97,
+                          117,
+                          108,
+                          95,
+                          98,
+                          108,
+                          111,
+                          111,
+                          100,
+                          121,
+                          7,
+                          12
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11340,
+                        "code_name": "ProceedWithMovement",
+                        "indent": 0,
+                        "offset": 1447,
+                        "parameters": [],
+                        "string": ""
+                      },
+                      {
+                        "code": 11410,
+                        "code_name": "Wait",
+                        "indent": 0,
+                        "offset": 1452,
+                        "parameters": [
+                          10
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 10110,
+                        "code_name": "ShowMessage",
+                        "indent": 0,
+                        "offset": 1458,
+                        "parameters": [],
+                        "string": "\\C[3]Eileen:\\C[0] Paul..."
+                      },
+                      {
+                        "code": 11410,
+                        "code_name": "Wait",
+                        "indent": 0,
+                        "offset": 1488,
+                        "parameters": [
+                          20
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 10110,
+                        "code_name": "ShowMessage",
+                        "indent": 0,
+                        "offset": 1494,
+                        "parameters": [],
+                        "string": "\\C[3]Eileen:\\C[0] Ich hab dich so sehr"
+                      },
+                      {
+                        "code": 20110,
+                        "code_name": "ShowMessage_2",
+                        "indent": 0,
+                        "offset": 1537,
+                        "parameters": [],
+                        "string": "vermisst..."
+                      },
+                      {
+                        "code": 10110,
+                        "code_name": "ShowMessage",
+                        "indent": 0,
+                        "offset": 1554,
+                        "parameters": [],
+                        "string": "\\C[3]Paul:\\C[0] Ich dich auch...\\|\\|"
+                      },
+                      {
+                        "code": 20110,
+                        "code_name": "ShowMessage_2",
+                        "indent": 0,
+                        "offset": 1595,
+                        "parameters": [],
+                        "string": "Bleibst du jetzt bei mir?"
+                      },
+                      {
+                        "code": 11410,
+                        "code_name": "Wait",
+                        "indent": 0,
+                        "offset": 1626,
+                        "parameters": [
+                          20
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 10110,
+                        "code_name": "ShowMessage",
+                        "indent": 0,
+                        "offset": 1632,
+                        "parameters": [],
+                        "string": "\\C[3]Eileen:\\C[0] Das würde ich gerne...\\|"
+                      },
+                      {
+                        "code": 20110,
+                        "code_name": "ShowMessage_2",
+                        "indent": 0,
+                        "offset": 1679,
+                        "parameters": [],
+                        "string": "Aber du musst noch etwas erledigen..."
+                      },
+                      {
+                        "code": 11410,
+                        "code_name": "Wait",
+                        "indent": 0,
+                        "offset": 1722,
+                        "parameters": [
+                          20
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 10110,
+                        "code_name": "ShowMessage",
+                        "indent": 0,
+                        "offset": 1728,
+                        "parameters": [],
+                        "string": "\\C[3]Paul:\\C[0] Ich bin viel zu müde."
+                      },
+                      {
+                        "code": 11410,
+                        "code_name": "Wait",
+                        "indent": 0,
+                        "offset": 1770,
+                        "parameters": [
+                          20
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 10110,
+                        "code_name": "ShowMessage",
+                        "indent": 0,
+                        "offset": 1776,
+                        "parameters": [],
+                        "string": "\\C[3]Paul:\\C[0] Mir tut alles weh..."
+                      },
+                      {
+                        "code": 10110,
+                        "code_name": "ShowMessage",
+                        "indent": 0,
+                        "offset": 1817,
+                        "parameters": [],
+                        "string": "\\C[3]Eileen:\\C[0] Ich weiß.\\|"
+                      },
+                      {
+                        "code": 20110,
+                        "code_name": "ShowMessage_2",
+                        "indent": 0,
+                        "offset": 1851,
+                        "parameters": [],
+                        "string": "Du musst alles nur noch so machen,"
+                      },
+                      {
+                        "code": 20110,
+                        "code_name": "ShowMessage_2",
+                        "indent": 0,
+                        "offset": 1891,
+                        "parameters": [],
+                        "string": "wie es vorher war.\\|\\|"
+                      },
+                      {
+                        "code": 20110,
+                        "code_name": "ShowMessage_2",
+                        "indent": 0,
+                        "offset": 1919,
+                        "parameters": [],
+                        "string": "Dann ist es vorbei..."
+                      },
+                      {
+                        "code": 11410,
+                        "code_name": "Wait",
+                        "indent": 0,
+                        "offset": 1946,
+                        "parameters": [
+                          20
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 10110,
+                        "code_name": "ShowMessage",
+                        "indent": 0,
+                        "offset": 1952,
+                        "parameters": [],
+                        "string": "\\C[3]Paul:\\C[0] Was meinst du damit?"
+                      },
+                      {
+                        "code": 10110,
+                        "code_name": "ShowMessage",
+                        "indent": 0,
+                        "offset": 1993,
+                        "parameters": [],
+                        "string": "\\C[3]Eileen:\\C[0] Alles so wie es vorher war.\\|\\|"
+                      },
+                      {
+                        "code": 20110,
+                        "code_name": "ShowMessage_2",
+                        "indent": 0,
+                        "offset": 2047,
+                        "parameters": [],
+                        "string": "Ich warte so lange auf dich..."
+                      },
+                      {
+                        "code": 11410,
+                        "code_name": "Wait",
+                        "indent": 0,
+                        "offset": 2083,
+                        "parameters": [
+                          40
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11330,
+                        "code_name": "MoveEvent",
+                        "indent": 0,
+                        "offset": 2089,
+                        "parameters": [
+                          10001,
+                          7,
+                          0,
+                          0,
+                          34,
+                          11,
+                          112,
+                          97,
+                          117,
+                          108,
+                          95,
+                          98,
+                          108,
+                          111,
+                          111,
+                          100,
+                          121,
+                          7,
+                          13,
+                          23,
+                          23,
+                          14,
+                          23,
+                          23
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11340,
+                        "code_name": "ProceedWithMovement",
+                        "indent": 0,
+                        "offset": 2119,
+                        "parameters": [],
+                        "string": ""
+                      },
+                      {
+                        "code": 10110,
+                        "code_name": "ShowMessage",
+                        "indent": 0,
+                        "offset": 2124,
+                        "parameters": [],
+                        "string": "\\C[3]Paul:\\C[0] Ich liebe dich..."
+                      },
+                      {
+                        "code": 11410,
+                        "code_name": "Wait",
+                        "indent": 0,
+                        "offset": 2162,
+                        "parameters": [
+                          40
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11330,
+                        "code_name": "MoveEvent",
+                        "indent": 0,
+                        "offset": 2168,
+                        "parameters": [
+                          10001,
+                          7,
+                          0,
+                          0,
+                          34,
+                          11,
+                          112,
+                          97,
+                          117,
+                          108,
+                          95,
+                          98,
+                          108,
+                          111,
+                          111,
+                          100,
+                          121,
+                          7,
+                          14,
+                          23,
+                          13,
+                          23,
+                          12
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11340,
+                        "code_name": "ProceedWithMovement",
+                        "indent": 0,
+                        "offset": 2197,
+                        "parameters": [],
+                        "string": ""
+                      },
+                      {
+                        "code": 11410,
+                        "code_name": "Wait",
+                        "indent": 0,
+                        "offset": 2202,
+                        "parameters": [
+                          40
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11030,
+                        "code_name": "TintScreen",
+                        "indent": 0,
+                        "offset": 2208,
+                        "parameters": [
+                          0,
+                          0,
+                          0,
+                          0,
+                          100,
+                          1
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11010,
+                        "code_name": "EraseScreen",
+                        "indent": 0,
+                        "offset": 2219,
+                        "parameters": [
+                          0
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 10810,
+                        "code_name": "Teleport",
+                        "indent": 0,
+                        "offset": 2225,
+                        "parameters": [
+                          4,
+                          9,
+                          16
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11330,
+                        "code_name": "MoveEvent",
+                        "indent": 0,
+                        "offset": 2233,
+                        "parameters": [
+                          10001,
+                          7,
+                          0,
+                          0,
+                          34,
+                          13,
+                          112,
+                          97,
+                          117,
+                          108,
+                          95,
+                          109,
+                          97,
+                          105,
+                          110,
+                          99,
+                          104,
+                          97,
+                          114,
+                          5,
+                          15
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11340,
+                        "code_name": "ProceedWithMovement",
+                        "indent": 0,
+                        "offset": 2260,
+                        "parameters": [],
+                        "string": ""
+                      },
+                      {
+                        "code": 10210,
+                        "code_name": "ControlSwitches",
+                        "indent": 0,
+                        "offset": 2265,
+                        "parameters": [
+                          0,
+                          109,
+                          109,
+                          1
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 10210,
+                        "code_name": "ControlSwitches",
+                        "indent": 0,
+                        "offset": 2274,
+                        "parameters": [
+                          0,
+                          134,
+                          134,
+                          1
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 10210,
+                        "code_name": "ControlSwitches",
+                        "indent": 0,
+                        "offset": 2285,
+                        "parameters": [
+                          0,
+                          7,
+                          7,
+                          1
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11130,
+                        "code_name": "ErasePicture",
+                        "indent": 0,
+                        "offset": 2294,
+                        "parameters": [
+                          19
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11510,
+                        "code_name": "PlayBGM",
+                        "indent": 0,
+                        "offset": 2300,
+                        "parameters": [
+                          0,
+                          100,
+                          100,
+                          50
+                        ],
+                        "string": "(OFF)"
+                      },
+                      {
+                        "code": 10210,
+                        "code_name": "ControlSwitches",
+                        "indent": 0,
+                        "offset": 2314,
+                        "parameters": [
+                          0,
+                          139,
+                          139,
+                          0
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11020,
+                        "code_name": "ShowScreen",
+                        "indent": 0,
+                        "offset": 2325,
+                        "parameters": [
+                          0
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11410,
+                        "code_name": "Wait",
+                        "indent": 0,
+                        "offset": 2331,
+                        "parameters": [
+                          40
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11330,
+                        "code_name": "MoveEvent",
+                        "indent": 0,
+                        "offset": 2337,
+                        "parameters": [
+                          10001,
+                          7,
+                          0,
+                          0,
+                          34,
+                          13,
+                          112,
+                          97,
+                          117,
+                          108,
+                          95,
+                          109,
+                          97,
+                          105,
+                          110,
+                          99,
+                          104,
+                          97,
+                          114,
+                          5,
+                          14
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11350,
+                        "code_name": "HaltAllMovement",
+                        "indent": 0,
+                        "offset": 2364,
+                        "parameters": [],
+                        "string": ""
+                      },
+                      {
+                        "code": 11410,
+                        "code_name": "Wait",
+                        "indent": 0,
+                        "offset": 2369,
+                        "parameters": [
+                          20
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 10110,
+                        "code_name": "ShowMessage",
+                        "indent": 0,
+                        "offset": 2375,
+                        "parameters": [],
+                        "string": "Hm..."
+                      },
+                      {
+                        "code": 11410,
+                        "code_name": "Wait",
+                        "indent": 0,
+                        "offset": 2385,
+                        "parameters": [
+                          20
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11330,
+                        "code_name": "MoveEvent",
+                        "indent": 0,
+                        "offset": 2391,
+                        "parameters": [
+                          10001,
+                          7,
+                          0,
+                          0,
+                          34,
+                          13,
+                          112,
+                          97,
+                          117,
+                          108,
+                          95,
+                          109,
+                          97,
+                          105,
+                          110,
+                          99,
+                          104,
+                          97,
+                          114,
+                          5,
+                          14
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11340,
+                        "code_name": "ProceedWithMovement",
+                        "indent": 0,
+                        "offset": 2418,
+                        "parameters": [],
+                        "string": ""
+                      },
+                      {
+                        "code": 10110,
+                        "code_name": "ShowMessage",
+                        "indent": 0,
+                        "offset": 2423,
+                        "parameters": [],
+                        "string": "Mir tut alles so weh...\\!"
+                      },
+                      {
+                        "code": 20110,
+                        "code_name": "ShowMessage_2",
+                        "indent": 0,
+                        "offset": 2453,
+                        "parameters": [],
+                        "string": "Meine Verletzungen...,\\! sie sind alle weg."
+                      },
+                      {
+                        "code": 10110,
+                        "code_name": "ShowMessage",
+                        "indent": 0,
+                        "offset": 2502,
+                        "parameters": [],
+                        "string": "Da steht etwas auf den Boden geschrieben."
+                      },
+                      {
+                        "code": 20110,
+                        "code_name": "ShowMessage_2",
+                        "indent": 0,
+                        "offset": 2548,
+                        "parameters": [],
+                        "string": "Anscheinend mit Blut."
+                      },
+                      {
+                        "code": 20110,
+                        "code_name": "ShowMessage_2",
+                        "indent": 0,
+                        "offset": 2575,
+                        "parameters": [],
+                        "string": "Da steht:"
+                      },
+                      {
+                        "code": 20110,
+                        "code_name": "ShowMessage_2",
+                        "indent": 0,
+                        "offset": 2590,
+                        "parameters": [],
+                        "string": "\"\\C[2]ZORN\\C[0]\""
+                      },
+                      {
+                        "code": 11510,
+                        "code_name": "PlayBGM",
+                        "indent": 0,
+                        "offset": 2612,
+                        "parameters": [
+                          0,
+                          60,
+                          100,
+                          50
+                        ],
+                        "string": "(OFF)"
+                      },
+                      {
+                        "code": 11010,
+                        "code_name": "EraseScreen",
+                        "indent": 0,
+                        "offset": 2626,
+                        "parameters": [
+                          0
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 10630,
+                        "code_name": "ChangeSpriteAssociation",
+                        "indent": 0,
+                        "offset": 2632,
+                        "parameters": [
+                          1,
+                          7,
+                          0
+                        ],
+                        "string": "paul_mainchar"
+                      },
+                      {
+                        "code": 10810,
+                        "code_name": "Teleport",
+                        "indent": 0,
+                        "offset": 2653,
+                        "parameters": [
+                          7,
+                          11,
+                          7
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11110,
+                        "code_name": "ShowPicture",
+                        "indent": 0,
+                        "offset": 2661,
+                        "parameters": [
+                          1,
+                          0,
+                          160,
+                          120,
+                          0,
+                          100,
+                          0,
+                          1,
+                          100,
+                          100,
+                          100,
+                          100,
+                          0,
+                          0
+                        ],
+                        "string": "Tag 6"
+                      },
+                      {
+                        "code": 11020,
+                        "code_name": "ShowScreen",
+                        "indent": 0,
+                        "offset": 2686,
+                        "parameters": [
+                          0
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11550,
+                        "code_name": "PlaySound",
+                        "indent": 0,
+                        "offset": 2692,
+                        "parameters": [
+                          100,
+                          100,
+                          50
+                        ],
+                        "string": "abschlag"
+                      },
+                      {
+                        "code": 11410,
+                        "code_name": "Wait",
+                        "indent": 0,
+                        "offset": 2708,
+                        "parameters": [
+                          20
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11010,
+                        "code_name": "EraseScreen",
+                        "indent": 0,
+                        "offset": 2714,
+                        "parameters": [
+                          0
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 10810,
+                        "code_name": "Teleport",
+                        "indent": 0,
+                        "offset": 2720,
+                        "parameters": [
+                          4,
+                          9,
+                          16
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 10220,
+                        "code_name": "ControlVars",
+                        "indent": 0,
+                        "offset": 2728,
+                        "parameters": [
+                          0,
+                          60,
+                          60,
+                          0,
+                          0,
+                          6,
+                          0
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 10630,
+                        "code_name": "ChangeSpriteAssociation",
+                        "indent": 0,
+                        "offset": 2740,
+                        "parameters": [
+                          1,
+                          0,
+                          0
+                        ],
+                        "string": "paul_mainchar"
+                      },
+                      {
+                        "code": 11330,
+                        "code_name": "MoveEvent",
+                        "indent": 0,
+                        "offset": 2761,
+                        "parameters": [
+                          10001,
+                          8,
+                          0,
+                          0,
+                          28,
+                          28
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 11340,
+                        "code_name": "ProceedWithMovement",
+                        "indent": 0,
+                        "offset": 2773,
+                        "parameters": [],
+                        "string": ""
+                      },
+                      {
+                        "code": 11020,
+                        "code_name": "ShowScreen",
+                        "indent": 0,
+                        "offset": 2778,
+                        "parameters": [
+                          0
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 10110,
+                        "code_name": "ShowMessage",
+                        "indent": 0,
+                        "offset": 2784,
+                        "parameters": [],
+                        "string": "Alles so wie es war...?\\!"
+                      },
+                      {
+                        "code": 20110,
+                        "code_name": "ShowMessage_2",
+                        "indent": 0,
+                        "offset": 2814,
+                        "parameters": [],
+                        "string": "Was sie wohl gemeint hat."
+                      },
+                      {
+                        "code": 10110,
+                        "code_name": "ShowMessage",
+                        "indent": 0,
+                        "offset": 2845,
+                        "parameters": [],
+                        "string": "Hauptsache... es ist bald alles vorbei."
+                      },
+                      {
+                        "code": 10210,
+                        "code_name": "ControlSwitches",
+                        "indent": 0,
+                        "offset": 2889,
+                        "parameters": [
+                          0,
+                          63,
+                          63,
+                          1
+                        ],
+                        "string": ""
+                      },
+                      {
+                        "code": 10210,
+                        "code_name": "ControlSwitches",
+                        "indent": 0,
+                        "offset": 2898,
+                        "parameters": [
+                          0,
+                          12,
+                          12,
+                          0
+                        ],
+                        "string": ""
+                      }
+                    ],
+                    "payload_length": 1551,
+                    "terminated": true
+                  },
+                  "event_commands_size": 1551,
+                  "id": 1,
+                  "index": 0,
+                  "layer": 0,
+                  "move_route": {
+                    "move_commands": {
+                      "decoded": false,
+                      "note": "move command payload is retained for a later parser pass",
+                      "raw_payload": {
+                        "length": 0,
+                        "payload_offset": 1352,
+                        "payload_preview_hex": "",
+                        "payload_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+                      }
+                    },
+                    "present_chunk_ids": [
+                      12
+                    ],
+                    "struct_terminated": true
+                  },
+                  "move_type": 0,
+                  "overlap_forbidden": false,
+                  "present_chunk_ids": [
+                    2,
+                    23,
+                    25,
+                    31,
+                    33,
+                    34,
+                    35,
+                    36,
+                    41,
+                    51,
+                    52
+                  ],
+                  "struct_terminated": true,
+                  "translucent": false,
+                  "trigger": 3
+                }
+              ],
+              "remaining_bytes": 0
+            },
+            "present_chunk_ids": [
+              1,
+              5
+            ],
+            "struct_terminated": true
+          }
+        ],
+        "remaining_bytes": 0
+      },
+      "height": 15,
+      "lower_layer": {
+        "expected_tile_count": 300,
+        "layer": "lower_layer",
+        "shape_matches_dimensions": true,
+        "tile_count": 300,
+        "tiles": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      },
+      "present_chunk_ids": [
+        1,
+        11,
+        71,
+        72,
+        81,
+        91
+      ],
+      "save_count": 37,
+      "scroll_type": 0,
+      "struct_terminated": true,
+      "upper_layer": {
+        "expected_tile_count": 300,
+        "layer": "upper_layer",
+        "shape_matches_dimensions": true,
+        "tile_count": 300,
+        "tiles": [
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135,
+          4135
+        ]
+      },
+      "width": 20
+    }
+  },
+  "parser": {
+    "encoding": "cp1252",
+    "name": "darkest-journey-lcf",
+    "read_only": true,
+    "version": "0.1.0"
+  },
+  "project": {
+    "directory_name": "Darkest Journey",
+    "map_filename": "Map0001.lmu"
+  },
+  "schema_version": 1
+}

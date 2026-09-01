@@ -2,3 +2,7 @@
 /AGENTS.md
 /AGENTS.addendum.md
 /VERSIONING.md
+
+# Generated Python caches.
+__pycache__/
+*.py[cod]

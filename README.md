@@ -21,7 +21,7 @@ Kein Tool in diesem Arbeitsbereich schreibt in das Originalspiel. Analysebericht
 - `tests/` – kleine reproduzierbare Tests für Parser und Konvertierung
 - `vendor/` – klar getrennte externe Werkzeuge oder Quellen, falls später benötigt
 
-## Erster Meilenstein
+## Erste Meilensteine
 
 `01_inventory/inventory.py` erzeugt ein read-only Inventar des Spiels. Es erfasst unter anderem:
 
@@ -40,3 +40,9 @@ python3 01_inventory/inventory.py \
 ```
 
 Die nächste Ausbaustufe ist ein strukturierter Parser auf Basis von `liblcf`, nicht das riskante direkte Umschreiben der Binärdateien.
+
+Der erste Parser-Meilenstein ist nun vorhanden: `02_parsing/parse_project.py`
+liest `RPG_RT.lmt` und eine ausgewählte `Map*.lmu` read-only und exportiert
+Map-Metadaten, Layer, Events und Event-Kommandos als JSON. Die Nutzung und
+die bewusst noch offenen Teilbereiche sind in
+`02_parsing/README.md` beschrieben.
