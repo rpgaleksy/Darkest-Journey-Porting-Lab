@@ -9,5 +9,6 @@ python3 -m unittest discover -s tests -v
 ```
 
 Der Testlauf prüft unter anderem komprimierte Integer, Chunk-Grenzen,
-Windows-1252-Texte, Tile-Layer, Eventbedingungen und ein synthetisches
-`ShowMessage`-Kommando.
+Windows-1252-Texte, little-endian-Festfelder, Tile-Layer, Eventbedingungen,
+ein synthetisches `ShowMessage`-Kommando sowie eine LDB ohne Root-
+Terminator mit Actors, Items, Terms, Systemdaten und Common Event.

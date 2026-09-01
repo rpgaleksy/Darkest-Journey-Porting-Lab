@@ -42,7 +42,7 @@ python3 01_inventory/inventory.py \
 Die nächste Ausbaustufe ist ein strukturierter Parser auf Basis von `liblcf`, nicht das riskante direkte Umschreiben der Binärdateien.
 
 Der erste Parser-Meilenstein ist nun vorhanden: `02_parsing/parse_project.py`
-liest `RPG_RT.lmt` und eine ausgewählte `Map*.lmu` read-only und exportiert
-Map-Metadaten, Layer, Events und Event-Kommandos als JSON. Die Nutzung und
-die bewusst noch offenen Teilbereiche sind in
+liest `RPG_RT.ldb`, `RPG_RT.lmt` und eine ausgewählte `Map*.lmu` read-only und
+exportiert Datenbankeinträge, Map-Metadaten, Layer, Events und Event-Kommandos
+als JSON. Die Nutzung und die bewusst noch offenen Teilbereiche sind in
 `02_parsing/README.md` beschrieben.

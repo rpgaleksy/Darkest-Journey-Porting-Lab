@@ -43,6 +43,12 @@ def lcf_file(header, body):
 
 
 class LcfReaderTests(unittest.TestCase):
+    def test_fixed_width_values_are_little_endian(self):
+        reader = LcfReader(bytes.fromhex("34 12 fe ff 78 56 34 12"))
+        self.assertEqual(reader.read_fixed_uint16(), 0x1234)
+        self.assertEqual(reader.read_fixed_int16(), -2)
+        self.assertEqual(reader.read_fixed_uint32(), 0x12345678)
+
     def test_compressed_integer_and_chunk_offsets(self):
         data = lcf_file(
             "LcfTest",
@@ -72,7 +78,7 @@ class SemanticParserTests(unittest.TestCase):
             chunk(0x02, encode_int(3)),
             chunk(0x03, encode_int(1)),
             chunk(0x04, encode_int(1)),
-            chunk(0x33, struct.pack(">4I", 1, 2, 20, 15)),
+            chunk(0x33, struct.pack("<4I", 1, 2, 20, 15)),
         )
         body = (
             encode_int(1)
@@ -135,8 +141,8 @@ class SemanticParserTests(unittest.TestCase):
             chunk(0x01, encode_int(2)),
             chunk(0x02, encode_int(3)),
             chunk(0x03, encode_int(2)),
-            chunk(0x47, struct.pack(">6h", 1, 2, 3, 4, 5, 6)),
-            chunk(0x48, struct.pack(">6h", -1, -2, -3, -4, -5, -6)),
+            chunk(0x47, struct.pack("<6h", 1, 2, 3, 4, 5, 6)),
+            chunk(0x48, struct.pack("<6h", -1, -2, -3, -4, -5, -6)),
             chunk(0x51, events),
             chunk(0x5B, encode_int(7)),
         )

@@ -59,7 +59,8 @@ class LcfReader:
     """Bounds-checked reader for the primitive LCF encodings.
 
     LCF uses a base-128 integer encoding for IDs, lengths and most scalar
-    values.  Fixed-width numeric arrays are stored big-endian in the file.
+    values.  RPG Maker's fixed-width numeric values are stored little-endian
+    on disk; the explicit byte order keeps parsing independent of host CPU.
     """
 
     def __init__(
@@ -134,13 +135,13 @@ class LcfReader:
         )
 
     def read_fixed_int16(self) -> int:
-        return int.from_bytes(self.read_bytes(2), "big", signed=True)
+        return int.from_bytes(self.read_bytes(2), "little", signed=True)
 
     def read_fixed_uint16(self) -> int:
-        return int.from_bytes(self.read_bytes(2), "big", signed=False)
+        return int.from_bytes(self.read_bytes(2), "little", signed=False)
 
     def read_fixed_uint32(self) -> int:
-        return int.from_bytes(self.read_bytes(4), "big", signed=False)
+        return int.from_bytes(self.read_bytes(4), "little", signed=False)
 
     def read_string(self, length: int, *, encoding: str = "cp1252") -> str:
         raw = self.read_bytes(length)

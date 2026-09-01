@@ -73,7 +73,7 @@ def _decode_fixed_array(
     return [
         int.from_bytes(
             chunk.payload[offset:offset + item_bytes],
-            "big",
+            "little",
             signed=signed,
         )
         for offset in range(0, len(chunk.payload), item_bytes)
@@ -86,7 +86,7 @@ def _decode_area_rect(chunk: LcfChunk) -> List[int]:
             f"area_rect must contain four 32-bit values, got {len(chunk.payload)} bytes"
         )
     return [
-        int.from_bytes(chunk.payload[offset:offset + 4], "big", signed=False)
+        int.from_bytes(chunk.payload[offset:offset + 4], "little", signed=False)
         for offset in range(0, 16, 4)
     ]
 
@@ -114,10 +114,15 @@ def _record_error(result: dict, chunk: LcfChunk, field: str, error: Exception) -
     )
 
 
-def _finish_struct(result: dict, read: StructRead) -> None:
+def _finish_struct(
+    result: dict,
+    read: StructRead,
+    *,
+    allow_eof: bool = False,
+) -> None:
     result["present_chunk_ids"] = [chunk.chunk_id for chunk in read.chunks]
     result["struct_terminated"] = read.terminated
-    if not read.terminated:
+    if not read.terminated and not allow_eof:
         result.setdefault("warnings", []).append(
             "struct ended at EOF without a zero terminator"
         )
@@ -137,6 +142,7 @@ def _decode_schema(
     fixed_fields: Optional[Mapping[int, Decoder]] = None,
     nested_fields: Optional[Mapping[int, NestedDecoder]] = None,
     partial_fields: Optional[Mapping[int, str]] = None,
+    allow_eof: bool = False,
 ) -> Tuple[dict, StructRead]:
     """Decode a chunked struct while preserving fields outside the schema."""
 
@@ -178,7 +184,7 @@ def _decode_schema(
             )
         result[field_name] = value
 
-    _finish_struct(result, read)
+    _finish_struct(result, read, allow_eof=allow_eof)
     return result, read
 
 
@@ -702,7 +708,11 @@ def parse_project(
     map_filename: str = "Map0001.lmu",
     encoding: str = DEFAULT_ENCODING,
 ) -> dict:
-    """Parse the map tree and one selected map from an RPG Maker project."""
+    """Parse the database, map tree and one selected map read-only."""
+
+    # Imported lazily because database_parser reuses this module's generic
+    # schema and event-command helpers.
+    from database_parser import parse_ldb
 
     project_path = Path(project_dir)
     if not project_path.is_dir():
@@ -711,17 +721,19 @@ def parse_project(
     lmt_path = project_path / "RPG_RT.lmt"
     lmu_path = project_path / map_filename
     report = {
-        "schema_version": 1,
+        "schema_version": 2,
         "parser": {
             "name": "darkest-journey-lcf",
-            "version": "0.1.0",
+            "version": "0.2.0",
             "read_only": True,
             "encoding": encoding,
         },
         "project": {
             "directory_name": project_path.name,
+            "database_filename": "RPG_RT.ldb",
             "map_filename": map_filename,
         },
+        "ldb": parse_ldb(project_path / "RPG_RT.ldb", encoding=encoding),
         "lmt": parse_lmt(lmt_path, encoding=encoding),
         "lmu": parse_lmu(lmu_path, encoding=encoding),
     }

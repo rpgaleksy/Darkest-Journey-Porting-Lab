@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Command-line entry point for the read-only LCF project parser."""
+"""Command-line entry point for a read-only ``RPG_RT.ldb`` export."""
 
 from __future__ import annotations
 
@@ -8,27 +8,22 @@ import json
 from pathlib import Path
 from typing import Optional, Sequence
 
+from database_parser import parse_ldb
 from lcf_reader import LcfParseError
-from project_parser import DEFAULT_ENCODING, parse_project
+from project_parser import DEFAULT_ENCODING
 
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         description=(
-            "Parse RPG Maker 2000/2003 RPG_RT.ldb, RPG_RT.lmt and one "
-            "Map*.lmu without changing the source project."
+            "Parse an RPG Maker 2000/2003 RPG_RT.ldb without changing "
+            "the source project."
         )
     )
     parser.add_argument(
-        "project_dir",
+        "database",
         type=Path,
-        help="path to the read-only RPG Maker project directory",
-    )
-    parser.add_argument(
-        "--map",
-        dest="map_filename",
-        default="Map0001.lmu",
-        help="map file to include (default: Map0001.lmu)",
+        help="path to RPG_RT.ldb",
     )
     parser.add_argument(
         "--encoding",
@@ -48,11 +43,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     args = parser.parse_args(argv)
 
     try:
-        report = parse_project(
-            args.project_dir,
-            map_filename=args.map_filename,
-            encoding=args.encoding,
-        )
+        report = parse_ldb(args.database, encoding=args.encoding)
     except (OSError, LcfParseError, ValueError) as error:
         parser.error(str(error))
         return 2
