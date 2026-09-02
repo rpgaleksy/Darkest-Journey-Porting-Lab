@@ -1,0 +1,21 @@
+{
+  "profiles": [
+    {
+      "name": "zero-state",
+      "lightmap": true,
+      "switches": {},
+      "variables": {}
+    },
+    {
+      "name": "map0041-lightmap",
+      "maps": [
+        "Map0041.lmu"
+      ],
+      "lightmap": true,
+      "switches": {},
+      "variables": {
+        "56": 1
+      }
+    }
+  ]
+}

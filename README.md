@@ -62,3 +62,6 @@ begrenzte Renderer-Semantik und ein reproduzierbarer Aufruf sind in
 auf `Map0041` kann die optionale `--lightmap`-Ebene zugeschaltet werden.
 Switches und Variablen lassen sich als expliziter Vorschauzustand übergeben;
 der Renderer wählt daraus die aktive Eventseite nach RPG-Maker-2003-Priorität.
+Für reproduzierbare Vergleichsläufe über mehrere Karten gibt es zusätzlich
+`03_rendering/render_batch.py` mit zustandsdefinierten Profilen und einer
+lokalen HTML-Galerie.

@@ -1,4 +1,5 @@
 import binascii
+import json
 import struct
 import sys
 import tempfile
@@ -19,6 +20,7 @@ from map_renderer import (
     select_event_page,
     write_png,
 )
+from render_batch import load_profiles, run_batch, select_representative_maps
 
 
 def encode_int(value):
@@ -375,6 +377,84 @@ class MapRendererTests(unittest.TestCase):
         self.assertIsNone(page)
         self.assertEqual(decision["status"], "ambiguous")
         self.assertEqual(decision["candidate_page_index"], 0)
+
+    def test_batch_profiles_render_manifests_and_gallery(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            project = root / "project"
+            output = root / "batch"
+            project.mkdir()
+            make_fixture_project(project)
+            profile_path = root / "profiles.json"
+            profile_path.write_text(
+                json.dumps(
+                    {
+                        "profiles": [
+                            {"name": "zero-state"},
+                            {
+                                "name": "conditional",
+                                "lightmap": True,
+                                "variables": {"7": 1},
+                            },
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+            profiles = load_profiles(profile_path)
+            batch = run_batch(
+                project,
+                output,
+                profiles,
+                map_filenames=["Map0001.lmu"],
+                scale=1,
+            )
+
+            self.assertEqual(batch["selection"]["mode"], "explicit")
+            self.assertEqual(batch["summary"]["renders_expected"], 2)
+            self.assertEqual(batch["summary"]["rendered"], 2)
+            self.assertEqual(batch["summary"]["errors"], 0)
+            self.assertTrue((output / "Map0001--zero-state.png").is_file())
+            self.assertTrue((output / "Map0001--conditional.png").is_file())
+            self.assertTrue((output / "batch-manifest.json").is_file())
+            self.assertTrue((output / "index.html").is_file())
+            with self.assertRaises(ValueError):
+                run_batch(
+                    project,
+                    project / "forbidden-output",
+                    profiles[:1],
+                    map_filenames=["Map0001.lmu"],
+                    scale=1,
+                )
+
+    def test_representative_selection_records_coverage_reasons(self):
+        metrics = [
+            {
+                "map_filename": "Map0001.lmu",
+                "area": 100,
+                "events": 1,
+                "conditional_pages": 0,
+                "show_picture_commands": 0,
+                "lightmap_commands": 0,
+                "height": 10,
+            },
+            {
+                "map_filename": "Map0002.lmu",
+                "area": 200,
+                "events": 9,
+                "conditional_pages": 4,
+                "show_picture_commands": 3,
+                "lightmap_commands": 1,
+                "height": 20,
+            },
+        ]
+
+        selected, criteria, reasons = select_representative_maps(metrics, count=2)
+
+        self.assertEqual(selected, ["Map0001.lmu", "Map0002.lmu"])
+        self.assertTrue(any(item["criterion"] == "entry_map" for item in criteria))
+        self.assertIn("entry_map", reasons["Map0001.lmu"])
+        self.assertIn("largest_area", reasons["Map0002.lmu"])
 
 
 if __name__ == "__main__":

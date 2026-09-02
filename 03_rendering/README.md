@@ -82,6 +82,41 @@ der öffentlichen EasyRPG-Referenz ausgerichtet:
 - [EasyRPG `game_interpreter.cpp`](https://raw.githubusercontent.com/EasyRPG/Player/master/src/game_interpreter.cpp)
 - [EasyRPG `sprite_picture.cpp`](https://raw.githubusercontent.com/EasyRPG/Player/master/src/sprite_picture.cpp)
 
+## Reproduzierbarer Vorschau-Batch
+
+`render_batch.py` wählt standardmäßig sieben repräsentative Maps nach
+reproduzierbaren Kriterien aus: Einstiegskarte, größte Fläche, höchste
+Eventdichte, höchste Dichte bedingter Seiten, die meisten Picture-Commands,
+eine Lightmap-Karte und die höchste Karte. Doppelte Treffer werden nur einmal
+gerendert. Mit `--map` können Karten explizit angegeben werden, `--all-maps`
+rendert dagegen jede parsebare Map.
+
+Benannte Zustände liegen in einer kleinen JSON-Profildatei. Ein Profil kann
+Switches und Variablen überschreiben, die Lightmap-Ebene aktivieren und sich
+optional auf bestimmte Maps beschränken. Das Repository enthält das erste
+projektspezifische Beispiel in `03_rendering/representative_profiles.json`:
+
+```text
+PYTHONDONTWRITEBYTECODE=1 python3 03_rendering/render_batch.py \
+  "/Users/aleksl/Library/CloudStorage/Dropbox/CODING PRODUCTION/ChatGPT Codex Experiments/Darkest Journey" \
+  --profile-file 03_rendering/representative_profiles.json \
+  --scale 2 \
+  --out-dir /private/tmp/darkest-journey-preview-batch
+```
+
+Der Lauf schreibt pro Map/Profil-Kombination eine PNG- und eine JSON-Datei,
+`batch-manifest.json` mit Auswahlmetriken und Zusammenfassung sowie eine
+lokale `index.html`-Galerie. Die Ausgabe muss außerhalb des Originalprojekts
+liegen. Das Profil `map0041-lightmap` setzt Variable 56 nur für
+`Map0041.lmu` auf 1; der bekannte Lightmap-Zustand bleibt damit explizit und
+wird nicht stillschweigend auf fremde Maps angewendet.
+
+Wenn eine ausgewählte Map kein auflösbares Chipset besitzt oder ein anderes
+Renderer-Problem auftritt, bleibt der Batch-Lauf bei den übrigen Karten und
+trägt den Fehler als `status: "error"` im Gesamtmanifest und in der Galerie
+ein. Dadurch gehen Diagnosefälle nicht verloren und werden nicht als gültige
+Vorschau ausgegeben.
+
 ## Bewusste Grenzen des ersten Prototyps
 
 Die Vorschau ist eine Diagnoseansicht und kein Ersatz für die Laufzeit. Noch
