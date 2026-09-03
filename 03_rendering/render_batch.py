@@ -20,7 +20,7 @@ if str(PARSER_DIR) not in sys.path:
 
 from lcf_reader import LcfParseError
 from map_renderer import EventState, render_map, write_png
-from project_parser import parse_lmu
+from project_parser import parse_lmt, parse_lmu
 
 
 MAP_FILENAME_PATTERN = re.compile(r"Map\d{4}\.lmu", re.IGNORECASE)
@@ -237,6 +237,8 @@ def _best_metric(metrics: Sequence[Mapping[str, object]], field_name: str) -> Op
 def select_representative_maps(
     metrics: Sequence[Mapping[str, object]],
     count: int = DEFAULT_REPRESENTATIVE_COUNT,
+    *,
+    start_map_filename: Optional[str] = None,
 ) -> Tuple[List[str], List[dict], Mapping[str, List[str]]]:
     """Select maps by stable coverage criteria rather than map-number order."""
 
@@ -268,7 +270,8 @@ def select_representative_maps(
             }
         )
 
-    consider("entry_map", by_name.get("Map0001.lmu"))
+    if start_map_filename is not None:
+        consider("start_map", by_name.get(start_map_filename))
     consider("largest_area", _best_metric(ordered_metrics, "area"))
     consider("most_events", _best_metric(ordered_metrics, "events"))
     consider("most_conditional_pages", _best_metric(ordered_metrics, "conditional_pages"))
@@ -311,6 +314,7 @@ def _resolve_map_selection(
     map_filenames: Optional[Sequence[str]],
     all_maps: bool,
     representative_count: int,
+    start_map_filename: Optional[str],
 ) -> Tuple[List[str], dict]:
     available = {
         str(item["map_filename"]): dict(item)
@@ -347,7 +351,9 @@ def _resolve_map_selection(
         }
 
     selected, criteria, reasons = select_representative_maps(
-        list(available.values()), representative_count
+        list(available.values()),
+        representative_count,
+        start_map_filename=start_map_filename,
     )
     selected_metrics = []
     for name in selected:
@@ -360,6 +366,16 @@ def _resolve_map_selection(
         "criteria": criteria,
         "maps": selected_metrics,
     }
+
+
+def _project_start_map_filename(project_path: Path) -> Optional[str]:
+    start = parse_lmt(project_path / "RPG_RT.lmt").get("start", {})
+    if not isinstance(start, Mapping):
+        return None
+    map_id = start.get("party_map_id")
+    if not isinstance(map_id, int) or map_id < 1:
+        return None
+    return f"Map{map_id:04d}.lmu"
 
 
 def _profile_manifest(profile: PreviewProfile) -> dict:
@@ -522,11 +538,20 @@ def run_batch(
         raise ValueError("profile names must produce unique output filenames")
 
     metrics, discovery_errors = collect_map_metrics(project_path)
+    start_map_filename = None
+    if not map_filenames and not all_maps:
+        try:
+            start_map_filename = _project_start_map_filename(project_path)
+        except (OSError, LcfParseError, ValueError) as error:
+            discovery_errors.append(
+                {"source": "RPG_RT.lmt", "message": str(error)}
+            )
     selected_maps, selection = _resolve_map_selection(
         metrics,
         map_filenames=map_filenames,
         all_maps=all_maps,
         representative_count=representative_count,
+        start_map_filename=start_map_filename,
     )
     output_path.mkdir(parents=True, exist_ok=True)
     render_entries = []

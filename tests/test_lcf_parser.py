@@ -171,3 +171,19 @@ class SemanticParserTests(unittest.TestCase):
         self.assertEqual(command["code_name"], "ShowMessage")
         self.assertEqual(command["string"], "Hello")
         self.assertTrue(page["event_commands"]["terminated"])
+
+    def test_lmu_uses_rpg_maker_default_chipset_when_field_is_absent(self):
+        body = struct_payload(
+            chunk(0x02, encode_int(1)),
+            chunk(0x03, encode_int(1)),
+            chunk(0x47, struct.pack("<h", 0)),
+            chunk(0x48, struct.pack("<h", 10000)),
+        )
+
+        with tempfile.TemporaryDirectory() as temp_dir:
+            path = Path(temp_dir) / "Map0002.lmu"
+            path.write_bytes(lcf_file("LcfMapUnit", body))
+            parsed = parse_lmu(path)
+
+        self.assertEqual(parsed["map"]["chipset_id"], 1)
+        self.assertEqual(parsed["map"]["field_defaults_used"], ["chipset_id"])

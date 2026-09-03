@@ -28,6 +28,16 @@ Autotile-Quadranten sind an der öffentlichen EasyRPG-Referenz ausgerichtet:
 - [EasyRPG `map_data.h`](https://raw.githubusercontent.com/EasyRPG/Player/master/src/map_data.h)
 - [EasyRPG `tilemap_layer.cpp`](https://raw.githubusercontent.com/EasyRPG/Player/master/src/tilemap_layer.cpp)
 
+Fehlt das Chipset-Feld in einer LMU, verwendet der Parser wie `liblcf` den
+RPG-Maker-Standardwert 1 und protokolliert diesen Default im Manifest. Ein
+vorhandener Datenbankeintrag ohne Bildnamen ist dagegen ein gültiges leeres
+Chipset: Analog zu EasyRPG wird dafür ein transparentes 480×256-Raster erzeugt.
+Damit bleiben absichtlich schwarze Steuerungs- und Übergangs-Maps renderbar,
+ohne eine nicht vorhandene Ressourcendatei zu erfinden.
+
+- [liblcf `rpg::Map`](https://github.com/EasyRPG/liblcf/blob/master/src/generated/lcf/rpg/map.h)
+- [EasyRPG `spriteset_map.cpp`](https://raw.githubusercontent.com/EasyRPG/Player/master/src/spriteset_map.cpp)
+
 Zusätzlich wählt der Renderer pro Map-Event die höchstrangige Seite aus, deren
 Switch- und Variablenbedingungen im angegebenen Vorschauzustand erfüllt sind.
 Nur das Charset dieser aktiven Seite wird als statisches Sprite eingeblendet.
@@ -85,11 +95,11 @@ der öffentlichen EasyRPG-Referenz ausgerichtet:
 ## Reproduzierbarer Vorschau-Batch
 
 `render_batch.py` wählt standardmäßig sieben repräsentative Maps nach
-reproduzierbaren Kriterien aus: Einstiegskarte, größte Fläche, höchste
-Eventdichte, höchste Dichte bedingter Seiten, die meisten Picture-Commands,
-eine Lightmap-Karte und die höchste Karte. Doppelte Treffer werden nur einmal
-gerendert. Mit `--map` können Karten explizit angegeben werden, `--all-maps`
-rendert dagegen jede parsebare Map.
+reproduzierbaren Kriterien aus: die in `RPG_RT.lmt` hinterlegte Startkarte,
+größte Fläche, höchste Eventdichte, höchste Dichte bedingter Seiten, die
+meisten Picture-Commands, eine Lightmap-Karte und die höchste Karte. Doppelte
+Treffer werden nur einmal gerendert. Mit `--map` können Karten explizit
+angegeben werden, `--all-maps` rendert dagegen jede parsebare Map.
 
 Benannte Zustände liegen in einer kleinen JSON-Profildatei. Ein Profil kann
 Switches und Variablen überschreiben, die Lightmap-Ebene aktivieren und sich

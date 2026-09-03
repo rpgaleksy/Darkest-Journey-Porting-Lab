@@ -1071,33 +1071,49 @@ def render_map(
     preview_state = _normalize_event_state(event_state)
     event_page_selections = _event_page_selections(map_data, preview_state)
 
-    chipset_names = {
-        record["id"]: record.get("chipset_name")
+    chipset_records = {
+        record["id"]: record
         for record in database.get("chipsets", {}).get("records", [])
         if isinstance(record, Mapping) and isinstance(record.get("id"), int)
     }
     chipset_id = map_data.get("chipset_id")
-    chipset_name = chipset_names.get(chipset_id)
-    chipset_path, chipset_descriptor, chipset_matches = _resolve_asset(
-        indexes,
-        "chipset",
-        chipset_name,
-    )
-    if chipset_path is None or chipset_descriptor is None:
+    chipset_record = chipset_records.get(chipset_id)
+    if chipset_record is None:
         raise ValueError(
-            f"could not resolve chipset for map {map_filename}: "
-            f"id={chipset_id!r}, name={chipset_name!r}"
+            f"map {map_filename} references unknown chipset id {chipset_id!r}"
         )
-    if chipset_matches > 1:
-        raise ValueError(
-            f"chipset reference {chipset_name!r} is ambiguous in "
-            f"{chipset_descriptor['root']}"
+    chipset_name = chipset_record.get("chipset_name")
+    if isinstance(chipset_name, str) and chipset_name.strip():
+        chipset_path, chipset_descriptor, chipset_matches = _resolve_asset(
+            indexes,
+            "chipset",
+            chipset_name,
         )
-    chipset = read_png(chipset_path)
-    if chipset.width < 480 or chipset.height < 256:
+        if chipset_path is None or chipset_descriptor is None:
+            raise ValueError(
+                f"could not resolve chipset for map {map_filename}: "
+                f"id={chipset_id!r}, name={chipset_name!r}"
+            )
+        if chipset_matches > 1:
+            raise ValueError(
+                f"chipset reference {chipset_name!r} is ambiguous in "
+                f"{chipset_descriptor['root']}"
+            )
+        chipset = read_png(chipset_path)
+        if chipset.width < 480 or chipset.height < 256:
+            raise ValueError(
+                f"chipset image is smaller than the standard 480x256 raster: "
+                f"{chipset_path} ({chipset.width}x{chipset.height})"
+            )
+        chipset_mode = "image"
+    elif chipset_name in (None, ""):
+        chipset_path = None
+        chipset_descriptor = {"root": None, "path": None}
+        chipset = RgbaImage.blank(480, 256)
+        chipset_mode = "generated_empty"
+    else:
         raise ValueError(
-            f"chipset image is smaller than the standard 480x256 raster: "
-            f"{chipset_path} ({chipset.width}x{chipset.height})"
+            f"chipset {chipset_id!r} has an invalid image name: {chipset_name!r}"
         )
 
     dimensions = map_data.get("dimensions", {})
@@ -1108,7 +1124,12 @@ def render_map(
     if not isinstance(width, int) or not isinstance(height, int) or width < 1 or height < 1:
         raise ValueError(f"map {map_filename} has invalid dimensions: {dimensions!r}")
 
-    canvas = RgbaImage.blank(width * TILE_SIZE, height * TILE_SIZE, (16, 18, 25, 255))
+    canvas_background = (
+        (0, 0, 0, 255)
+        if chipset_mode == "generated_empty"
+        else (16, 18, 25, 255)
+    )
+    canvas = RgbaImage.blank(width * TILE_SIZE, height * TILE_SIZE, canvas_background)
     tile_statistics = {
         "total_tiles": width * height * 2,
         "by_block": Counter(),
@@ -1378,6 +1399,8 @@ def render_map(
             "chipset": {
                 "id": chipset_id,
                 "name": chipset_name,
+                "database_name": chipset_record.get("name"),
+                "mode": chipset_mode,
                 "root": chipset_descriptor["root"],
                 "path": chipset_descriptor["path"],
             },
@@ -1392,6 +1415,7 @@ def render_map(
             "width": width,
             "height": height,
             "dimensions_defaults_used": dimensions.get("defaults_used", []),
+            "field_defaults_used": map_data.get("field_defaults_used", []),
         },
         "event_state": {
             "semantics": "RPG Maker 2003 event page snapshot",

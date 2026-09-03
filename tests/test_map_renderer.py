@@ -20,7 +20,12 @@ from map_renderer import (
     select_event_page,
     write_png,
 )
-from render_batch import load_profiles, run_batch, select_representative_maps
+from render_batch import (
+    PreviewProfile,
+    load_profiles,
+    run_batch,
+    select_representative_maps,
+)
 
 
 def encode_int(value):
@@ -181,6 +186,16 @@ def make_fixture_project(root):
         chunk(0x51, events),
     )
     (root / "Map0001.lmu").write_bytes(lcf_file("LcfMapUnit", map_body))
+    map_tree_body = (
+        encode_int(1)
+        + encode_int(1)
+        + struct_payload(chunk(0x01, b"Start"))
+        + encode_int(1)
+        + encode_int(1)
+        + encode_int(0)
+        + struct_payload(chunk(0x01, encode_int(1)))
+    )
+    (root / "RPG_RT.lmt").write_bytes(lcf_file("LcfMapTree", map_tree_body))
 
 
 class MapRendererTests(unittest.TestCase):
@@ -322,6 +337,46 @@ class MapRendererTests(unittest.TestCase):
         self.assertIsNone(zero_id_page)
         self.assertEqual(zero_id_decision["status"], "no_active_page")
 
+    def test_render_map_supports_database_chipset_without_image_name(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            make_fixture_project(project)
+            named_chipset = struct_payload(
+                chunk(0x01, b"Tiles"),
+                chunk(0x02, b"Tiles"),
+            )
+            empty_chipset = struct_payload(chunk(0x01, b"Empty"))
+            database_body = chunk(
+                0x14,
+                encode_int(2)
+                + encode_int(1)
+                + named_chipset
+                + encode_int(2)
+                + empty_chipset,
+            )
+            (project / "RPG_RT.ldb").write_bytes(
+                lcf_file("LcfDataBase", database_body)
+            )
+            map_body = struct_payload(
+                chunk(0x01, encode_int(2)),
+                chunk(0x02, encode_int(1)),
+                chunk(0x03, encode_int(1)),
+                chunk(0x47, struct.pack("<h", 0)),
+                chunk(0x48, struct.pack("<h", 10000)),
+            )
+            (project / "Map0002.lmu").write_bytes(
+                lcf_file("LcfMapUnit", map_body)
+            )
+
+            image, manifest = render_map(project, "Map0002.lmu", scale=1)
+
+        self.assertEqual(image.pixel(0, 0), (0, 0, 0, 255))
+        self.assertEqual(manifest["source"]["chipset"]["database_name"], "Empty")
+        self.assertEqual(manifest["source"]["chipset"]["mode"], "generated_empty")
+        self.assertIsNone(manifest["source"]["chipset"]["path"])
+        self.assertEqual(manifest["tiles"]["rendered_tiles"], 2)
+        self.assertEqual(manifest["tiles"]["unsupported_tiles"], 0)
+
     def test_event_page_selection_supports_2k3_variable_operators(self):
         cases = (
             (0, 5, 5, True),
@@ -449,12 +504,35 @@ class MapRendererTests(unittest.TestCase):
             },
         ]
 
-        selected, criteria, reasons = select_representative_maps(metrics, count=2)
+        selected, criteria, reasons = select_representative_maps(
+            metrics,
+            count=2,
+            start_map_filename="Map0002.lmu",
+        )
 
-        self.assertEqual(selected, ["Map0001.lmu", "Map0002.lmu"])
-        self.assertTrue(any(item["criterion"] == "entry_map" for item in criteria))
-        self.assertIn("entry_map", reasons["Map0001.lmu"])
+        self.assertEqual(selected, ["Map0002.lmu", "Map0001.lmu"])
+        self.assertTrue(any(item["criterion"] == "start_map" for item in criteria))
+        self.assertIn("start_map", reasons["Map0002.lmu"])
         self.assertIn("largest_area", reasons["Map0002.lmu"])
+
+    def test_batch_reads_representative_start_map_from_map_tree(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            project = root / "project"
+            output = root / "batch"
+            project.mkdir()
+            make_fixture_project(project)
+
+            batch = run_batch(
+                project,
+                output,
+                (PreviewProfile(name="zero-state"),),
+                representative_count=1,
+                scale=1,
+            )
+
+        self.assertEqual(batch["selection"]["maps"][0]["map_filename"], "Map0001.lmu")
+        self.assertIn("start_map", batch["selection"]["maps"][0]["selected_by"])
 
 
 if __name__ == "__main__":

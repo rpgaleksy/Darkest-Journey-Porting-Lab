@@ -16,6 +16,7 @@ from lcf_reader import LcfChunk, LcfParseError, LcfReader, StructRead, read_stru
 
 
 DEFAULT_ENCODING = "cp1252"
+DEFAULT_MAP_CHIPSET_ID = 1
 DEFAULT_MAP_WIDTH = 20
 DEFAULT_MAP_HEIGHT = 15
 MAX_VECTOR_ITEMS = 1_000_000
@@ -673,6 +674,12 @@ def _parse_lmu(path: Path, encoding: str) -> dict:
         },
         nested_fields={0x51: _parse_event_vector},
     )
+
+    defaulted_fields = []
+    if "chipset_id" not in result:
+        result["chipset_id"] = DEFAULT_MAP_CHIPSET_ID
+        defaulted_fields.append("chipset_id")
+    result["field_defaults_used"] = defaulted_fields
 
     width = result.get("width", DEFAULT_MAP_WIDTH)
     height = result.get("height", DEFAULT_MAP_HEIGHT)
