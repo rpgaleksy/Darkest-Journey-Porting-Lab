@@ -44,6 +44,12 @@ Nur das Charset dieser aktiven Seite wird als statisches Sprite eingeblendet.
 Die Manifestdatei hält Auflösung, Tile-Statistik, Zustandswerte, jede geprüfte
 Seitenauswahl, Sprite-Auflösung und bekannte Grenzen fest.
 
+Ein in der Map gespeichertes Panorama wird als initialer Hintergrund hinter den
+Tile-Layern eingeblendet. Die Vorschau übernimmt dabei die gespeicherten
+Horizontal-/Vertikal-Schleifen; sie simuliert weder automatische Laufzeit-
+Bewegung noch `Change Parallax BG`-Befehle. In `Darkest Journey` betrifft das
+aktuell `Map0059` (`bloody`) und `Map0067` (`abfahrt`).
+
 Nicht ausdrücklich gesetzte Switches gelten als `off`, nicht gesetzte
 Variablen als `0`. Abweichende Werte können wiederholt angegeben werden; bei
 doppelten IDs gilt der letzte Wert:

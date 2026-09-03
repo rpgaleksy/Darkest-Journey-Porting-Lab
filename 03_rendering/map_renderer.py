@@ -1031,6 +1031,30 @@ def _unsupported_tile(
     return tile
 
 
+def _draw_panorama(
+    canvas: RgbaImage,
+    panorama: RgbaImage,
+    *,
+    loop_x: bool,
+    loop_y: bool,
+) -> None:
+    """Draw a map panorama as a Plane-like background at its initial offset."""
+
+    x_positions = range(0, canvas.width, panorama.width) if loop_x else (0,)
+    y_positions = range(0, canvas.height, panorama.height) if loop_y else (0,)
+    for destination_y in y_positions:
+        for destination_x in x_positions:
+            canvas.blit(
+                panorama,
+                0,
+                0,
+                panorama.width,
+                panorama.height,
+                destination_x,
+                destination_y,
+            )
+
+
 def render_map(
     project_dir: Path | str,
     map_filename: str = "Map0001.lmu",
@@ -1124,12 +1148,68 @@ def render_map(
     if not isinstance(width, int) or not isinstance(height, int) or width < 1 or height < 1:
         raise ValueError(f"map {map_filename} has invalid dimensions: {dimensions!r}")
 
+    parallax_name = map_data.get("parallax_name")
+    parallax_flag = bool(map_data.get("parallax_flag", False))
+    panorama_statistics = {
+        "enabled": parallax_flag and isinstance(parallax_name, str) and bool(parallax_name.strip()),
+        "name": parallax_name if isinstance(parallax_name, str) else None,
+        "mode": "none",
+        "loop_x": bool(map_data.get("parallax_loop_x", False)),
+        "loop_y": bool(map_data.get("parallax_loop_y", False)),
+        "auto_loop_x": bool(map_data.get("parallax_auto_loop_x", False)),
+        "auto_loop_y": bool(map_data.get("parallax_auto_loop_y", False)),
+        "auto_speed_x": map_data.get("parallax_sx"),
+        "auto_speed_y": map_data.get("parallax_sy"),
+        "missing": False,
+        "invalid": None,
+    }
     canvas_background = (
         (0, 0, 0, 255)
         if chipset_mode == "generated_empty"
         else (16, 18, 25, 255)
     )
     canvas = RgbaImage.blank(width * TILE_SIZE, height * TILE_SIZE, canvas_background)
+    if panorama_statistics["enabled"]:
+        panorama_path, panorama_descriptor, panorama_matches = _resolve_asset(
+            indexes,
+            "panorama",
+            parallax_name,
+        )
+        if panorama_path is None or panorama_descriptor is None:
+            panorama_statistics["mode"] = "missing"
+            panorama_statistics["missing"] = True
+        elif panorama_matches > 1:
+            panorama_statistics["mode"] = "ambiguous"
+            panorama_statistics["missing"] = True
+        else:
+            try:
+                panorama = read_png(
+                    panorama_path,
+                    transparent_index_zero=False,
+                )
+            except (OSError, PngError) as error:
+                panorama_statistics["mode"] = "invalid"
+                panorama_statistics["invalid"] = str(error)
+            else:
+                _draw_panorama(
+                    canvas,
+                    panorama,
+                    loop_x=panorama_statistics["loop_x"],
+                    loop_y=panorama_statistics["loop_y"],
+                )
+                panorama_statistics.update(
+                    {
+                        "mode": "image",
+                        "width": panorama.width,
+                        "height": panorama.height,
+                        "root": panorama_descriptor["root"],
+                        "path": panorama_descriptor["path"],
+                    }
+                )
+    if panorama_statistics["mode"] != "image":
+        panorama_statistics.setdefault("root", None)
+        panorama_statistics.setdefault("path", None)
+
     tile_statistics = {
         "total_tiles": width * height * 2,
         "by_block": Counter(),
@@ -1404,6 +1484,7 @@ def render_map(
                 "root": chipset_descriptor["root"],
                 "path": chipset_descriptor["path"],
             },
+            "panorama": panorama_statistics,
         },
         "output": {
             "width": output_image.width,
@@ -1441,6 +1522,7 @@ def render_map(
             "event page selection uses an explicit preview state rather than a live save",
             "item, actor, timer, and unknown event page conditions are not evaluated",
             "passability-based event z-order is not evaluated",
+            "Change Parallax BG commands and runtime panorama scrolling are not evaluated",
             "lightmap selection does not execute picture replacement order",
             "picture tones, effects, and variable coordinates are not evaluated",
         ],

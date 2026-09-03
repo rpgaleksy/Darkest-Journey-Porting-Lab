@@ -91,6 +91,7 @@ def indexed_png(width, height, palette, rectangles=()):
 def make_fixture_project(root):
     (root / "ChipSet").mkdir()
     (root / "CharSet").mkdir()
+    (root / "Panorama").mkdir()
     (root / "Picture").mkdir()
 
     palette = [
@@ -119,6 +120,9 @@ def make_fixture_project(root):
     )
     (root / "Picture" / "Lightmap.png").write_bytes(
         indexed_png(4, 4, palette)
+    )
+    (root / "Panorama" / "Backdrop.png").write_bytes(
+        indexed_png(16, 16, palette, ((0, 0, 16, 16, 3),))
     )
 
     chipset_record = struct_payload(
@@ -376,6 +380,35 @@ class MapRendererTests(unittest.TestCase):
         self.assertIsNone(manifest["source"]["chipset"]["path"])
         self.assertEqual(manifest["tiles"]["rendered_tiles"], 2)
         self.assertEqual(manifest["tiles"]["unsupported_tiles"], 0)
+
+    def test_render_map_draws_initial_map_panorama_behind_tiles(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            make_fixture_project(project)
+            map_body = struct_payload(
+                chunk(0x01, encode_int(1)),
+                chunk(0x02, encode_int(1)),
+                chunk(0x03, encode_int(2)),
+                chunk(0x1F, encode_int(1)),
+                chunk(0x20, b"Backdrop"),
+                chunk(0x22, encode_int(1)),
+                chunk(0x47, struct.pack("<2h", 0, 0)),
+                chunk(0x48, struct.pack("<2h", 10000, 10000)),
+            )
+            (project / "Map0002.lmu").write_bytes(
+                lcf_file("LcfMapUnit", map_body)
+            )
+
+            image, manifest = render_map(project, "Map0002.lmu", scale=1)
+
+        self.assertEqual((image.width, image.height), (16, 32))
+        self.assertEqual(image.pixel(0, 0), (40, 80, 220, 255))
+        self.assertEqual(image.pixel(0, 16), (40, 80, 220, 255))
+        self.assertEqual(manifest["source"]["panorama"]["name"], "Backdrop")
+        self.assertEqual(manifest["source"]["panorama"]["mode"], "image")
+        self.assertEqual(manifest["source"]["panorama"]["path"], "Panorama/Backdrop.png")
+        self.assertEqual(manifest["source"]["panorama"]["width"], 16)
+        self.assertEqual(manifest["source"]["panorama"]["height"], 16)
 
     def test_event_page_selection_supports_2k3_variable_operators(self):
         cases = (
