@@ -6,3 +6,4 @@
 # Generated Python caches.
 __pycache__/
 *.py[cod]
+.DS_Store
