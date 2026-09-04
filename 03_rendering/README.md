@@ -98,6 +98,12 @@ der öffentlichen EasyRPG-Referenz ausgerichtet:
 - [EasyRPG `game_interpreter.cpp`](https://raw.githubusercontent.com/EasyRPG/Player/master/src/game_interpreter.cpp)
 - [EasyRPG `sprite_picture.cpp`](https://raw.githubusercontent.com/EasyRPG/Player/master/src/sprite_picture.cpp)
 
+Die projektweite Analyse zeigt, dass allgemeine Pictures als globaler
+Laufzeitzustand nach Bild-ID behandelt werden müssen und nicht als Sammlung
+statischer Map-Ebenen. Das daraus abgeleitete Register- und Trace-Modell ist in
+[Picture-Zustand in Darkest Journey](../04_compatibility/picture-state.md)
+festgehalten.
+
 ## Reproduzierbarer Vorschau-Batch
 
 `render_batch.py` wählt standardmäßig sieben repräsentative Maps nach
@@ -141,8 +147,9 @@ nicht ausgewertet werden:
 - Laufzeit-Tile-Substitutionsbefehle
 - Passierbarkeitsbasierte Ebenen-/Z-Reihenfolge
 - animierte Autotile-Frames; verwendet wird deterministisch Frame 0
-- übrige Pictures außerhalb von `--lightmap`, Panoramen, Bildschirm-Tönungen
-  und der übrige Laufzeitzustand
+- übrige Pictures außerhalb von `--lightmap`, dynamische
+  `Change Parallax BG`-Befehle, Bildschirm-Tönungen und der übrige
+  Laufzeitzustand
 - Item-, Actor-, Timer- und unbekannte Eventseitenbedingungen; sie kommen in
   den aktuellen `Darkest Journey`-Maps nicht vor und werden als mehrdeutig
   protokolliert, falls sie später auftauchen

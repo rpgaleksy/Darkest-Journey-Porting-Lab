@@ -65,3 +65,9 @@ der Renderer wählt daraus die aktive Eventseite nach RPG-Maker-2003-Priorität.
 Für reproduzierbare Vergleichsläufe über mehrere Karten gibt es zusätzlich
 `03_rendering/render_batch.py` mit zustandsdefinierten Profilen und einer
 lokalen HTML-Galerie.
+
+Die allgemeine Picture-Semantik ist inzwischen projektweit ausgewertet. Der
+Befund in `04_compatibility/picture-state.md` trennt einmalige Map-Ebenen,
+parallele Effekte, Interaktionsbilder, Zwischensequenzen und dynamische
+Menübilder. Er legt ein zustandsbehaftetes Register- und Trace-Modell als Basis
+für den nächsten Renderer- und späteren Runtime-Schritt fest.
