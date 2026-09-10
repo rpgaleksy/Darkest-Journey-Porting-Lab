@@ -79,9 +79,9 @@ parallele Effekte, Interaktionsbilder, Zwischensequenzen und dynamische
 Menübilder. Er legt ein zustandsbehaftetes Register- und Trace-Modell als Basis
 für den nächsten Renderer- und späteren Runtime-Schritt fest.
 
-Der daraus abgeleitete Runtime-Schritt ist nun in
-`05_runtime/event-trace-design.md` abgegrenzt. Ein deterministischer
-Event-Trace-Interpreter soll zuerst die Taschenlampe, den dynamischen
-Menü-Pointer sowie die Zug- und Herzsequenzen aus echten Spieldaten
-reproduzieren. Eingabe, Nachrichten und ein vollständiger Parallel-Scheduler
-bleiben dabei bewusst spätere Ausbaustufen.
+Der daraus abgeleitete Runtime-Schritt ist in
+`05_runtime/event-trace-design.md` abgegrenzt und als deterministischer
+Event-Trace-Interpreter in `05_runtime/event_trace.py` umgesetzt. Er
+reproduziert die Taschenlampe, den dynamischen Menü-Pointer sowie ausgewählte
+Zug- und Herzsequenzen aus echten Spieldaten. Eingabe, Nachrichten und ein
+vollständiger Parallel-Scheduler bleiben dabei bewusst spätere Ausbaustufen.

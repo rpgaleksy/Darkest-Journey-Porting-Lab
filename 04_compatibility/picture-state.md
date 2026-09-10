@@ -144,8 +144,11 @@ Der erste Slice ist im statischen Renderer umgesetzt:
   direkten Lightmap-Fallback für ältere, nicht-parallele Testfälle bei.
 
 Damit sind die Akzeptanzfälle `Map0041` (Variable 56 = 1) und `Map0010` als
-echte Originaldaten geprüft. Common Events und interaktive beziehungsweise
-zeitabhängige Picture-Folgen bleiben bewusst außerhalb dieses ersten Slices.
+echte Originaldaten geprüft. Die zeitabhängigen und aufgerufenen Picture-
+Folgen der Taschenlampe, des Menü-Pointers, des Zuges und des Herzens werden
+inzwischen durch den separaten Event-Trace-Slice unter `05_runtime/`
+reproduziert; vollständige interaktive Scheduler-Abläufe bleiben bewusst
+außerhalb dieses statischen Renderer-Slices.
 
 ### Semantik des Registers
 

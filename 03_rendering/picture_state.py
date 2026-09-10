@@ -1,10 +1,11 @@
 """Small, deterministic state machine for classic RPG Maker Pictures.
 
 The real game keeps Pictures in a runtime register keyed by picture ID.  This
-module models the part needed by a static map preview: ShowPicture,
-MovePicture, ErasePicture, classic variable coordinates, and the project's
-Picture Pointer Patch.  It deliberately does not implement the interpreter's
-full timing, easing, tone, rotation, or wave scheduler.
+module models the part needed by a static map preview and the first
+deterministic event trace: ShowPicture, MovePicture, ErasePicture, classic
+variable coordinates, the project's Picture Pointer Patch, and linear
+transition timing.  It deliberately does not implement easing, rotation, or
+wave animation.
 """
 
 from __future__ import annotations
@@ -105,7 +106,7 @@ def _resolve_coordinates(
 
 @dataclass(frozen=True)
 class PictureSlot:
-    """The final static snapshot of one active Picture slot."""
+    """The target and current snapshot of one active Picture slot."""
 
     picture_id: int
     raw_picture_id: int
@@ -127,6 +128,22 @@ class PictureSlot:
     last_operation_source: Mapping[str, object] = field(default_factory=dict)
     move_duration: int = 0
     move_wait: bool = False
+    move_duration_frames: int = 0
+    move_remaining_frames: int = 0
+    start_x: float = 0.0
+    current_x: float = 0.0
+    start_y: float = 0.0
+    current_y: float = 0.0
+    start_zoom: float = 100.0
+    current_zoom: float = 100.0
+    start_top_transparency: float = 0.0
+    current_top_transparency: float = 0.0
+    start_bottom_transparency: float = 0.0
+    current_bottom_transparency: float = 0.0
+    start_tone: Tuple[float, float, float, float] = (0.0, 0.0, 0.0, 0.0)
+    current_tone: Tuple[float, float, float, float] = (0.0, 0.0, 0.0, 0.0)
+    start_effect_power: float = 0.0
+    current_effect_power: float = 0.0
 
 
 class PictureState:
@@ -137,6 +154,7 @@ class PictureState:
         self.operations: List[dict] = []
         self.warnings: List[dict] = []
         self.skipped: List[dict] = []
+        self.current_frame = 0
 
     def _source(self, source: Optional[Mapping[str, object]]) -> dict:
         return dict(source or {})
@@ -149,6 +167,7 @@ class PictureState:
         result.operations = list(self.operations)
         result.warnings = list(self.warnings)
         result.skipped = list(self.skipped)
+        result.current_frame = self.current_frame
         return result
 
     def replace_from(self, other: "PictureState") -> None:
@@ -158,6 +177,7 @@ class PictureState:
         self.operations = list(other.operations)
         self.warnings = list(other.warnings)
         self.skipped = list(other.skipped)
+        self.current_frame = other.current_frame
 
     def _record(
         self,
@@ -214,14 +234,18 @@ class PictureState:
         variables: Mapping[int, int],
         *,
         source: Optional[Mapping[str, object]] = None,
+        fps: int = 60,
     ) -> bool:
         """Apply one classic Picture command and return whether it was applied."""
+
+        if fps < 1:
+            raise ValueError("fps must be positive")
 
         code = command.get("code")
         if code == SHOW_PICTURE:
             return self._apply_show(command, variables, source)
         if code == MOVE_PICTURE:
-            return self._apply_move(command, variables, source)
+            return self._apply_move(command, variables, source, fps=fps)
         if code == ERASE_PICTURE:
             return self._apply_erase(command, variables, source)
         return self._skip("unknown", source, f"unsupported picture command code {code!r}")
@@ -305,6 +329,20 @@ class PictureState:
             source=self._source(source),
             last_operation="show",
             last_operation_source=self._source(source),
+            start_x=float(x),
+            current_x=float(x),
+            start_y=float(y),
+            current_y=float(y),
+            start_zoom=float(max(0, min(parameters[5], 2000))),
+            current_zoom=float(max(0, min(parameters[5], 2000))),
+            start_top_transparency=float(max(0, min(parameters[6], 100))),
+            current_top_transparency=float(max(0, min(parameters[6], 100))),
+            start_bottom_transparency=float(max(0, min(parameters[6], 100))),
+            current_bottom_transparency=float(max(0, min(parameters[6], 100))),
+            start_tone=tuple(float(_signed_int32(value)) for value in parameters[8:12]),
+            current_tone=tuple(float(_signed_int32(value)) for value in parameters[8:12]),
+            start_effect_power=float(effect_power),
+            current_effect_power=float(effect_power),
         )
         self.slots[picture_id] = slot
         self._record(
@@ -322,6 +360,8 @@ class PictureState:
         command: Mapping[str, object],
         variables: Mapping[int, int],
         source: Optional[Mapping[str, object]],
+        *,
+        fps: int,
     ) -> bool:
         parameters = _as_integer_parameters(command, 16)
         raw_picture_id = parameters[0] if parameters is not None else None
@@ -373,22 +413,57 @@ class PictureState:
 
         effect_mode = parameters[12]
         effect_power = parameters[13] if effect_mode else 0
+        target_zoom = max(0, min(parameters[5], 2000))
+        target_top_transparency = max(0, min(parameters[6], 100))
+        target_bottom_transparency = max(0, min(parameters[6], 100))
+        target_tone = tuple(float(_signed_int32(value)) for value in parameters[8:12])
+        target_effect_power = float(effect_power)
+        move_duration = max(0, parameters[14])
+        move_duration_frames = move_duration * fps // 10
         updated = replace(
             slot,
             position_mode=position_mode,
             x=x,
             y=y,
-            zoom=max(0, min(parameters[5], 2000)),
-            top_transparency=max(0, min(parameters[6], 100)),
-            bottom_transparency=max(0, min(parameters[6], 100)),
+            zoom=target_zoom,
+            top_transparency=target_top_transparency,
+            bottom_transparency=target_bottom_transparency,
             tone=tuple(_signed_int32(value) for value in parameters[8:12]),
             effect_mode=effect_mode,
             effect_power=effect_power,
             variable_ids=tuple(dict.fromkeys((*pointer_variables, *coordinate_variables))),
             last_operation="move",
             last_operation_source=self._source(source),
-            move_duration=max(0, parameters[14]),
+            move_duration=move_duration,
             move_wait=parameters[15] > 0,
+            move_duration_frames=move_duration_frames,
+            move_remaining_frames=move_duration_frames,
+            start_x=slot.current_x,
+            current_x=slot.current_x if move_duration_frames else float(x),
+            start_y=slot.current_y,
+            current_y=slot.current_y if move_duration_frames else float(y),
+            start_zoom=slot.current_zoom,
+            current_zoom=slot.current_zoom if move_duration_frames else float(target_zoom),
+            start_top_transparency=slot.current_top_transparency,
+            current_top_transparency=(
+                slot.current_top_transparency
+                if move_duration_frames
+                else float(target_top_transparency)
+            ),
+            start_bottom_transparency=slot.current_bottom_transparency,
+            current_bottom_transparency=(
+                slot.current_bottom_transparency
+                if move_duration_frames
+                else float(target_bottom_transparency)
+            ),
+            start_tone=slot.current_tone,
+            current_tone=slot.current_tone if move_duration_frames else target_tone,
+            start_effect_power=slot.current_effect_power,
+            current_effect_power=(
+                slot.current_effect_power
+                if move_duration_frames
+                else target_effect_power
+            ),
         )
         self.slots[picture_id] = updated
         self._record(
@@ -400,6 +475,54 @@ class PictureState:
             picture_name=slot.name,
         )
         return True
+
+    @staticmethod
+    def _interpolate(start: float, target: float, progress: float) -> float:
+        return start + (target - start) * progress
+
+    def advance_frames(self, frames: int) -> None:
+        """Advance active Picture transitions by a number of logical frames."""
+
+        if frames < 0:
+            raise ValueError("frames must not be negative")
+        if frames == 0:
+            return
+        for picture_id, slot in list(self.slots.items()):
+            duration = slot.move_duration_frames
+            if duration <= 0 or slot.move_remaining_frames <= 0:
+                continue
+            elapsed_before = duration - slot.move_remaining_frames
+            elapsed_after = min(duration, elapsed_before + frames)
+            progress = elapsed_after / duration
+            target_tone = tuple(float(value) for value in slot.tone)
+            updated = replace(
+                slot,
+                current_x=self._interpolate(slot.start_x, float(slot.x), progress),
+                current_y=self._interpolate(slot.start_y, float(slot.y), progress),
+                current_zoom=self._interpolate(slot.start_zoom, float(slot.zoom), progress),
+                current_top_transparency=self._interpolate(
+                    slot.start_top_transparency,
+                    float(slot.top_transparency),
+                    progress,
+                ),
+                current_bottom_transparency=self._interpolate(
+                    slot.start_bottom_transparency,
+                    float(slot.bottom_transparency),
+                    progress,
+                ),
+                current_tone=tuple(
+                    self._interpolate(start, target, progress)
+                    for start, target in zip(slot.start_tone, target_tone)
+                ),
+                current_effect_power=self._interpolate(
+                    slot.start_effect_power,
+                    float(slot.effect_power),
+                    progress,
+                ),
+                move_remaining_frames=duration - elapsed_after,
+            )
+            self.slots[picture_id] = updated
+        self.current_frame += frames
 
     def _apply_erase(
         self,

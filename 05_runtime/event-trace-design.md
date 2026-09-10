@@ -186,9 +186,9 @@ Profile müssen Obergrenzen für Befehle, Frames, Schleifendurchläufe und
 Call-Tiefe besitzen. Das macht endlose Parallelprozesse reproduzierbar und
 Fehler unterscheidbar von beabsichtigten Haltepunkten.
 
-## Erster Implementierungsslice
+## Implementierter erster Slice
 
-Der erste ausführbare Slice umfasst:
+Der implementierte Slice umfasst:
 
 - Map-Seiten und Common Events als explizite Einstiegspunkte oder Segmente;
 - Switches mit AN, AUS und Umschalten;
@@ -202,9 +202,12 @@ Der erste ausführbare Slice umfasst:
 - protokollierte Sounds sowie explizite Checkpoints und Budgets;
 - ein JSON-Ergebnis mit Zustand, Timeline, ausgeführtem Pfad und Haltegrund.
 
-Die Originaldaten dienen anschließend als Integrationstests für alle vier
-oben beschriebenen Abläufe. Erst danach wird der Trace-Interpreter als
-optionale Quelle an Renderer-Profile angeschlossen.
+Die vier oben beschriebenen Abläufe wurden mit den Originaldaten read-only
+ausgeführt: alle vier Taschenlampenrichtungen, `Item_0019`, der Zugabschnitt
+mit 420 Frames, der anschließende Erase-Abschnitt und die 90-Frame-
+Herzanimation. Der Trace-Interpreter ist damit als eigenständige Bibliothek
+und über `05_runtime/run_trace.py` als Diagnosewerkzeug verfügbar. Die
+Anbindung an Renderer-Profile bleibt der nächste Integrationsschritt.
 
 ## Bewusst vertagt
 
