@@ -132,6 +132,8 @@ Der erste Slice ist im statischen Renderer umgesetzt:
 - Variable Koordinaten werden aus dem expliziten Vorschauzustand gelesen.
   Map-Event-Koordinaten für `ControlVariables` folgen der klassischen
   16×16-Tile-Geometrie: X liegt in der Sprite-Mitte, Y an der Sprite-Basis.
+- `ControlSwitches` verwendet die originale Befehlswert-Semantik:
+  0 schaltet an, 1 schaltet aus und 2 schaltet den bisherigen Wert um.
 - Die projektweite Picture-Pointer-ID `50113` löst die tatsächliche Bild-ID
   aus Variable 113 und den vierstelligen Namenssuffix aus Variable 114 auf.
 - `render_map.py --pictures` führt nur ausgewählte parallele Map-Setup-Seiten
