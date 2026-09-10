@@ -208,6 +208,25 @@ wird nicht stillschweigend auf fremde Maps angewendet. Das Profil
 `map0064-runtime-heart` führt dagegen gezielt Map-Event 17 aus und zeigt, wie
 ein konkreter laufzeitbasierter Picture-Zustand in denselben Batch gelangt.
 
+Eine fokussierte Szenario-Suite für die ersten echten Laufzeitproben liegt in
+`03_rendering/runtime_scenario_profiles.json`. Sie erzeugt für `Map0002` vier
+Blickrichtungen der Taschenlampe, einen Menü-Pointer auf `Item_0019` sowie
+Snapshots der Zugankunft und -abfahrt:
+
+```text
+PYTHONDONTWRITEBYTECODE=1 python3 03_rendering/render_batch.py \
+  "/Users/aleksl/Library/CloudStorage/Dropbox/CODING PRODUCTION/ChatGPT Codex Experiments/Darkest Journey" \
+  --profile-file 03_rendering/runtime_scenario_profiles.json \
+  --map Map0002.lmu \
+  --scale 1 \
+  --out-dir /private/tmp/darkest-journey-runtime-scenarios
+```
+
+Die Szenarien sind keine aufgezeichneten Screenshots: Jede PNG entsteht aus
+den Original-LMU-/LDB-Daten und einem deklarierten Trace-Haltepunkt. Die
+zugehörigen JSON-Manifeste bewahren zusätzlich Status, Frames, Befehlsweg und
+den finalen Picture-Zustand.
+
 Wenn eine ausgewählte Map kein auflösbares Chipset besitzt oder ein anderes
 Renderer-Problem auftritt, bleibt der Batch-Lauf bei den übrigen Karten und
 trägt den Fehler als `status: "error"` im Gesamtmanifest und in der Galerie

@@ -7,6 +7,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "03_rendering"))
 
 from runtime_preview import normalize_trace_spec, run_runtime_traces
+from render_batch import load_profiles
 
 
 def picture_command(picture_id, x, y, name):
@@ -33,6 +34,22 @@ def picture_command(picture_id, x, y, name):
 
 
 class RuntimePreviewTests(unittest.TestCase):
+    def test_checked_in_runtime_scenario_profiles_are_loadable(self):
+        profiles = load_profiles(REPO_ROOT / "03_rendering/runtime_scenario_profiles.json")
+
+        self.assertEqual(len(profiles), 7)
+        self.assertEqual(
+            [profile.name for profile in profiles[:4]],
+            [
+                "map0002-runtime-flashlight-up",
+                "map0002-runtime-flashlight-right",
+                "map0002-runtime-flashlight-down",
+                "map0002-runtime-flashlight-left",
+            ],
+        )
+        self.assertEqual(profiles[4].variables, {113: 1, 122: 19})
+        self.assertEqual(len(profiles[6].traces), 2)
+
     def test_trace_spec_normalization_keeps_explicit_character_context(self):
         spec = normalize_trace_spec(
             {

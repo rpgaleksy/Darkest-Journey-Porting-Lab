@@ -91,5 +91,6 @@ Der daraus abgeleitete Runtime-Schritt ist in
 Event-Trace-Interpreter in `05_runtime/event_trace.py` umgesetzt. Er
 reproduziert die Taschenlampe, den dynamischen Menü-Pointer sowie ausgewählte
 Zug- und Herzsequenzen aus echten Spieldaten. Die Renderer-Anbindung liegt in
-`03_rendering/runtime_preview.py`. Eingabe, Nachrichten und ein vollständiger
+`03_rendering/runtime_preview.py`; die reproduzierbaren Beispielszenarien liegen
+in `03_rendering/runtime_scenario_profiles.json`. Eingabe, Nachrichten und ein vollständiger
 Parallel-Scheduler bleiben dabei bewusst spätere Ausbaustufen.

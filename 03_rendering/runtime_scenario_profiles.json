@@ -1,0 +1,145 @@
+{
+  "profiles": [
+    {
+      "name": "map0002-runtime-flashlight-up",
+      "maps": [
+        "Map0002.lmu"
+      ],
+      "traces": [
+        {
+          "kind": "common_event",
+          "id": 3,
+          "stop_after_wait": true,
+          "characters": {
+            "10001": {
+              "x": 9,
+              "y": 6,
+              "facing": 0,
+              "screen_x": 152,
+              "screen_y": 112
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "map0002-runtime-flashlight-right",
+      "maps": [
+        "Map0002.lmu"
+      ],
+      "traces": [
+        {
+          "kind": "common_event",
+          "id": 3,
+          "stop_after_wait": true,
+          "characters": {
+            "10001": {
+              "x": 9,
+              "y": 6,
+              "facing": 1,
+              "screen_x": 152,
+              "screen_y": 112
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "map0002-runtime-flashlight-down",
+      "maps": [
+        "Map0002.lmu"
+      ],
+      "traces": [
+        {
+          "kind": "common_event",
+          "id": 3,
+          "stop_after_wait": true,
+          "characters": {
+            "10001": {
+              "x": 9,
+              "y": 6,
+              "facing": 2,
+              "screen_x": 152,
+              "screen_y": 112
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "map0002-runtime-flashlight-left",
+      "maps": [
+        "Map0002.lmu"
+      ],
+      "traces": [
+        {
+          "kind": "common_event",
+          "id": 3,
+          "stop_after_wait": true,
+          "characters": {
+            "10001": {
+              "x": 9,
+              "y": 6,
+              "facing": 3,
+              "screen_x": 152,
+              "screen_y": 112
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "map0002-runtime-menu-item",
+      "maps": [
+        "Map0002.lmu"
+      ],
+      "variables": {
+        "113": 1,
+        "122": 19
+      },
+      "traces": [
+        {
+          "kind": "common_event",
+          "id": 14
+        }
+      ]
+    },
+    {
+      "name": "map0002-runtime-train-arrival",
+      "maps": [
+        "Map0002.lmu"
+      ],
+      "traces": [
+        {
+          "kind": "map_event",
+          "event_id": 15,
+          "page_index": 0,
+          "start_index": 3,
+          "stop_index": 6
+        }
+      ]
+    },
+    {
+      "name": "map0002-runtime-train-departure",
+      "maps": [
+        "Map0002.lmu"
+      ],
+      "traces": [
+        {
+          "kind": "map_event",
+          "event_id": 15,
+          "page_index": 0,
+          "start_index": 3,
+          "stop_index": 6
+        },
+        {
+          "kind": "map_event",
+          "event_id": 15,
+          "page_index": 0,
+          "start_index": 21,
+          "stop_index": 22
+        }
+      ]
+    }
+  ]
+}
