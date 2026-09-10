@@ -86,10 +86,16 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="render tile layers without the static event-sprite overlay",
     )
-    parser.add_argument(
+    picture_group = parser.add_mutually_exclusive_group()
+    picture_group.add_argument(
         "--lightmap",
         action="store_true",
         help="overlay ShowPicture commands whose resource name contains 'lightmap'",
+    )
+    picture_group.add_argument(
+        "--pictures",
+        action="store_true",
+        help="replay conservative parallel map-setup Picture commands",
     )
     parser.add_argument(
         "--switch",
@@ -135,6 +141,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             scale=args.scale,
             show_events=not args.no_events,
             show_lightmap=args.lightmap,
+            show_pictures=args.pictures,
             event_state=EventState(
                 switches=dict(args.switches),
                 variables=dict(args.variables),

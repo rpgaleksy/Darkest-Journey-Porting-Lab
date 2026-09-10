@@ -3,9 +3,11 @@
 The renderer intentionally produces a diagnostic preview, not a replacement
 runtime.  It decodes the indexed PNG format used by the project with the
 standard library, composes the known chipset blocks, and overlays the active
-event pages for an explicit preview state.  Runtime event execution, tile
-substitutions, animation frames other than the selected static frame, and
-passability-based z-order are kept outside this rendering pass.
+event pages for an explicit preview state.  When requested, it replays only
+conservative parallel map-setup traces into a small PictureState register.
+Runtime event execution, tile substitutions, animation frames other than the
+selected static frame, and passability-based z-order are kept outside this
+rendering pass.
 """
 
 from __future__ import annotations
@@ -26,6 +28,12 @@ if str(PARSER_DIR) not in sys.path:
     sys.path.insert(0, str(PARSER_DIR))
 
 from database_parser import parse_ldb
+from picture_state import (
+    ERASE_PICTURE,
+    MOVE_PICTURE,
+    PictureState,
+    SHOW_PICTURE,
+)
 from project_parser import parse_lmu
 from resource_scanner import _ResourceIndex, _candidate_names, _find_matches
 
@@ -953,36 +961,349 @@ def _event_page_selections(
     return result
 
 
+CONTROL_SWITCHES = 10210
+CONTROL_VARIABLES = 10220
+ERASE_EVENT = 12320
+TINT_SCREEN = 11030
+WEATHER_EFFECTS = 11070
+PICTURE_COMMANDS = {SHOW_PICTURE, MOVE_PICTURE, ERASE_PICTURE}
+SAFE_SETUP_COMMANDS = PICTURE_COMMANDS | {
+    CONTROL_SWITCHES,
+    CONTROL_VARIABLES,
+    ERASE_EVENT,
+    TINT_SCREEN,
+    WEATHER_EFFECTS,
+    0,
+    10,
+}
+
+
+def _page_commands(selection: Mapping[str, object]) -> List[dict]:
+    """Return commands from one selected event page with source identities."""
+
+    result = []
+    event = selection.get("event")
+    page = selection.get("page")
+    if not isinstance(event, Mapping) or not isinstance(page, Mapping):
+        return result
+    commands_data = page.get("event_commands", {})
+    commands = (
+        commands_data.get("commands", [])
+        if isinstance(commands_data, Mapping)
+        else []
+    )
+    for command_index, command in enumerate(commands):
+        if not isinstance(command, Mapping):
+            continue
+        result.append(
+            {
+                "event_id": event.get("id"),
+                "event_name": event.get("name"),
+                "page_index": page.get("index"),
+                "command_index": command_index,
+                "command": command,
+            }
+        )
+    return result
+
+
 def _picture_commands(event_page_selections: Sequence[Mapping[str, object]]) -> List[dict]:
     """Collect ShowPicture commands from the selected event pages."""
 
-    result = []
-    for selection in event_page_selections:
-        event = selection.get("event")
-        page = selection.get("page")
-        if not isinstance(event, Mapping):
-            continue
-        if not isinstance(page, Mapping):
-            continue
-        commands_data = page.get("event_commands", {})
-        commands = (
-            commands_data.get("commands", [])
-            if isinstance(commands_data, Mapping)
-            else []
-        )
-        for command_index, command in enumerate(commands):
-            if not isinstance(command, Mapping) or command.get("code") != 11110:
-                continue
-            result.append(
-                {
-                    "event_id": event.get("id"),
-                    "event_name": event.get("name"),
-                    "page_index": page.get("index"),
-                    "command_index": command_index,
-                    "command": command,
-                }
+    return [
+        command
+        for selection in event_page_selections
+        for command in _page_commands(selection)
+        if command["command"].get("code") == SHOW_PICTURE
+    ]
+
+
+def _command_source(command_record: Mapping[str, object]) -> dict:
+    return {
+        key: command_record.get(key)
+        for key in ("event_id", "event_name", "page_index", "command_index")
+    }
+
+
+def _integer_parameters(command: Mapping[str, object], minimum: int) -> Optional[List[int]]:
+    parameters = command.get("parameters")
+    if not isinstance(parameters, list) or len(parameters) < minimum:
+        return None
+    if not all(
+        isinstance(value, int) and not isinstance(value, bool)
+        for value in parameters[:minimum]
+    ):
+        return None
+    return parameters
+
+
+def _event_screen_coordinate(event: Mapping[str, object], field_id: int) -> Optional[int]:
+    event_x = event.get("x")
+    event_y = event.get("y")
+    if not isinstance(event_x, int) or not isinstance(event_y, int):
+        return None
+    if field_id == 4:
+        return event_x * TILE_SIZE + TILE_SIZE // 2
+    if field_id == 5:
+        return event_y * TILE_SIZE + TILE_SIZE
+    return None
+
+
+def _control_switches(
+    command: Mapping[str, object],
+    switches: dict[int, bool],
+) -> Tuple[bool, Optional[str], dict]:
+    parameters = _integer_parameters(command, 4)
+    if parameters is None:
+        return False, "ControlSwitches has fewer than four integer parameters", {}
+    target_mode, start_id, end_id, value = parameters[:4]
+    if target_mode != 0:
+        return False, f"unsupported ControlSwitches target mode {target_mode}", {}
+    if start_id < 1 or end_id < start_id:
+        return False, "ControlSwitches has an invalid switch range", {}
+    if value not in (0, 1):
+        return False, f"unsupported ControlSwitches value {value}", {}
+    for switch_id in range(start_id, end_id + 1):
+        switches[switch_id] = value == 1
+    return True, None, {
+        "start_id": start_id,
+        "end_id": end_id,
+        "value": value == 1,
+    }
+
+
+def _divide_towards_zero(left: int, right: int) -> int:
+    if right == 0:
+        raise ZeroDivisionError
+    quotient = abs(left) // abs(right)
+    return -quotient if (left < 0) != (right < 0) else quotient
+
+
+def _control_variables(
+    command: Mapping[str, object],
+    variables: dict[int, int],
+    events_by_id: Mapping[int, Mapping[str, object]],
+) -> Tuple[bool, Optional[str], dict]:
+    parameters = _integer_parameters(command, 7)
+    if parameters is None:
+        return False, "ControlVariables has fewer than seven integer parameters", {}
+    target_mode, start_id, end_id, operation, operand_kind = parameters[:5]
+    if target_mode != 0:
+        return False, f"unsupported ControlVariables target mode {target_mode}", {}
+    if start_id < 1 or end_id < start_id:
+        return False, "ControlVariables has an invalid variable range", {}
+    if operation not in range(6):
+        return False, f"unsupported ControlVariables operation {operation}", {}
+
+    operand_id = parameters[5]
+    if operand_kind == 0:
+        operand = operand_id
+        operand_detail = {"kind": "constant", "value": operand}
+    elif operand_kind == 1:
+        if operand_id < 1:
+            return False, "ControlVariables references an invalid variable ID", {}
+        operand = variables.get(operand_id, 0)
+        operand_detail = {
+            "kind": "variable",
+            "id": operand_id,
+            "value": operand,
+        }
+    elif operand_kind == 6:
+        event_id = operand_id
+        field_id = parameters[6]
+        event = events_by_id.get(event_id)
+        if event is None:
+            return False, f"ControlVariables references unknown event ID {event_id}", {}
+        operand = _event_screen_coordinate(event, field_id)
+        if operand is None:
+            return False, f"unsupported event coordinate field {field_id}", {}
+        operand_detail = {
+            "kind": "event_coordinate",
+            "event_id": event_id,
+            "field": field_id,
+            "value": operand,
+        }
+    else:
+        return False, f"unsupported ControlVariables operand kind {operand_kind}", {}
+
+    changed = []
+    for variable_id in range(start_id, end_id + 1):
+        current = variables.get(variable_id, 0)
+        if operation == 0:
+            updated = operand
+        elif operation == 1:
+            updated = current + operand
+        elif operation == 2:
+            updated = current - operand
+        elif operation == 3:
+            updated = current * operand
+        elif operation == 4:
+            try:
+                updated = _divide_towards_zero(current, operand)
+            except ZeroDivisionError:
+                return False, "ControlVariables divides by zero", {}
+        else:
+            try:
+                updated = current % operand
+            except ZeroDivisionError:
+                return False, "ControlVariables takes a remainder by zero", {}
+        variables[variable_id] = updated
+        changed.append({"id": variable_id, "before": current, "after": updated})
+    return True, None, {
+        "start_id": start_id,
+        "end_id": end_id,
+        "operation": operation,
+        "operand": operand_detail,
+        "changed": changed,
+    }
+
+
+def _replay_picture_setup_trace(
+    selection: Mapping[str, object],
+    state: PictureState,
+    switches: dict[int, bool],
+    variables: dict[int, int],
+    events_by_id: Mapping[int, Mapping[str, object]],
+) -> Optional[dict]:
+    page = selection.get("page")
+    if not isinstance(page, Mapping):
+        return None
+    commands = _page_commands(selection)
+    picture_commands = [
+        record for record in commands if record["command"].get("code") in PICTURE_COMMANDS
+    ]
+    if not picture_commands:
+        return None
+    event = selection.get("event")
+    event = event if isinstance(event, Mapping) else {}
+    trace = {
+        "event_id": event.get("id"),
+        "event_name": event.get("name"),
+        "page_index": page.get("index"),
+        "trigger": page.get("trigger"),
+        "commands_total": len(commands),
+        "picture_commands": len(picture_commands),
+        "status": "skipped",
+        "applied_picture_commands": 0,
+    }
+    if page.get("trigger") != 4:
+        trace["reason"] = "selected page is not a parallel-process page"
+        return trace
+    if not any(record["command"].get("code") == ERASE_EVENT for record in commands):
+        trace["reason"] = "parallel page has no EraseEvent setup terminator"
+        return trace
+    unsupported = [
+        record["command"].get("code")
+        for record in commands
+        if record["command"].get("code") not in SAFE_SETUP_COMMANDS
+    ]
+    if unsupported:
+        trace["status"] = "unsupported"
+        trace["reason"] = f"setup trace contains unsupported command codes: {sorted(set(unsupported))}"
+        return trace
+
+    working_state = state.copy()
+    working_switches = dict(switches)
+    working_variables = dict(variables)
+    operation_start = len(working_state.operations)
+    control_details = []
+    for record in commands:
+        command = record["command"]
+        code = command.get("code")
+        source = _command_source(record)
+        if code in PICTURE_COMMANDS:
+            working_state.apply_command(command, working_variables, source=source)
+        elif code == CONTROL_SWITCHES:
+            applied, reason, detail = _control_switches(command, working_switches)
+            if not applied:
+                trace["status"] = "unsupported"
+                trace["reason"] = reason
+                return trace
+            control_details.append({"code": code, **detail})
+        elif code == CONTROL_VARIABLES:
+            applied, reason, detail = _control_variables(
+                command,
+                working_variables,
+                events_by_id,
             )
-    return result
+            if not applied:
+                trace["status"] = "unsupported"
+                trace["reason"] = reason
+                return trace
+            control_details.append({"code": code, **detail})
+
+    state.replace_from(working_state)
+    switches.clear()
+    switches.update(working_switches)
+    variables.clear()
+    variables.update(working_variables)
+    applied_records = working_state.operations[operation_start:]
+    trace["status"] = "applied"
+    trace["applied_picture_commands"] = sum(
+        1
+        for record in applied_records
+        if record["operation"] in ("show", "move", "erase")
+        and record["status"] == "applied"
+    )
+    trace["skipped_picture_commands"] = sum(
+        1
+        for record in applied_records
+        if record["operation"] in ("show", "move", "erase")
+        and record["status"] == "skipped"
+    )
+    if control_details:
+        trace["control_commands"] = control_details
+    return trace
+
+
+def _build_picture_state(
+    event_page_selections: Sequence[Mapping[str, object]],
+    preview_state: EventState,
+) -> Tuple[PictureState, dict[int, bool], dict[int, int], List[dict]]:
+    events_by_id = {
+        event.get("id"): event
+        for selection in event_page_selections
+        for event in [selection.get("event")]
+        if isinstance(event, Mapping) and isinstance(event.get("id"), int)
+    }
+    switches = dict(preview_state.switches)
+    variables = dict(preview_state.variables)
+    state = PictureState()
+    traces = []
+    for selection in event_page_selections:
+        trace = _replay_picture_setup_trace(
+            selection,
+            state,
+            switches,
+            variables,
+            events_by_id,
+        )
+        if trace is not None:
+            traces.append(trace)
+    return state, switches, variables, traces
+
+
+def _picture_slot_identity(slot: object) -> dict:
+    return {
+        "picture_id": slot.picture_id,
+        "raw_picture_id": slot.raw_picture_id,
+        "picture_name": slot.name,
+        "position": [slot.x, slot.y],
+        "position_mode": slot.position_mode,
+        "fixed_to_map": slot.fixed_to_map,
+        "zoom": slot.zoom,
+        "top_transparency": slot.top_transparency,
+        "bottom_transparency": slot.bottom_transparency,
+        "use_transparent_color": slot.use_transparent_color,
+        "tone": list(slot.tone),
+        "effect_mode": slot.effect_mode,
+        "effect_power": slot.effect_power,
+        "variable_ids": list(slot.variable_ids),
+        "move_duration": slot.move_duration,
+        "move_wait": slot.move_wait,
+        "last_operation": slot.last_operation,
+        "source": dict(slot.source),
+    }
 
 
 def _signed_int32(value: int) -> int:
@@ -1014,6 +1335,76 @@ def _parse_show_picture(command: Mapping[str, object]) -> Optional[dict]:
 
 def _lightmap_name(name: object) -> bool:
     return isinstance(name, str) and "lightmap" in name.casefold()
+
+
+def _render_picture_slots(
+    canvas: RgbaImage,
+    indexes: Sequence[_ResourceIndex],
+    state: PictureState,
+    picture_statistics: dict,
+    *,
+    lightmap_only: bool,
+) -> None:
+    """Draw the final Picture register snapshot in RPG Maker ID order."""
+
+    for picture_id in sorted(state.slots):
+        slot = state.slots[picture_id]
+        if lightmap_only and not _lightmap_name(slot.name):
+            continue
+        identity = _picture_slot_identity(slot)
+        picture_path, picture_descriptor, picture_matches = _resolve_asset(
+            indexes,
+            "picture",
+            slot.name,
+        )
+        if picture_path is None or picture_descriptor is None:
+            picture_statistics["missing_pictures"].append(identity)
+            continue
+        if picture_matches > 1:
+            picture_statistics["ambiguous_pictures"].append(identity)
+        try:
+            picture_image = read_png(
+                picture_path,
+                transparent_index_zero=slot.use_transparent_color,
+            )
+        except (OSError, PngError) as error:
+            picture_statistics["invalid_pictures"].append(
+                {**identity, "message": str(error)}
+            )
+            continue
+        if slot.zoom == 0:
+            picture_statistics["skipped_pictures"].append(
+                {**identity, "reason": "picture zoom is zero"}
+            )
+            continue
+        if slot.zoom != 100:
+            picture_image = picture_image.resize_nearest(
+                max(1, picture_image.width * slot.zoom // 100),
+                max(1, picture_image.height * slot.zoom // 100),
+            )
+        opacity = 255 * (100 - slot.top_transparency) // 100
+        picture_image = picture_image.with_opacity(opacity)
+        destination_x = slot.x - picture_image.width // 2
+        destination_y = slot.y - picture_image.height // 2
+        canvas.blit(
+            picture_image,
+            0,
+            0,
+            picture_image.width,
+            picture_image.height,
+            destination_x,
+            destination_y,
+        )
+        picture_statistics["pictures_drawn"] += 1
+        picture_statistics["drawn_pictures"].append(
+            {
+                **identity,
+                "source": {
+                    "root": picture_descriptor["root"],
+                    "path": picture_descriptor["path"],
+                },
+            }
+        )
 
 
 def _unsupported_tile(
@@ -1063,12 +1454,15 @@ def render_map(
     scale: int = 2,
     show_events: bool = True,
     show_lightmap: bool = False,
+    show_pictures: bool = False,
     event_state: Optional[EventState] = None,
 ) -> Tuple[RgbaImage, dict]:
     """Render one map to an RGBA image and return image plus manifest data."""
 
     if scale < 1:
         raise ValueError("scale must be at least 1")
+    if show_lightmap and show_pictures:
+        raise ValueError("show_lightmap and show_pictures are mutually exclusive")
     project_path = Path(project_dir).expanduser().resolve()
     if not project_path.is_dir():
         raise FileNotFoundError(f"project directory does not exist: {project_path}")
@@ -1094,6 +1488,17 @@ def render_map(
     map_data = map_report["map"]
     preview_state = _normalize_event_state(event_state)
     event_page_selections = _event_page_selections(map_data, preview_state)
+    picture_state = PictureState()
+    picture_trace_switches = dict(preview_state.switches)
+    picture_trace_variables = dict(preview_state.variables)
+    picture_traces: List[dict] = []
+    if show_lightmap or show_pictures:
+        (
+            picture_state,
+            picture_trace_switches,
+            picture_trace_variables,
+            picture_traces,
+        ) = _build_picture_state(event_page_selections, preview_state)
 
     chipset_records = {
         record["id"]: record
@@ -1355,109 +1760,74 @@ def render_map(
             event_statistics["sprites_drawn"] += 1
 
     picture_statistics = {
-        "enabled": show_lightmap,
-        "selector": "ShowPicture names containing 'lightmap'",
+        "enabled": show_lightmap or show_pictures,
+        "mode": "lightmap" if show_lightmap else "map_setup" if show_pictures else "disabled",
+        "selector": (
+            "Picture slots whose name contains 'lightmap'"
+            if show_lightmap
+            else "Picture commands from conservative parallel map setup traces"
+            if show_pictures
+            else None
+        ),
         "reference_screen": {
             "width": PICTURE_SCREEN_WIDTH,
             "height": PICTURE_SCREEN_HEIGHT,
         },
         "commands_found": 0,
+        "picture_slots_active": 0,
         "pictures_drawn": 0,
         "drawn_pictures": [],
         "missing_pictures": [],
         "ambiguous_pictures": [],
         "invalid_pictures": [],
         "skipped_pictures": [],
+        "traces": picture_traces,
+        "trace_state": {
+            "switches": [
+                {"id": identifier, "value": value}
+                for identifier, value in sorted(picture_trace_switches.items())
+            ],
+            "variables": [
+                {"id": identifier, "value": value}
+                for identifier, value in sorted(picture_trace_variables.items())
+            ],
+        },
     }
-    if show_lightmap:
-        for picture_command in _picture_commands(event_page_selections):
-            command = picture_command["command"]
-            picture_name = command.get("string")
-            if not _lightmap_name(picture_name):
-                continue
-            picture_statistics["commands_found"] += 1
-            identity = {
-                "picture_id": None,
-                "picture_name": picture_name,
-                "event_id": picture_command.get("event_id"),
-                "event_name": picture_command.get("event_name"),
-                "page_index": picture_command.get("page_index"),
-                "command_index": picture_command.get("command_index"),
-            }
-            picture = _parse_show_picture(command)
-            if picture is None:
-                picture_statistics["skipped_pictures"].append(
-                    {**identity, "reason": "ShowPicture has fewer than 14 integer parameters"}
+    if show_lightmap or show_pictures:
+        if show_lightmap and not any(
+            _lightmap_name(slot.name) for slot in picture_state.slots.values()
+        ):
+            for picture_command in _picture_commands(event_page_selections):
+                command = picture_command["command"]
+                if not _lightmap_name(command.get("string")):
+                    continue
+                picture_state.apply_command(
+                    command,
+                    picture_trace_variables,
+                    source=_command_source(picture_command),
                 )
-                continue
-            identity["picture_id"] = picture["picture_id"]
-            identity.update(
-                {
-                    "position": [picture["x"], picture["y"]],
-                    "fixed_to_map": picture["fixed_to_map"],
-                    "zoom": picture["zoom"],
-                    "top_transparency": picture["top_transparency"],
-                    "use_transparent_color": picture["use_transparent_color"],
-                }
+
+        relevant_operations = [
+            record
+            for record in picture_state.operations
+            if record["operation"] in ("show", "move", "erase")
+            and (
+                not show_lightmap
+                or _lightmap_name(record.get("picture_name"))
             )
-            if picture["position_mode"] != 0:
-                picture_statistics["skipped_pictures"].append(
-                    {**identity, "reason": "variable picture coordinates are not evaluated"}
-                )
-                continue
-            picture_path, picture_descriptor, picture_matches = _resolve_asset(
-                indexes,
-                "picture",
-                picture_name,
-            )
-            if picture_path is None or picture_descriptor is None:
-                picture_statistics["missing_pictures"].append(identity)
-                continue
-            if picture_matches > 1:
-                picture_statistics["ambiguous_pictures"].append(identity)
-            try:
-                picture_image = read_png(
-                    picture_path,
-                    transparent_index_zero=picture["use_transparent_color"],
-                )
-            except (OSError, PngError) as error:
-                picture_statistics["invalid_pictures"].append(
-                    {**identity, "message": str(error)}
-                )
-                continue
-            if picture["zoom"] == 0:
-                picture_statistics["skipped_pictures"].append(
-                    {**identity, "reason": "picture zoom is zero"}
-                )
-                continue
-            if picture["zoom"] != 100:
-                picture_image = picture_image.resize_nearest(
-                    max(1, picture_image.width * picture["zoom"] // 100),
-                    max(1, picture_image.height * picture["zoom"] // 100),
-                )
-            opacity = 255 * (100 - picture["top_transparency"]) // 100
-            picture_image = picture_image.with_opacity(opacity)
-            destination_x = picture["x"] - picture_image.width // 2
-            destination_y = picture["y"] - picture_image.height // 2
-            canvas.blit(
-                picture_image,
-                0,
-                0,
-                picture_image.width,
-                picture_image.height,
-                destination_x,
-                destination_y,
-            )
-            picture_statistics["pictures_drawn"] += 1
-            picture_statistics["drawn_pictures"].append(
-                {
-                    **identity,
-                    "source": {
-                        "root": picture_descriptor["root"],
-                        "path": picture_descriptor["path"],
-                    },
-                }
-            )
+        ]
+        picture_statistics["commands_found"] = len(relevant_operations)
+        picture_statistics["picture_slots_active"] = len(picture_state.slots)
+        picture_statistics["skipped_pictures"].extend(picture_state.skipped)
+        if picture_state.warnings:
+            picture_statistics["warnings"] = list(picture_state.warnings)
+        _render_picture_slots(
+            canvas,
+            indexes,
+            picture_state,
+            picture_statistics,
+            lightmap_only=show_lightmap,
+        )
 
     tile_statistics["by_block"] = dict(sorted(tile_statistics["by_block"].items()))
     tile_statistics["unsupported_tile_ids"] = sorted(tile_statistics["unsupported_tile_ids"])[:100]

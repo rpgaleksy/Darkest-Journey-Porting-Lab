@@ -35,6 +35,7 @@ class PreviewProfile:
     switches: Mapping[int, bool] = field(default_factory=dict)
     variables: Mapping[int, int] = field(default_factory=dict)
     lightmap: bool = False
+    pictures: bool = False
     maps: Optional[Tuple[str, ...]] = None
 
     def applies_to(self, map_filename: str) -> bool:
@@ -89,6 +90,11 @@ def _profile_from_mapping(raw: object, index: int) -> PreviewProfile:
     lightmap = raw.get("lightmap", False)
     if not isinstance(lightmap, bool):
         raise ValueError(f"profile {name!r} lightmap must be boolean")
+    pictures = raw.get("pictures", False)
+    if not isinstance(pictures, bool):
+        raise ValueError(f"profile {name!r} pictures must be boolean")
+    if lightmap and pictures:
+        raise ValueError(f"profile {name!r} cannot enable both lightmap and pictures")
 
     raw_maps = raw.get("maps")
     maps = None
@@ -104,6 +110,7 @@ def _profile_from_mapping(raw: object, index: int) -> PreviewProfile:
         switches=_state_mapping(raw.get("switches"), "switches", boolean=True),
         variables=_state_mapping(raw.get("variables"), "variables", boolean=False),
         lightmap=lightmap,
+        pictures=pictures,
         maps=maps,
     )
 
@@ -382,6 +389,7 @@ def _profile_manifest(profile: PreviewProfile) -> dict:
     result = {
         "name": profile.name,
         "lightmap": profile.lightmap,
+        "pictures": profile.pictures,
         "switches": [
             {"id": identifier, "value": value}
             for identifier, value in sorted(profile.switches.items())
@@ -571,6 +579,7 @@ def run_batch(
                     rtp_dirs=rtp_dirs,
                     scale=scale,
                     show_lightmap=profile.lightmap,
+                    show_pictures=profile.pictures,
                     event_state=EventState(
                         switches=dict(profile.switches),
                         variables=dict(profile.variables),

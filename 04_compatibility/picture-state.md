@@ -122,6 +122,29 @@ einer Map-Ebene mit `EraseEvent` enden, können als einmalige Setup-Traces
 ausgeführt werden. Seiten mit Schleifen, Spielerinteraktion oder nicht
 auflösbaren Verzweigungen werden nicht stillschweigend simuliert.
 
+## Implementierter erster Slice
+
+Der erste Slice ist im statischen Renderer umgesetzt:
+
+- `03_rendering/picture_state.py` hält einen Picture-Slot pro aufgelöster
+  Bild-ID und verarbeitet klassische `ShowPicture`-, `MovePicture`- und
+  `ErasePicture`-Befehle.
+- Variable Koordinaten werden aus dem expliziten Vorschauzustand gelesen.
+  Map-Event-Koordinaten für `ControlVariables` folgen der klassischen
+  16×16-Tile-Geometrie: X liegt in der Sprite-Mitte, Y an der Sprite-Basis.
+- Die projektweite Picture-Pointer-ID `50113` löst die tatsächliche Bild-ID
+  aus Variable 113 und den vierstelligen Namenssuffix aus Variable 114 auf.
+- `render_map.py --pictures` führt nur ausgewählte parallele Map-Setup-Seiten
+  aus, die mit `EraseEvent` enden und ausschließlich konservativ erlaubte
+  Befehle enthalten. Das Ergebnis wird als fertiger statischer Slot-Zustand
+  gerendert und im Manifest diagnostisch protokolliert.
+- `--lightmap` verwendet denselben Registerpfad und behält zusätzlich einen
+  direkten Lightmap-Fallback für ältere, nicht-parallele Testfälle bei.
+
+Damit sind die Akzeptanzfälle `Map0041` (Variable 56 = 1) und `Map0010` als
+echte Originaldaten geprüft. Common Events und interaktive beziehungsweise
+zeitabhängige Picture-Folgen bleiben bewusst außerhalb dieses ersten Slices.
+
 ### Semantik des Registers
 
 - Show löst zuerst konstante oder variable Koordinaten sowie gegebenenfalls

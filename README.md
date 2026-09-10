@@ -66,6 +66,13 @@ Für reproduzierbare Vergleichsläufe über mehrere Karten gibt es zusätzlich
 `03_rendering/render_batch.py` mit zustandsdefinierten Profilen und einer
 lokalen HTML-Galerie.
 
+Der erste allgemeine Picture-State-Slice ist nun ebenfalls integriert:
+`--pictures` replayt konservative parallele Map-Setup-Traces, löst variable
+Picture-Koordinaten und die projektweite Pointer-ID auf und rendert den
+resultierenden Slot-Zustand. Die genaue Abgrenzung zu interaktiven und
+zeitabhängigen Picture-Folgen steht in
+`04_compatibility/picture-state.md`.
+
 Die allgemeine Picture-Semantik ist inzwischen projektweit ausgewertet. Der
 Befund in `04_compatibility/picture-state.md` trennt einmalige Map-Ebenen,
 parallele Effekte, Interaktionsbilder, Zwischensequenzen und dynamische

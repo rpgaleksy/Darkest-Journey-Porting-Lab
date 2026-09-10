@@ -98,6 +98,32 @@ der öffentlichen EasyRPG-Referenz ausgerichtet:
 - [EasyRPG `game_interpreter.cpp`](https://raw.githubusercontent.com/EasyRPG/Player/master/src/game_interpreter.cpp)
 - [EasyRPG `sprite_picture.cpp`](https://raw.githubusercontent.com/EasyRPG/Player/master/src/sprite_picture.cpp)
 
+Für die allgemeine, statische Map-Einstiegsvorschau gibt es zusätzlich
+`--pictures`. Dieser Schalter führt die klar erkennbaren parallelen Setup-
+Seiten der aktiven Eventseiten als konservative Trace aus. Zulässig sind dabei
+Picture-Befehle, einfache `ControlSwitches`-/`ControlVariables`-Zuweisungen,
+Screen-Tönung, Wetter und ein abschließendes `EraseEvent`. Dadurch werden
+beispielsweise auch `flur` auf `Map0010` oder mapgebundene Ventilator- und
+Herz-Bilder sichtbar, obwohl ihre Dateinamen nicht `lightmap` enthalten:
+
+```text
+PYTHONDONTWRITEBYTECODE=1 python3 03_rendering/render_map.py \
+  "/Users/aleksl/Library/CloudStorage/Dropbox/CODING PRODUCTION/ChatGPT Codex Experiments/Darkest Journey" \
+  --map Map0010.lmu \
+  --scale 2 \
+  --pictures \
+  --out /private/tmp/darkest-journey-map0010-pictures.png
+```
+
+Die Trace-Auswertung löst klassische Variable-Koordinaten sowie die im
+Projekt verwendete Picture-Pointer-ID `50113` auf. `MovePicture` wird für die
+statische Vorschau als fertiger Zielzustand übernommen; die vollständige
+Interpolation über mehrere Frames ist noch nicht Teil des Renderers. Jede
+ausgewertete Trace, der resultierende Registerzustand und übersprungene
+Befehle werden im `pictures`-Abschnitt des JSON-Manifests festgehalten.
+Seiten mit Interaktion, Verzweigungen, Schleifen, Common-Event-Aufrufen oder
+anderen nicht erlaubten Befehlen werden nicht stillschweigend ausgeführt.
+
 Die projektweite Analyse zeigt, dass allgemeine Pictures als globaler
 Laufzeitzustand nach Bild-ID behandelt werden müssen und nicht als Sammlung
 statischer Map-Ebenen. Das daraus abgeleitete Register- und Trace-Modell ist in
@@ -114,9 +140,11 @@ Treffer werden nur einmal gerendert. Mit `--map` können Karten explizit
 angegeben werden, `--all-maps` rendert dagegen jede parsebare Map.
 
 Benannte Zustände liegen in einer kleinen JSON-Profildatei. Ein Profil kann
-Switches und Variablen überschreiben, die Lightmap-Ebene aktivieren und sich
-optional auf bestimmte Maps beschränken. Das Repository enthält das erste
-projektspezifische Beispiel in `03_rendering/representative_profiles.json`:
+Switches und Variablen überschreiben, die Lightmap-Ebene oder die konservative
+Picture-Setup-Auswertung aktivieren und sich optional auf bestimmte Maps
+beschränken. `lightmap` und `pictures` sind dabei gegenseitig exklusiv. Das
+Repository enthält das erste projektspezifische Beispiel in
+`03_rendering/representative_profiles.json`:
 
 ```text
 PYTHONDONTWRITEBYTECODE=1 python3 03_rendering/render_batch.py \
@@ -147,17 +175,19 @@ nicht ausgewertet werden:
 - Laufzeit-Tile-Substitutionsbefehle
 - Passierbarkeitsbasierte Ebenen-/Z-Reihenfolge
 - animierte Autotile-Frames; verwendet wird deterministisch Frame 0
-- übrige Pictures außerhalb von `--lightmap`, dynamische
-  `Change Parallax BG`-Befehle, Bildschirm-Tönungen und der übrige
-  Laufzeitzustand
+- Pictures außerhalb von `--lightmap` beziehungsweise der konservativen
+  `--pictures`-Setup-Traces, dynamische `Change Parallax BG`-Befehle,
+  Bildschirm-Tönungen und der übrige Laufzeitzustand
 - Item-, Actor-, Timer- und unbekannte Eventseitenbedingungen; sie kommen in
   den aktuellen `Darkest Journey`-Maps nicht vor und werden als mehrdeutig
   protokolliert, falls sie später auftauchen
 
-Mit `--lightmap` werden weiterhin keine `MovePicture`-Folgezustände oder
-Picture-Töne/Effekte simuliert. Der ausdrücklich angegebene Vorschauzustand
-ist daher eine reproduzierbare statische Annäherung und keine vollständige
-Laufzeitaufnahme oder automatisch aus einem Spielstand gelesene Situation.
+Auch `--pictures` ist keine vollständige Laufzeitaufnahme: Parallel-
+Scheduler, Common Events, Nachrichten, Eingaben, Kämpfe, Picture-
+Interpolation, Töne, Rotation und Wellenanimationen werden nicht simuliert.
+Der ausdrücklich angegebene Vorschauzustand bleibt daher eine reproduzierbare
+statische Annäherung und keine automatisch aus einem Spielstand gelesene
+Situation.
 
 Diese Grenzen stehen ebenfalls im JSON-Manifest, damit spätere Renderer- oder
 Kompatibilitätsprüfungen die Vorschau nicht versehentlich als pixelgenaue

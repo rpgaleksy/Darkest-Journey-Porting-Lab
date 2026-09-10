@@ -16,6 +16,12 @@
       "variables": {
         "56": 1
       }
+    },
+    {
+      "name": "map-setup",
+      "pictures": true,
+      "switches": {},
+      "variables": {}
     }
   ]
 }
