@@ -14,6 +14,10 @@ erste Architektur liefern, in der dauerhaft laufende RPG-Maker-Prozesse ihren
 Kontrollfluss über Frames hinweg behalten und gemeinsam Switches, Variablen,
 Charakter-Snapshots und Pictures verändern können.
 
+Einzellauf und Scheduler verwenden denselben Befehls- und Kontrollflusskern.
+Nur der Scheduler lässt Waits kooperativ stehen; der bestehende Einzellauf
+behält seine synchrone Diagnose-Semantik und bleibt damit rückwärtskompatibel.
+
 ## Warum ein fortsetzbarer Interpreter nötig ist
 
 `EventTraceRunner.run()` führt derzeit eine Befehlsliste synchron bis zum
@@ -33,9 +37,9 @@ Interpreterzustand in eine fortsetzbare Session überführt:
 - kumulierte Befehls-, Restart- und Fehlerdiagnosen;
 - ein Verweis auf genau einen gemeinsam genutzten `TraceContext`.
 
-`EventTraceRunner.run()` kann danach eine Session erzeugen und sie so lange
-fortsetzen, bis der bisherige synchrone Haltegrund erreicht ist. Bestehende
-Aufrufer und Resultate bleiben dadurch kompatibel.
+Die öffentliche `EventTraceRunner.run()`-Schnittstelle bleibt für bestehende
+Aufrufer und Resultate kompatibel; der Scheduler ergänzt sie um eine
+fortsetzbare Session-API.
 
 ## Datengrundlage in Darkest Journey
 
@@ -180,24 +184,22 @@ yielden. Ein ausgeschöpftes Gesamt-, Frame- oder Restart-Budget beendet den
 Lauf mit `budget_exhausted`. Dadurch sind sowohl waitfreie Parallelprozesse als
 auch unbeabsichtigte Neustartschleifen reproduzierbar begrenzt.
 
-## Erster Implementierungsslice
+## Umgesetzter erster Implementierungsslice
 
-Der erste Code-Slice soll bewusst klein, aber architektonisch vollständig
-sein:
+Der erste Code-Slice ist bewusst klein, aber architektonisch vollständig:
 
-1. Die Ausführung aus `EventTraceRunner` in eine fortsetzbare Session
-   extrahieren, ohne die bestehende öffentliche `run()`-Schnittstelle oder die
-   bestehenden Regressionstests zu brechen.
-2. Einen Scheduler für explizit geladene parallele Common Events und die
-   aktive Map hinzufügen.
+1. `EventTraceRunner` besitzt mit `TraceSession` einen fortsetzbaren
+   Interpreterzustand; die öffentliche `run()`-Schnittstelle und die
+   bestehenden Regressionstests bleiben kompatibel.
+2. `ParallelScheduler` führt explizit geladene parallele Common Events und die
+   aktive Map in stabiler Reihenfolge aus.
 3. Common-Event-Switches sowie Map-Seiten ohne Bedingung und mit Switch- oder
-   Variablenbedingung unterstützen; Item-, Actor- und Timerbedingungen bleiben
-   sichtbare Grenzen.
-4. Wait, wartenden `MovePicture`, Abschluss, Restart, Seitenwechsel und
-   `EraseEvent` als echte Yield- beziehungsweise Lebenszyklusereignisse
-   behandeln.
-5. JSON-Diagnose und ein kleines Kommandozeilenwerkzeug bereitstellen; eine
-   Live-Eingabe- oder Fensterschleife bleibt vertagt.
+   Variablenbedingung werden unterstützt; Item-, Actor- und Timerbedingungen
+   bleiben sichtbare Grenzen.
+4. Wait, wartender `MovePicture`, Abschluss, Restart, Seitenwechsel und
+   `EraseEvent` sind echte Yield- beziehungsweise Lebenszyklusereignisse.
+5. `run_scheduler.py` stellt JSON-Diagnose für einen begrenzten Frame-Ausschnitt
+   bereit; eine Live-Eingabe- oder Fensterschleife bleibt vertagt.
 
 ## Abnahmetests
 

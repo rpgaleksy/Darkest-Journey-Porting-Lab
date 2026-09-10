@@ -11,7 +11,16 @@ from __future__ import annotations
 import sys
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Iterable, List, Mapping, MutableMapping, Optional, Sequence, Tuple
+from typing import (
+    Callable,
+    Iterable,
+    List,
+    Mapping,
+    MutableMapping,
+    Optional,
+    Sequence,
+    Tuple,
+)
 
 
 RENDERING_DIR = Path(__file__).resolve().parents[1] / "03_rendering"
@@ -241,6 +250,7 @@ class _Outcome:
     reason: str = "command executed"
     action: Optional[str] = None
     detail: Mapping[str, object] = field(default_factory=dict)
+    yield_frames: Optional[int] = None
 
 
 def _commands_from(value: object) -> Tuple[Mapping[str, object], ...]:
@@ -707,6 +717,7 @@ class EventTraceRunner:
         *,
         source: Mapping[str, object],
         start_frame: int,
+        defer_wait: bool = False,
     ) -> _Outcome:
         applied = context.picture_state.apply_command(
             command,
@@ -732,6 +743,13 @@ class EventTraceRunner:
                 action="picture_move",
                 detail={"wait": False, "duration_frames": values[14] * context.fps // 10},
             )
+        if defer_wait:
+            return _Outcome(
+                reason="picture move wait scheduled",
+                action="picture_move",
+                detail={"wait": True, "wait_frames": wait_frames},
+                yield_frames=wait_frames,
+            )
         budget_error = self._advance(
             context,
             wait_frames,
@@ -756,6 +774,7 @@ class EventTraceRunner:
         command_index: int,
         start_frame: int,
         options: TraceOptions,
+        defer_wait: bool = False,
     ) -> _Outcome:
         code = _code(command)
         if code in PICTURE_COMMANDS:
@@ -764,6 +783,7 @@ class EventTraceRunner:
                 context,
                 source={**dict(frame.source), "command_index": command_index},
                 start_frame=start_frame,
+                defer_wait=defer_wait,
             )
         if code == CONTROL_SWITCHES:
             return self._control_switches(command, context)
@@ -869,6 +889,13 @@ class EventTraceRunner:
             if values is None:
                 return _Outcome("invalid_data", "Wait has invalid parameters")
             wait_frames = self._duration_frames(context, values[0])
+            if defer_wait:
+                return _Outcome(
+                    reason="wait scheduled",
+                    action="wait",
+                    detail={"wait_frames": wait_frames},
+                    yield_frames=wait_frames,
+                )
             budget_error = self._advance(
                 context,
                 wait_frames,
@@ -911,6 +938,26 @@ class EventTraceRunner:
         if code == END_EVENT_PROCESSING:
             return _Outcome("unsupported", "EndEventProcessing is not implemented")
         return _Outcome("unsupported", f"command code {code} is unsupported")
+
+    def create_session(
+        self,
+        commands: object,
+        context: Optional[TraceContext] = None,
+        *,
+        source: object = None,
+        start_index: int = 0,
+        stop_index: Optional[int] = None,
+    ) -> TraceSession:
+        """Create a cooperative session backed by this trace runner."""
+
+        return TraceSession(
+            self,
+            commands,
+            context,
+            source=source,
+            start_index=start_index,
+            stop_index=stop_index,
+        )
 
     def run(
         self,
@@ -1031,6 +1078,237 @@ class EventTraceRunner:
         )
 
 
+@dataclass
+class TraceSessionStep:
+    """The observable result of one cooperative interpreter update."""
+
+    status: str
+    reason: str
+    commands_executed: int
+    path: List[dict] = field(default_factory=list)
+    wait_frames: Optional[int] = None
+
+
+class TraceSession:
+    """Resume one event interpreter without advancing global time.
+
+    A session owns the command stack and control-flow state of one parallel
+    process.  It deliberately leaves ``TraceContext.frame`` and the global
+    Picture clock untouched; :mod:`event_scheduler` advances those once per
+    scheduler frame after all ready sessions have yielded.
+    """
+
+    TERMINAL_STATUSES = frozenset(
+        {
+            "completed",
+            "checkpoint",
+            "awaiting_input",
+            "unsupported",
+            "invalid_data",
+            "budget_exhausted",
+            "erased",
+        }
+    )
+
+    def __init__(
+        self,
+        runner: EventTraceRunner,
+        commands: object,
+        context: Optional[TraceContext] = None,
+        *,
+        source: object = None,
+        start_index: int = 0,
+        stop_index: Optional[int] = None,
+    ) -> None:
+        command_list = _commands_from(commands)
+        if start_index < 0 or start_index > len(command_list):
+            raise ValueError("start_index is outside the command list")
+        if stop_index is not None and (
+            stop_index < start_index or stop_index > len(command_list)
+        ):
+            raise ValueError("stop_index is outside the command list")
+        self.runner = runner
+        self.context = context or TraceContext()
+        self.source = _normalize_source(source)
+        self.root_frame = _Frame(
+            commands=command_list,
+            source=self.source,
+            flow=runner._flow(command_list),
+            index=start_index,
+            stop_index=stop_index,
+        )
+        self.stack: List[_Frame] = [self.root_frame]
+        self.path: List[dict] = []
+        self.commands_executed = 0
+        self.restart_count = 0
+        self.status = "ready"
+        self.reason = "session is ready"
+        self.resume_frame: Optional[int] = self.context.frame
+
+    @property
+    def is_terminal(self) -> bool:
+        """Whether this session will not execute another command."""
+
+        return self.status in self.TERMINAL_STATUSES
+
+    @property
+    def current_index(self) -> int:
+        """Return the root frame's next command index for diagnostics."""
+
+        return self.root_frame.index
+
+    def stop(self, status: str, reason: str) -> None:
+        """Stop the session from a scheduler-level budget or lifecycle rule."""
+
+        if status not in self.TERMINAL_STATUSES:
+            raise ValueError(f"invalid terminal session status {status!r}")
+        self.status = status
+        self.reason = reason
+        self.resume_frame = None
+
+    def _result(
+        self,
+        status: str,
+        reason: str,
+        path: List[dict],
+        *,
+        wait_frames: Optional[int] = None,
+    ) -> TraceSessionStep:
+        self.status = status
+        self.reason = reason
+        self.path.extend(path)
+        return TraceSessionStep(
+            status=status,
+            reason=reason,
+            commands_executed=len(path),
+            path=path,
+            wait_frames=wait_frames,
+        )
+
+    def step(
+        self,
+        *,
+        frame: Optional[int] = None,
+        max_commands: Optional[int] = None,
+        yield_after_command: Optional[Callable[[], bool]] = None,
+    ) -> TraceSessionStep:
+        """Execute ready commands until a cooperative yield or terminal state."""
+
+        frame = self.context.frame if frame is None else frame
+        if frame != self.context.frame:
+            raise ValueError("session frame must match its TraceContext frame")
+        if max_commands is None:
+            max_commands = self.runner.limits.max_commands
+        if isinstance(max_commands, bool) or max_commands < 1:
+            raise ValueError("max_commands must be positive")
+        if self.is_terminal:
+            return TraceSessionStep(self.status, self.reason, 0)
+        if self.resume_frame is not None and frame < self.resume_frame:
+            return self._result("waiting", "session is waiting for a later frame", [])
+        self.resume_frame = None
+
+        path: List[dict] = []
+        while self.stack:
+            current = self.stack[-1]
+            if (
+                current is self.root_frame
+                and current.stop_index is not None
+                and current.index >= current.stop_index
+            ):
+                self.resume_frame = None
+                result = self._result(
+                    "checkpoint",
+                    "reached explicit segment boundary",
+                    path,
+                )
+                result.commands_executed = len(path)
+                return result
+            if current.index >= len(current.commands):
+                if current is self.root_frame:
+                    self.restart_count += 1
+                    current.index = 0
+                    self.resume_frame = frame + 1
+                    return self._result(
+                        "restarted",
+                        "parallel process completed and will restart next frame",
+                        path,
+                    )
+                self.stack.pop()
+                continue
+            if self.commands_executed >= self.runner.limits.max_commands:
+                return self._result(
+                    "budget_exhausted",
+                    "session exceeded its command budget",
+                    path,
+                )
+            if len(path) >= max_commands:
+                self.resume_frame = frame + 1
+                return self._result(
+                    "yielded",
+                    "session reached its per-frame command budget",
+                    path,
+                )
+
+            command_index = current.index
+            command = current.commands[command_index]
+            current.index += 1
+            self.commands_executed += 1
+            outcome = self.runner._step(
+                command,
+                current,
+                self.stack,
+                self.context,
+                command_index=command_index,
+                start_frame=frame,
+                options=TraceOptions(),
+                defer_wait=True,
+            )
+            path_record = {
+                "source": dict(current.source),
+                "command_index": command_index,
+                "code": _code(command),
+                "code_name": command.get("code_name", command.get("string", "")),
+                "frame_before": frame,
+                "frame_after": self.context.frame,
+                "status": outcome.terminal_status
+                or ("yielded" if outcome.yield_frames is not None else "executed"),
+                "reason": outcome.reason,
+            }
+            if outcome.action is not None:
+                path_record["action"] = outcome.action
+            if outcome.detail:
+                path_record["detail"] = dict(outcome.detail)
+            path.append(path_record)
+
+            if outcome.terminal_status is not None:
+                self.resume_frame = None
+                return self._result(outcome.terminal_status, outcome.reason, path)
+            if (
+                _code(command) == ERASE_EVENT
+                and self.source.get("kind") == "map_event"
+            ):
+                self.resume_frame = None
+                return self._result("erased", "parallel map event was erased", path)
+            if outcome.yield_frames is not None:
+                self.resume_frame = frame + outcome.yield_frames
+                return self._result(
+                    "waiting",
+                    outcome.reason,
+                    path,
+                    wait_frames=outcome.yield_frames,
+                )
+            if yield_after_command is not None and yield_after_command():
+                self.resume_frame = frame + 1
+                return self._result(
+                    "yielded",
+                    "session yielded for a runtime refresh",
+                    path,
+                )
+
+        self.resume_frame = None
+        return self._result("completed", "all reachable commands completed", path)
+
+
 __all__ = [
     "CharacterState",
     "EventTraceRunner",
@@ -1038,5 +1316,7 @@ __all__ = [
     "TraceLimits",
     "TraceOptions",
     "TraceResult",
+    "TraceSession",
+    "TraceSessionStep",
     "TraceValidationError",
 ]
