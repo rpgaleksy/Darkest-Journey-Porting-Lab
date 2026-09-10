@@ -207,14 +207,17 @@ ausgeführt: alle vier Taschenlampenrichtungen, `Item_0019`, der Zugabschnitt
 mit 420 Frames, der anschließende Erase-Abschnitt und die 90-Frame-
 Herzanimation. Der Trace-Interpreter ist damit als eigenständige Bibliothek
 und über `05_runtime/run_trace.py` als Diagnosewerkzeug verfügbar. Die
-Anbindung an Renderer-Profile bleibt der nächste Integrationsschritt.
+Anbindung an Renderer-Profile ist über `03_rendering/runtime_preview.py` und
+die reproduzierbaren Szenario-Profile abgeschlossen. Als nächster Runtime-
+Slice ist der [kooperative Scheduler](parallel-scheduler-design.md) definiert.
 
 ## Bewusst vertagt
 
 - vollständige Ausführung von Common Event 13 samt Tasteneingabe
 - Gegenstands-, Actor- und weitere Bedingungsarten
 - Nachrichtenfenster, Choices und Bewegungsrouten
-- Scheduler für mehrere gleichzeitig laufende Parallelprozesse
+- implementierter Scheduler für mehrere gleichzeitig laufende
+  Parallelprozesse; die Architektur ist separat festgelegt
 - Kartenwechsel, Audioausgabe und interaktive Darstellung
 - Laden und Fortsetzen eines laufenden LSD-Interpreterzustands
 - Kampf- und Maniac-Patch-Befehle außerhalb der bereits benötigten

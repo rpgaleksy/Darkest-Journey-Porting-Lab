@@ -9,6 +9,7 @@ Die festgelegte Architektur, ihr erster Implementierungsslice und die Grenzen
 gegenüber einer vollständigen Engine stehen in:
 
 - [Event-Trace-Laufzeit für Pictures](event-trace-design.md)
+- [Kooperativer Scheduler für parallele Events](parallel-scheduler-design.md)
 
 ## Implementierter erster Slice
 
@@ -44,3 +45,10 @@ python3 05_runtime/run_trace.py \
 Nachrichten, Tasteneingaben, Choices und Bewegungsrouten führen weiterhin zu
 einem expliziten `awaiting_input`- oder `unsupported`-Ergebnis. Dadurch werden
 fehlende Laufzeitdienste nicht als erfolgreich simuliert.
+
+## Nächster Runtime-Slice
+
+Die Scheduler-Spezifikation überführt den synchronen Trace-Kern als Nächstes
+in fortsetzbare Interpreter-Sessions. Mehrere parallele Common Events und
+Map-Events sollen damit in stabiler Reihenfolge auf einem gemeinsamen Zustand
+laufen, ohne dass Waits die globale Zeit pro Task mehrfach fortschreiben.
