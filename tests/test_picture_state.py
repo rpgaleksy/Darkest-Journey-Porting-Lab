@@ -6,7 +6,7 @@ from pathlib import Path
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "03_rendering"))
 
-from map_renderer import EventState, _build_picture_state
+from map_renderer import EventState, _build_picture_state, _control_switches
 from picture_state import PictureState
 
 
@@ -18,6 +18,22 @@ def picture_command(code, parameters, name=None):
 
 
 class PictureStateTests(unittest.TestCase):
+    def test_control_switches_uses_rpg_maker_on_off_and_toggle_values(self):
+        switches = {2: True, 3: False}
+
+        applied, reason, detail = _control_switches(
+            picture_command(10210, [0, 1, 1, 0]), switches
+        )
+        self.assertTrue(applied)
+        self.assertIsNone(reason)
+        self.assertTrue(switches[1])
+        self.assertEqual(detail["operation"], "on")
+
+        _control_switches(picture_command(10210, [0, 2, 2, 1]), switches)
+        _control_switches(picture_command(10210, [0, 3, 3, 2]), switches)
+        self.assertFalse(switches[2])
+        self.assertTrue(switches[3])
+
     def test_show_move_and_erase_keep_one_runtime_slot(self):
         state = PictureState()
         show = picture_command(

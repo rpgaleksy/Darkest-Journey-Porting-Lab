@@ -1061,14 +1061,19 @@ def _control_switches(
         return False, f"unsupported ControlSwitches target mode {target_mode}", {}
     if start_id < 1 or end_id < start_id:
         return False, "ControlSwitches has an invalid switch range", {}
-    if value not in (0, 1):
+    if value not in (0, 1, 2):
         return False, f"unsupported ControlSwitches value {value}", {}
+    changed = []
     for switch_id in range(start_id, end_id + 1):
-        switches[switch_id] = value == 1
+        current = switches.get(switch_id, False)
+        updated = True if value == 0 else False if value == 1 else not current
+        switches[switch_id] = updated
+        changed.append({"id": switch_id, "before": current, "after": updated})
     return True, None, {
         "start_id": start_id,
         "end_id": end_id,
-        "value": value == 1,
+        "operation": ("on", "off", "toggle")[value],
+        "changed": changed,
     }
 
 
