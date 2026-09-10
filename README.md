@@ -73,6 +73,13 @@ resultierenden Slot-Zustand. Die genaue Abgrenzung zu interaktiven und
 zeitabhängigen Picture-Folgen steht in
 `04_compatibility/picture-state.md`.
 
+Der nächste Runtime-Schritt ist in den Renderer zurückgeführt: Profile und
+`render_map.py` können nun ausdrücklich begrenzte Map-Event- oder Common-Event-
+Traces ausführen. Der aktuelle Picture-Zustand einschließlich laufender
+Übergänge wird als Vorschau gerendert; Trace-Pfad, Haltegrund und Endzustand
+bleiben im Manifest prüfbar. Der bisherige konservative `--pictures`-Pfad
+bleibt davon getrennt.
+
 Die allgemeine Picture-Semantik ist inzwischen projektweit ausgewertet. Der
 Befund in `04_compatibility/picture-state.md` trennt einmalige Map-Ebenen,
 parallele Effekte, Interaktionsbilder, Zwischensequenzen und dynamische
@@ -83,5 +90,6 @@ Der daraus abgeleitete Runtime-Schritt ist in
 `05_runtime/event-trace-design.md` abgegrenzt und als deterministischer
 Event-Trace-Interpreter in `05_runtime/event_trace.py` umgesetzt. Er
 reproduziert die Taschenlampe, den dynamischen Menü-Pointer sowie ausgewählte
-Zug- und Herzsequenzen aus echten Spieldaten. Eingabe, Nachrichten und ein
-vollständiger Parallel-Scheduler bleiben dabei bewusst spätere Ausbaustufen.
+Zug- und Herzsequenzen aus echten Spieldaten. Die Renderer-Anbindung liegt in
+`03_rendering/runtime_preview.py`. Eingabe, Nachrichten und ein vollständiger
+Parallel-Scheduler bleiben dabei bewusst spätere Ausbaustufen.

@@ -21,6 +21,13 @@ klassische Picture-Befehle, Waits und lineare Picture-Übergänge.
 Verfügung. Es gibt ein JSON-Diagnoseergebnis mit ausgeführtem Pfad, Haltegrund,
 Frames, Switches, Variablen, Picture-Slots und protokollierten Aktionen aus.
 
+Der Renderer nutzt diesen Kern über `03_rendering/runtime_preview.py`. Eine
+Profil- oder Trace-Datei kann damit konkrete Map-Events und Common Events als
+begrenzte Zustandsfolge ausführen und den aktuellen Picture-Snapshot in eine
+PNG-Vorschau übernehmen. Das Adaptermodul validiert die Eingaben, erzeugt
+Character-Snapshots aus der Map und hält die Ergebnisse im Renderer-Manifest
+fest; es dupliziert keine Interpreterlogik.
+
 Beispiele gegen das externe Originalprojekt:
 
 ```text

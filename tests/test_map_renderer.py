@@ -292,6 +292,91 @@ class MapRendererTests(unittest.TestCase):
             0,
         )
 
+    def test_render_map_executes_explicit_runtime_trace(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            project = Path(temp_dir)
+            make_fixture_project(project)
+            image, manifest = render_map(
+                project,
+                scale=1,
+                runtime_traces=[
+                    {
+                        "kind": "map_event",
+                        "event_id": 1,
+                        "page_index": 0,
+                    }
+                ],
+            )
+
+        self.assertEqual(image.pixel(8, 8), (23, 44, 114, 255))
+        self.assertEqual(manifest["pictures"]["mode"], "runtime_trace")
+        self.assertEqual(manifest["pictures"]["snapshot"], "current")
+        self.assertEqual(manifest["pictures"]["commands_found"], 1)
+        self.assertEqual(manifest["pictures"]["pictures_drawn"], 1)
+        self.assertEqual(manifest["pictures"]["traces"][0]["status"], "completed")
+        self.assertEqual(
+            manifest["pictures"]["traces"][0]["source"],
+            {
+                "kind": "map_event",
+                "map": "Map0001.lmu",
+                "event_id": 1,
+                "page_index": 0,
+            },
+        )
+        self.assertEqual(manifest["pictures"]["trace_state"]["frame"], 0)
+        self.assertEqual(
+            manifest["pictures"]["drawn_pictures"][0]["snapshot"],
+            "current",
+        )
+
+    def test_runtime_trace_profile_is_normalized_and_rendered_in_batch(self):
+        with tempfile.TemporaryDirectory() as temp_dir:
+            root = Path(temp_dir)
+            project = root / "project"
+            output = root / "batch"
+            project.mkdir()
+            make_fixture_project(project)
+            profile_path = root / "profiles.json"
+            profile_path.write_text(
+                json.dumps(
+                    {
+                        "profiles": [
+                            {
+                                "name": "runtime",
+                                "maps": ["Map0001.lmu"],
+                                "traces": [
+                                    {
+                                        "kind": "map_event",
+                                        "event_id": 1,
+                                    }
+                                ],
+                            }
+                        ]
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            profiles = load_profiles(profile_path)
+            batch = run_batch(
+                project,
+                output,
+                profiles,
+                map_filenames=["Map0001.lmu"],
+                scale=1,
+            )
+            manifest = json.loads(
+                (output / "Map0001--runtime.json").read_text(encoding="utf-8")
+            )
+
+        self.assertEqual(batch["summary"]["rendered"], 1)
+        self.assertEqual(manifest["batch"]["profile"], "runtime")
+        self.assertEqual(manifest["pictures"]["mode"], "runtime_trace")
+        self.assertEqual(
+            manifest["pictures"]["traces"][0]["spec"]["page_index"],
+            0,
+        )
+
     def test_event_page_selection_uses_both_switches_and_highest_priority(self):
         event = {
             "pages": {

@@ -97,6 +97,16 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="replay conservative parallel map-setup Picture commands",
     )
+    picture_group.add_argument(
+        "--trace-file",
+        type=Path,
+        help="JSON file containing an explicit list of bounded runtime traces",
+    )
+    parser.add_argument(
+        "--picture-snapshot",
+        choices=("current", "target"),
+        help="render current or target Picture values (runtime traces default to current)",
+    )
     parser.add_argument(
         "--switch",
         dest="switches",
@@ -134,6 +144,15 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     args = parser.parse_args(argv)
 
     try:
+        runtime_traces = None
+        if args.trace_file is not None:
+            payload = json.loads(args.trace_file.read_text(encoding="utf-8"))
+            if isinstance(payload, dict):
+                if "traces" not in payload:
+                    raise ValueError("trace file must contain a 'traces' list")
+                runtime_traces = payload["traces"]
+            else:
+                runtime_traces = payload
         image, manifest = render_map(
             args.project_dir,
             args.map,
@@ -142,12 +161,14 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             show_events=not args.no_events,
             show_lightmap=args.lightmap,
             show_pictures=args.pictures,
+            runtime_traces=runtime_traces,
+            picture_snapshot=args.picture_snapshot,
             event_state=EventState(
                 switches=dict(args.switches),
                 variables=dict(args.variables),
             ),
         )
-    except (OSError, LcfParseError, ValueError) as error:
+    except (OSError, LcfParseError, ValueError, json.JSONDecodeError) as error:
         parser.error(str(error))
         return 2
 

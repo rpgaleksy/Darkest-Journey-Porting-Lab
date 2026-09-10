@@ -22,6 +22,20 @@
       "pictures": true,
       "switches": {},
       "variables": {}
+    },
+    {
+      "name": "map0064-runtime-heart",
+      "maps": [
+        "Map0064.lmu"
+      ],
+      "picture_snapshot": "current",
+      "traces": [
+        {
+          "kind": "map_event",
+          "event_id": 17,
+          "page_index": 0
+        }
+      ]
     }
   ]
 }

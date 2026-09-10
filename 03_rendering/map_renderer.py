@@ -3,10 +3,11 @@
 The renderer intentionally produces a diagnostic preview, not a replacement
 runtime.  It decodes the indexed PNG format used by the project with the
 standard library, composes the known chipset blocks, and overlays the active
-event pages for an explicit preview state.  When requested, it replays only
-conservative parallel map-setup traces into a small PictureState register.
-Runtime event execution, tile substitutions, animation frames other than the
-selected static frame, and passability-based z-order are kept outside this
+event pages for an explicit preview state.  The legacy picture mode replays
+only conservative parallel map-setup traces; an explicit opt-in runtime mode
+can instead consume bounded traces from ``05_runtime`` and render their
+PictureState snapshot.  Tile substitutions, animation frames other than the
+selected static frame, and passability-based z-order remain outside this
 rendering pass.
 """
 
@@ -36,6 +37,7 @@ from picture_state import (
 )
 from project_parser import parse_lmu
 from resource_scanner import _ResourceIndex, _candidate_names, _find_matches
+from runtime_preview import normalize_trace_specs, run_runtime_traces
 
 
 TILE_SIZE = 16
@@ -1288,24 +1290,73 @@ def _build_picture_state(
     return state, switches, variables, traces
 
 
-def _picture_slot_identity(slot: object) -> dict:
+def _picture_number(value: object) -> object:
+    if isinstance(value, float) and value.is_integer():
+        return int(value)
+    return value
+
+
+def _picture_slot_identity(slot: object, *, snapshot: str = "target") -> dict:
+    if snapshot not in {"target", "current"}:
+        raise ValueError("picture snapshot must be 'target' or 'current'")
+    target_position = [slot.x, slot.y]
+    current_position = [
+        _picture_number(slot.current_x),
+        _picture_number(slot.current_y),
+    ]
+    target_transparency = [slot.top_transparency, slot.bottom_transparency]
+    current_transparency = [
+        _picture_number(slot.current_top_transparency),
+        _picture_number(slot.current_bottom_transparency),
+    ]
+    target_tone = list(slot.tone)
+    current_tone = [_picture_number(value) for value in slot.current_tone]
     return {
         "picture_id": slot.picture_id,
         "raw_picture_id": slot.raw_picture_id,
         "picture_name": slot.name,
-        "position": [slot.x, slot.y],
+        "position": current_position if snapshot == "current" else target_position,
+        "target_position": target_position,
+        "current_position": current_position,
         "position_mode": slot.position_mode,
         "fixed_to_map": slot.fixed_to_map,
-        "zoom": slot.zoom,
-        "top_transparency": slot.top_transparency,
-        "bottom_transparency": slot.bottom_transparency,
+        "snapshot": snapshot,
+        "zoom": (
+            _picture_number(slot.current_zoom)
+            if snapshot == "current"
+            else slot.zoom
+        ),
+        "target_zoom": slot.zoom,
+        "current_zoom": _picture_number(slot.current_zoom),
+        "top_transparency": (
+            _picture_number(slot.current_top_transparency)
+            if snapshot == "current"
+            else slot.top_transparency
+        ),
+        "bottom_transparency": (
+            _picture_number(slot.current_bottom_transparency)
+            if snapshot == "current"
+            else slot.bottom_transparency
+        ),
+        "target_transparency": target_transparency,
+        "current_transparency": current_transparency,
         "use_transparent_color": slot.use_transparent_color,
-        "tone": list(slot.tone),
+        "tone": current_tone if snapshot == "current" else target_tone,
+        "target_tone": target_tone,
+        "current_tone": current_tone,
         "effect_mode": slot.effect_mode,
-        "effect_power": slot.effect_power,
+        "effect_power": (
+            _picture_number(slot.current_effect_power)
+            if snapshot == "current"
+            else slot.effect_power
+        ),
+        "target_effect_power": slot.effect_power,
+        "current_effect_power": _picture_number(slot.current_effect_power),
         "variable_ids": list(slot.variable_ids),
         "move_duration": slot.move_duration,
         "move_wait": slot.move_wait,
+        "move_duration_frames": slot.move_duration_frames,
+        "move_remaining_frames": slot.move_remaining_frames,
         "last_operation": slot.last_operation,
         "source": dict(slot.source),
     }
@@ -1349,14 +1400,41 @@ def _render_picture_slots(
     picture_statistics: dict,
     *,
     lightmap_only: bool,
+    snapshot: str,
 ) -> None:
     """Draw the final Picture register snapshot in RPG Maker ID order."""
+
+    if snapshot not in {"target", "current"}:
+        raise ValueError("picture snapshot must be 'target' or 'current'")
 
     for picture_id in sorted(state.slots):
         slot = state.slots[picture_id]
         if lightmap_only and not _lightmap_name(slot.name):
             continue
-        identity = _picture_slot_identity(slot)
+        identity = _picture_slot_identity(slot, snapshot=snapshot)
+        zoom_value = identity["zoom"]
+        top_transparency = identity["top_transparency"]
+        position = identity["position"]
+        if not isinstance(zoom_value, (int, float)) or isinstance(zoom_value, bool):
+            picture_statistics["invalid_pictures"].append(
+                {**identity, "reason": "picture zoom is not numeric"}
+            )
+            continue
+        if not isinstance(top_transparency, (int, float)) or isinstance(top_transparency, bool):
+            picture_statistics["invalid_pictures"].append(
+                {**identity, "reason": "picture transparency is not numeric"}
+            )
+            continue
+        if (
+            not isinstance(position, list)
+            or len(position) != 2
+            or not all(isinstance(value, (int, float)) and not isinstance(value, bool) for value in position)
+        ):
+            picture_statistics["invalid_pictures"].append(
+                {**identity, "reason": "picture position is not numeric"}
+            )
+            continue
+        zoom = max(0, min(int(round(zoom_value)), 2000))
         picture_path, picture_descriptor, picture_matches = _resolve_asset(
             indexes,
             "picture",
@@ -1377,20 +1455,23 @@ def _render_picture_slots(
                 {**identity, "message": str(error)}
             )
             continue
-        if slot.zoom == 0:
+        if zoom == 0:
             picture_statistics["skipped_pictures"].append(
                 {**identity, "reason": "picture zoom is zero"}
             )
             continue
-        if slot.zoom != 100:
+        if zoom != 100:
             picture_image = picture_image.resize_nearest(
-                max(1, picture_image.width * slot.zoom // 100),
-                max(1, picture_image.height * slot.zoom // 100),
+                max(1, picture_image.width * zoom // 100),
+                max(1, picture_image.height * zoom // 100),
             )
-        opacity = 255 * (100 - slot.top_transparency) // 100
+        opacity = max(
+            0,
+            min(255, int(255 * (100 - top_transparency) // 100)),
+        )
         picture_image = picture_image.with_opacity(opacity)
-        destination_x = slot.x - picture_image.width // 2
-        destination_y = slot.y - picture_image.height // 2
+        destination_x = int(round(position[0])) - picture_image.width // 2
+        destination_y = int(round(position[1])) - picture_image.height // 2
         canvas.blit(
             picture_image,
             0,
@@ -1461,6 +1542,8 @@ def render_map(
     show_lightmap: bool = False,
     show_pictures: bool = False,
     event_state: Optional[EventState] = None,
+    runtime_traces: Optional[Sequence[Mapping[str, object]]] = None,
+    picture_snapshot: Optional[str] = None,
 ) -> Tuple[RgbaImage, dict]:
     """Render one map to an RGBA image and return image plus manifest data."""
 
@@ -1468,6 +1551,15 @@ def render_map(
         raise ValueError("scale must be at least 1")
     if show_lightmap and show_pictures:
         raise ValueError("show_lightmap and show_pictures are mutually exclusive")
+    normalized_runtime_traces = normalize_trace_specs(runtime_traces)
+    if normalized_runtime_traces and (show_lightmap or show_pictures):
+        raise ValueError(
+            "runtime_traces cannot be combined with show_lightmap or show_pictures"
+        )
+    if picture_snapshot is None:
+        picture_snapshot = "current" if normalized_runtime_traces else "target"
+    if picture_snapshot not in {"target", "current"}:
+        raise ValueError("picture snapshot must be 'target' or 'current'")
     project_path = Path(project_dir).expanduser().resolve()
     if not project_path.is_dir():
         raise FileNotFoundError(f"project directory does not exist: {project_path}")
@@ -1497,7 +1589,21 @@ def render_map(
     picture_trace_switches = dict(preview_state.switches)
     picture_trace_variables = dict(preview_state.variables)
     picture_traces: List[dict] = []
-    if show_lightmap or show_pictures:
+    runtime_trace_state = None
+    if normalized_runtime_traces:
+        runtime_trace_state = run_runtime_traces(
+            database,
+            map_data,
+            map_filename,
+            normalized_runtime_traces,
+            initial_switches=preview_state.switches,
+            initial_variables=preview_state.variables,
+        )
+        picture_state = runtime_trace_state.picture_state
+        picture_trace_switches = dict(runtime_trace_state.context.switches)
+        picture_trace_variables = dict(runtime_trace_state.context.variables)
+        picture_traces = list(runtime_trace_state.results)
+    elif show_lightmap or show_pictures:
         (
             picture_state,
             picture_trace_switches,
@@ -1765,15 +1871,26 @@ def render_map(
             event_statistics["sprites_drawn"] += 1
 
     picture_statistics = {
-        "enabled": show_lightmap or show_pictures,
-        "mode": "lightmap" if show_lightmap else "map_setup" if show_pictures else "disabled",
+        "enabled": show_lightmap or show_pictures or bool(normalized_runtime_traces),
+        "mode": (
+            "lightmap"
+            if show_lightmap
+            else "map_setup"
+            if show_pictures
+            else "runtime_trace"
+            if normalized_runtime_traces
+            else "disabled"
+        ),
         "selector": (
             "Picture slots whose name contains 'lightmap'"
             if show_lightmap
             else "Picture commands from conservative parallel map setup traces"
             if show_pictures
+            else "Picture slots produced by explicit bounded runtime traces"
+            if normalized_runtime_traces
             else None
         ),
+        "snapshot": picture_snapshot,
         "reference_screen": {
             "width": PICTURE_SCREEN_WIDTH,
             "height": PICTURE_SCREEN_HEIGHT,
@@ -1788,6 +1905,7 @@ def render_map(
         "skipped_pictures": [],
         "traces": picture_traces,
         "trace_state": {
+            "frame": picture_state.current_frame,
             "switches": [
                 {"id": identifier, "value": value}
                 for identifier, value in sorted(picture_trace_switches.items())
@@ -1798,7 +1916,27 @@ def render_map(
             ],
         },
     }
-    if show_lightmap or show_pictures:
+    if runtime_trace_state is not None:
+        picture_statistics["trace_state"].update(
+            {
+                "characters": [
+                    {
+                        "id": identifier,
+                        "map_id": character.map_id,
+                        "x": character.x,
+                        "y": character.y,
+                        "facing": character.facing,
+                        "screen_x": character.screen_x,
+                        "screen_y": character.screen_y,
+                    }
+                    for identifier, character in sorted(
+                        runtime_trace_state.context.characters.items()
+                    )
+                ],
+                "actions": list(runtime_trace_state.context.actions),
+            }
+        )
+    if show_lightmap or show_pictures or normalized_runtime_traces:
         if show_lightmap and not any(
             _lightmap_name(slot.name) for slot in picture_state.slots.values()
         ):
@@ -1832,6 +1970,7 @@ def render_map(
             picture_state,
             picture_statistics,
             lightmap_only=show_lightmap,
+            snapshot=picture_snapshot,
         )
 
     tile_statistics["by_block"] = dict(sorted(tile_statistics["by_block"].items()))
@@ -1898,8 +2037,9 @@ def render_map(
             "item, actor, timer, and unknown event page conditions are not evaluated",
             "passability-based event z-order is not evaluated",
             "Change Parallax BG commands and runtime panorama scrolling are not evaluated",
-            "lightmap selection does not execute picture replacement order",
-            "picture tones, effects, and variable coordinates are not evaluated",
+            "lightmap selection does not execute full picture replacement order",
+            "picture tones and effects are recorded but not rasterized",
+            "legacy setup traces use target Picture values; runtime trace snapshots are bounded",
         ],
     }
     return output_image, manifest

@@ -115,14 +115,58 @@ PYTHONDONTWRITEBYTECODE=1 python3 03_rendering/render_map.py \
   --out /private/tmp/darkest-journey-map0010-pictures.png
 ```
 
-Die Trace-Auswertung löst klassische Variable-Koordinaten sowie die im
-Projekt verwendete Picture-Pointer-ID `50113` auf. `MovePicture` wird für die
-statische Vorschau als fertiger Zielzustand übernommen; die vollständige
-Interpolation über mehrere Frames ist noch nicht Teil des Renderers. Jede
-ausgewertete Trace, der resultierende Registerzustand und übersprungene
-Befehle werden im `pictures`-Abschnitt des JSON-Manifests festgehalten.
-Seiten mit Interaktion, Verzweigungen, Schleifen, Common-Event-Aufrufen oder
-anderen nicht erlaubten Befehlen werden nicht stillschweigend ausgeführt.
+Die konservative Auswertung löst klassische Variable-Koordinaten sowie die im
+Projekt verwendete Picture-Pointer-ID `50113` auf. `MovePicture` wird in diesem
+Legacy-Modus weiterhin als fertiger Zielzustand übernommen. Jede ausgewertete
+Trace, der resultierende Registerzustand und übersprungene Befehle werden im
+`pictures`-Abschnitt des JSON-Manifests festgehalten. Seiten mit Interaktion,
+Verzweigungen, Schleifen, Common-Event-Aufrufen oder anderen nicht erlaubten
+Befehlen werden nicht stillschweigend ausgeführt.
+
+### Explizite Runtime-Traces
+
+Für gezielte Kompatibilitätsproben kann `render_map.py` zusätzlich eine
+JSON-Datei mit begrenzten Runtime-Traces ausführen. Der neue Pfad verwendet
+denselben deterministischen Interpreter wie `05_runtime/run_trace.py` und
+übernimmt dessen finalen Picture-Registerzustand in die Map-Vorschau:
+
+```json
+{
+  "traces": [
+    {
+      "kind": "map_event",
+      "event_id": 17,
+      "page_index": 0
+    }
+  ]
+}
+```
+
+Aufruf und Ausgabe bleiben read-only:
+
+```text
+PYTHONDONTWRITEBYTECODE=1 python3 03_rendering/render_map.py \
+  "/Users/aleksl/Library/CloudStorage/Dropbox/CODING PRODUCTION/ChatGPT Codex Experiments/Darkest Journey" \
+  --map Map0064.lmu \
+  --trace-file /path/to/map0064-trace.json \
+  --out /private/tmp/darkest-journey-map0064-runtime.png
+```
+
+Unterstützt werden `common_event`- und `map_event`-Traces. Jeder Eintrag kann
+`start_index`, `stop_index`, `stop_after_wait`, `fps` sowie lokale
+`switches`, `variables` und Character-Snapshots angeben. Mehrere Einträge
+werden in Reihenfolge auf demselben expliziten Zustand ausgeführt. Map-Events
+bringen ihre Kartenpositionen als Character-Snapshots mit; zusätzliche
+Character-Werte können beispielsweise für den Spieler `10001` angegeben
+werden. Der Renderer zeichnet standardmäßig den aktuellen Picture-Zustand,
+also auch einen Zwischenstand während eines nicht wartenden `MovePicture`.
+Mit `--picture-snapshot target` kann stattdessen der Zielzustand gewählt
+werden.
+
+Trace-Abbruch an Nachricht/Eingabe, nicht unterstützten Befehlen oder einem
+Sicherheitsbudget wird als solcher im Manifest protokolliert. Der Pfad,
+Zustand, Picture-Operationen und die Begründung bleiben damit prüfbar, ohne
+eine unbemerkte Annahme über die vollständige Laufzeit zu machen.
 
 Die projektweite Analyse zeigt, dass allgemeine Pictures als globaler
 Laufzeitzustand nach Bild-ID behandelt werden müssen und nicht als Sammlung
@@ -141,9 +185,10 @@ angegeben werden, `--all-maps` rendert dagegen jede parsebare Map.
 
 Benannte Zustände liegen in einer kleinen JSON-Profildatei. Ein Profil kann
 Switches und Variablen überschreiben, die Lightmap-Ebene oder die konservative
-Picture-Setup-Auswertung aktivieren und sich optional auf bestimmte Maps
-beschränken. `lightmap` und `pictures` sind dabei gegenseitig exklusiv. Das
-Repository enthält das erste projektspezifische Beispiel in
+Picture-Setup-Auswertung aktivieren, explizite Runtime-Traces ausführen und
+sich optional auf bestimmte Maps beschränken. `lightmap`, `pictures` und
+`traces` sind dabei gegenseitig exklusiv. Das Repository enthält das erste
+projektspezifische Beispiel in
 `03_rendering/representative_profiles.json`:
 
 ```text
@@ -159,7 +204,9 @@ Der Lauf schreibt pro Map/Profil-Kombination eine PNG- und eine JSON-Datei,
 lokale `index.html`-Galerie. Die Ausgabe muss außerhalb des Originalprojekts
 liegen. Das Profil `map0041-lightmap` setzt Variable 56 nur für
 `Map0041.lmu` auf 1; der bekannte Lightmap-Zustand bleibt damit explizit und
-wird nicht stillschweigend auf fremde Maps angewendet.
+wird nicht stillschweigend auf fremde Maps angewendet. Das Profil
+`map0064-runtime-heart` führt dagegen gezielt Map-Event 17 aus und zeigt, wie
+ein konkreter laufzeitbasierter Picture-Zustand in denselben Batch gelangt.
 
 Wenn eine ausgewählte Map kein auflösbares Chipset besitzt oder ein anderes
 Renderer-Problem auftritt, bleibt der Batch-Lauf bei den übrigen Karten und
@@ -175,19 +222,21 @@ nicht ausgewertet werden:
 - Laufzeit-Tile-Substitutionsbefehle
 - Passierbarkeitsbasierte Ebenen-/Z-Reihenfolge
 - animierte Autotile-Frames; verwendet wird deterministisch Frame 0
-- Pictures außerhalb von `--lightmap` beziehungsweise der konservativen
-  `--pictures`-Setup-Traces, dynamische `Change Parallax BG`-Befehle,
+- Pictures außerhalb von `--lightmap`, `--pictures` und ausdrücklich
+  konfigurierten Runtime-Traces, dynamische `Change Parallax BG`-Befehle,
   Bildschirm-Tönungen und der übrige Laufzeitzustand
 - Item-, Actor-, Timer- und unbekannte Eventseitenbedingungen; sie kommen in
   den aktuellen `Darkest Journey`-Maps nicht vor und werden als mehrdeutig
   protokolliert, falls sie später auftauchen
 
-Auch `--pictures` ist keine vollständige Laufzeitaufnahme: Parallel-
-Scheduler, Common Events, Nachrichten, Eingaben, Kämpfe, Picture-
-Interpolation, Töne, Rotation und Wellenanimationen werden nicht simuliert.
-Der ausdrücklich angegebene Vorschauzustand bleibt daher eine reproduzierbare
-statische Annäherung und keine automatisch aus einem Spielstand gelesene
-Situation.
+Auch Runtime-Traces sind keine vollständige Laufzeitaufnahme: Parallel-
+Scheduler, Nachrichten, Eingaben, Kämpfe, Bildschirm-Tönungen, Rotation und
+Wellenanimationen werden nicht vollständig simuliert. `--pictures` bleibt der
+konservative Zielzustandsmodus; nur der neue explizite Runtime-Pfad führt die
+implementierte Teilmenge mit Zustandsübergängen und Picture-Interpolation aus.
+Der ausdrücklich angegebene Vorschauzustand bleibt daher eine
+reproduzierbare statische Annäherung und keine automatisch aus einem
+Spielstand gelesene Situation.
 
 Diese Grenzen stehen ebenfalls im JSON-Manifest, damit spätere Renderer- oder
 Kompatibilitätsprüfungen die Vorschau nicht versehentlich als pixelgenaue

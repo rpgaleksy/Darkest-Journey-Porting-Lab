@@ -21,6 +21,7 @@ if str(PARSER_DIR) not in sys.path:
 from lcf_reader import LcfParseError
 from map_renderer import EventState, render_map, write_png
 from project_parser import parse_lmt, parse_lmu
+from runtime_preview import normalize_trace_specs
 
 
 MAP_FILENAME_PATTERN = re.compile(r"Map\d{4}\.lmu", re.IGNORECASE)
@@ -36,6 +37,8 @@ class PreviewProfile:
     variables: Mapping[int, int] = field(default_factory=dict)
     lightmap: bool = False
     pictures: bool = False
+    traces: Tuple[Mapping[str, object], ...] = ()
+    picture_snapshot: str = "target"
     maps: Optional[Tuple[str, ...]] = None
 
     def applies_to(self, map_filename: str) -> bool:
@@ -95,6 +98,19 @@ def _profile_from_mapping(raw: object, index: int) -> PreviewProfile:
         raise ValueError(f"profile {name!r} pictures must be boolean")
     if lightmap and pictures:
         raise ValueError(f"profile {name!r} cannot enable both lightmap and pictures")
+    traces = normalize_trace_specs(raw.get("traces"))
+    if traces and (lightmap or pictures):
+        raise ValueError(
+            f"profile {name!r} cannot combine traces with lightmap or pictures"
+        )
+    picture_snapshot = raw.get(
+        "picture_snapshot",
+        "current" if traces else "target",
+    )
+    if picture_snapshot not in {"target", "current"}:
+        raise ValueError(
+            f"profile {name!r} picture_snapshot must be 'target' or 'current'"
+        )
 
     raw_maps = raw.get("maps")
     maps = None
@@ -111,6 +127,8 @@ def _profile_from_mapping(raw: object, index: int) -> PreviewProfile:
         variables=_state_mapping(raw.get("variables"), "variables", boolean=False),
         lightmap=lightmap,
         pictures=pictures,
+        traces=traces,
+        picture_snapshot=picture_snapshot,
         maps=maps,
     )
 
@@ -390,6 +408,8 @@ def _profile_manifest(profile: PreviewProfile) -> dict:
         "name": profile.name,
         "lightmap": profile.lightmap,
         "pictures": profile.pictures,
+        "picture_snapshot": profile.picture_snapshot,
+        "traces": [dict(trace) for trace in profile.traces],
         "switches": [
             {"id": identifier, "value": value}
             for identifier, value in sorted(profile.switches.items())
@@ -441,6 +461,12 @@ def _render_summary(manifest: Mapping[str, object]) -> dict:
         "pictures": {
             "commands_found": pictures.get("commands_found", 0),
             "pictures_drawn": pictures.get("pictures_drawn", 0),
+            "runtime_traces": len(pictures.get("traces", [])),
+            "trace_statuses": [
+                trace.get("status")
+                for trace in pictures.get("traces", [])
+                if isinstance(trace, Mapping)
+            ],
         },
     }
 
@@ -580,6 +606,8 @@ def run_batch(
                     scale=scale,
                     show_lightmap=profile.lightmap,
                     show_pictures=profile.pictures,
+                    runtime_traces=profile.traces,
+                    picture_snapshot=profile.picture_snapshot,
                     event_state=EventState(
                         switches=dict(profile.switches),
                         variables=dict(profile.variables),
