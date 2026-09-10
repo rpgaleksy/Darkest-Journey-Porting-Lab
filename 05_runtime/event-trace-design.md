@@ -163,10 +163,20 @@ Jeder Befehl gehört zu einer von drei Klassen:
 1. Zustandsbefehle werden direkt ausgeführt.
 2. Nicht blockierende Ausgaben wie `PlaySound` können in einem
    Diagnoseprofil als protokollierte Aktion weiterlaufen.
-3. Blockierende oder eingabeabhängige Befehle wie Nachrichten,
-   Tasteneingabe, Auswahl und `ProceedWithMovement` benötigen einen
-   ausdrücklich konfigurierten Anbieter. Ohne ihn hält der Trace mit
-   `awaiting_input` oder `unsupported` an.
+3. Nachrichten, Tasteneingabe und Bewegungsbefehle besitzen in
+   `runtime_providers.py` explizite Anbieter-Verträge. Ein Anbieter liefert
+   eine `ProviderDecision`, die einen erfolgreichen Abschluss, einen
+   tasklokalen Wait oder einen sichtbaren Haltegrund beschreibt. Ohne den
+   passenden Anbieter hält der Trace mit `awaiting_input` an; Choices bleiben
+   bis zu einem eigenen Choice-Anbieter bewusst blockiert.
+
+Provider-Ergebnisse dürfen nur ausdrücklich gelieferte Änderungen anwenden:
+`KeyInputProc` schreibt den gelieferten Rohwert in seine Zielvariable,
+Bewegungsanbieter können konkrete Charakterfelder aktualisieren, und
+Nachrichten werden als Aktion mit Originaltext protokolliert. Der
+`ScriptedRuntimeProviders`-Adapter stellt dafür eine deterministische
+Replay-/Testquelle bereit, ersetzt aber keine macOS-Eingabe- oder
+Fensterumgebung.
 
 Damit kann kein unbekannter Befehl unbemerkt den rekonstruierten Zustand
 verfälschen.
@@ -200,6 +210,8 @@ Der implementierte Slice umfasst:
 - klassische Show-, Move- und Erase-Picture-Befehle;
 - Waits, Framefortschritt und lineare Picture-Übergänge;
 - protokollierte Sounds sowie explizite Checkpoints und Budgets;
+- explizite Provider-Verträge für Nachrichten, Tasteneingabe und Bewegung;
+- kooperative Provider-Waits im Parallel-Scheduler ohne globale Zeitduplikation;
 - ein JSON-Ergebnis mit Zustand, Timeline, ausgeführtem Pfad und Haltegrund.
 
 Die vier oben beschriebenen Abläufe wurden mit den Originaldaten read-only
@@ -208,15 +220,17 @@ mit 420 Frames, der anschließende Erase-Abschnitt und die 90-Frame-
 Herzanimation. Der Trace-Interpreter ist damit als eigenständige Bibliothek
 und über `05_runtime/run_trace.py` als Diagnosewerkzeug verfügbar. Die
 Anbindung an Renderer-Profile ist über `03_rendering/runtime_preview.py` und
-die reproduzierbaren Szenario-Profile abgeschlossen. Als nächster Runtime-
-Slice ist der [kooperative Scheduler](parallel-scheduler-design.md) definiert
-und als `05_runtime/event_scheduler.py` implementiert.
+die reproduzierbaren Szenario-Profile abgeschlossen. Der [kooperative
+Scheduler](parallel-scheduler-design.md) ist als
+`05_runtime/event_scheduler.py` implementiert; Provider werden über dieselbe
+Session-API in Common Events und Map-Events geteilt.
 
 ## Bewusst vertagt
 
-- vollständige Ausführung von Common Event 13 samt Tasteneingabe
+- interaktive Anbindung von Common Event 13 samt echter Tastatur- und
+  Nachrichtenoberfläche
 - Gegenstands-, Actor- und weitere Bedingungsarten
-- Nachrichtenfenster, Choices und Bewegungsrouten
+- Choice-Anbieter, vollständige Bewegungsrouten und Kollisionen
 - Kartenwechsel, Audioausgabe und interaktive Darstellung
 - Laden und Fortsetzen eines laufenden LSD-Interpreterzustands
 - Kampf- und Maniac-Patch-Befehle außerhalb der bereits benötigten

@@ -152,10 +152,11 @@ Befehle der alten und neuen Seite in einem künstlichen Mischzustand laufen.
 ### Blockierte und fehlerhafte Tasks
 
 Ein paralleler Task darf einen fehlenden Laufzeitdienst nicht als normalen
-Wait behandeln. Nachrichten, Tasteneingaben, Bewegungsrouten und andere noch
-nicht implementierte Dienste setzen ihn auf einen sichtbaren Status wie
-`awaiting_input` oder `unsupported`. Andere unabhängige Tasks dürfen im
-Diagnosemodus weiterlaufen.
+Wait behandeln. Ohne konfigurierten Provider setzen Nachrichten,
+Tasteneingaben, Bewegungsrouten und andere noch nicht implementierte Dienste
+ihn auf einen sichtbaren Status wie `awaiting_input` oder `unsupported`. Ein
+konfigurierter Provider kann dagegen einen expliziten Erfolg mit tasklokalem
+Wait liefern; andere unabhängige Tasks dürfen im Diagnosemodus weiterlaufen.
 
 Das Scheduler-Ergebnis enthält mindestens:
 
@@ -198,7 +199,10 @@ Der erste Code-Slice ist bewusst klein, aber architektonisch vollständig:
    bleiben sichtbare Grenzen.
 4. Wait, wartender `MovePicture`, Abschluss, Restart, Seitenwechsel und
    `EraseEvent` sind echte Yield- beziehungsweise Lebenszyklusereignisse.
-5. `run_scheduler.py` stellt JSON-Diagnose für einen begrenzten Frame-Ausschnitt
+5. Nachrichten-, Tastatur- und Bewegungsprovider werden über dieselbe
+   `TraceSession` in allen parallelen Tasks kooperativ fortgesetzt; ihre
+   Entscheidungen bleiben explizit und deterministisch.
+6. `run_scheduler.py` stellt JSON-Diagnose für einen begrenzten Frame-Ausschnitt
    bereit; eine Live-Eingabe- oder Fensterschleife bleibt vertagt.
 
 ## Abnahmetests
@@ -232,8 +236,9 @@ Danach folgen read-only Prüfungen mit den Originaldaten:
 ## Bewusst vertagt
 
 - Vordergrund-, Autorun-, Berührungs- und Action-Key-Planung
-- echte Tastatur-, Nachrichten- und Choice-Anbieter
-- vollständige Bewegungsrouten und Kollisionsupdates
+- echte macOS-Tastatur-, Nachrichten- und Choice-Anbieter
+- vollständige Bewegungsrouten und Kollisionsupdates; der Provider-Vertrag
+  kann dafür bereits konkrete Charakter-Snapshots übernehmen
 - Item-, Actor-, Timer- und Timer-2-Seitenbedingungen
 - Kartenwechsel und persistente Map-Instanzen
 - LSD-Speicherung laufender Scheduler- und Interpreterzustände

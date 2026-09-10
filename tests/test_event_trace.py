@@ -13,6 +13,11 @@ from event_trace import (  # noqa: E402
     TraceLimits,
     TraceOptions,
 )
+from runtime_providers import (  # noqa: E402
+    ProviderDecision,
+    RuntimeProviders,
+    ScriptedRuntimeProviders,
+)
 
 
 def command(code, parameters=None, *, indent=0, name=None, string=""):
@@ -165,6 +170,80 @@ class EventTraceTests(unittest.TestCase):
         self.assertEqual(result.status, "awaiting_input")
         self.assertEqual(len(result.context.picture_state.slots), 1)
         self.assertEqual(result.context.picture_state.slots[1].name, "before")
+
+    def test_message_provider_completes_continuations_and_records_text(self):
+        scripted = ScriptedRuntimeProviders(
+            messages=[
+                ProviderDecision.complete(wait_frames=2),
+                ProviderDecision.complete(),
+            ]
+        )
+        result = EventTraceRunner().run(
+            [
+                command(10110, name="ShowMessage", string="Hello"),
+                command(20110, name="ShowMessage_2", string="world"),
+            ],
+            options=TraceOptions(providers=RuntimeProviders(message=scripted)),
+        )
+
+        self.assertEqual(result.status, "completed")
+        self.assertEqual(result.frames_elapsed, 2)
+        self.assertEqual(
+            result.context.actions,
+            [
+                {"action": "show_message", "text": "Hello", "continuation": False},
+                {"action": "show_message", "text": "world", "continuation": True},
+            ],
+        )
+        self.assertEqual(
+            [call["kind"] for call in scripted.calls],
+            ["message", "message"],
+        )
+
+    def test_keyboard_provider_writes_the_key_to_the_command_variable(self):
+        scripted = ScriptedRuntimeProviders(
+            keys=[ProviderDecision.complete(value=6)]
+        )
+        result = EventTraceRunner().run(
+            [command(11610, [59, 1, 0, 1, 0], name="KeyInputProc")],
+            options=TraceOptions(providers=RuntimeProviders(keyboard=scripted)),
+        )
+
+        self.assertEqual(result.status, "completed")
+        self.assertEqual(result.context.variables, {59: 6})
+        self.assertEqual(
+            result.context.actions,
+            [{"action": "key_input", "variable_id": 59, "value": 6}],
+        )
+
+    def test_movement_provider_applies_only_explicit_character_updates(self):
+        scripted = ScriptedRuntimeProviders(
+            movements=[
+                ProviderDecision.complete(
+                    character_updates={1: {"x": 3, "y": 4, "facing": 1}}
+                ),
+                ProviderDecision.complete(),
+            ]
+        )
+        context = TraceContext(
+            characters={1: CharacterState(x=1, y=2, facing=2)}
+        )
+        result = EventTraceRunner().run(
+            [
+                command(11330, [0, 1, 0], name="MoveEvent"),
+                command(11340, name="ProceedWithMovement"),
+            ],
+            context,
+            options=TraceOptions(providers=RuntimeProviders(movement=scripted)),
+        )
+
+        self.assertEqual(result.status, "completed")
+        self.assertEqual(
+            result.context.characters[1],
+            CharacterState(x=3, y=4, facing=1),
+        )
+        self.assertEqual(len(result.context.actions), 2)
+        self.assertEqual(scripted.calls[0]["code"], 11330)
 
 
 if __name__ == "__main__":

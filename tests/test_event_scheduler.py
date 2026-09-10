@@ -8,6 +8,11 @@ sys.path.insert(0, str(REPO_ROOT / "05_runtime"))
 
 from event_scheduler import ParallelScheduler, SchedulerLimits  # noqa: E402
 from event_trace import TraceContext  # noqa: E402
+from runtime_providers import (  # noqa: E402
+    ProviderDecision,
+    RuntimeProviders,
+    ScriptedRuntimeProviders,
+)
 
 
 def command(code, parameters=None, *, indent=0, name=None, string=""):
@@ -318,6 +323,38 @@ class ParallelSchedulerTests(unittest.TestCase):
                 if entry["task_id"] == "common:1"
             ],
             [(0, "yielded"), (1, "restarted")],
+        )
+
+    def test_provider_wait_is_task_local_and_consumed_once_by_scheduler(self):
+        scripted = ScriptedRuntimeProviders(
+            messages=[ProviderDecision.complete(wait_frames=1)]
+        )
+        result = ParallelScheduler(
+            [
+                common_event(
+                    1,
+                    [
+                        command(10110, name="ShowMessage", string="Hello"),
+                        control_variable(1, 0, 7),
+                    ],
+                )
+            ],
+            context=TraceContext(),
+            providers=RuntimeProviders(message=scripted),
+            limits=SchedulerLimits(max_frames=2),
+        ).run(max_frames=2)
+
+        self.assertEqual(result.status, "completed")
+        self.assertEqual(result.context.variables, {1: 7})
+        self.assertEqual(result.context.frame, 2)
+        self.assertEqual(scripted.calls, [{"kind": "message", "code": 10110, "decision": "completed"}])
+        self.assertEqual(
+            [
+                (entry["frame"], entry["status"])
+                for entry in result.timeline
+                if entry["task_id"] == "common:1"
+            ],
+            [(0, "waiting"), (1, "restarted")],
         )
 
 

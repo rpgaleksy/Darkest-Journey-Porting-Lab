@@ -23,10 +23,12 @@ from event_trace import (  # noqa: E402
     EventTraceRunner,
     TraceContext,
     TraceLimits,
+    TraceOptions,
     TraceResult,
     TraceSession,
     TraceSessionStep,
 )
+from runtime_providers import RuntimeProviders  # noqa: E402
 
 
 PARALLEL_TRIGGER = 4
@@ -311,6 +313,7 @@ class ParallelScheduler:
         limits: Optional[SchedulerLimits] = None,
         trace_limits: Optional[TraceLimits] = None,
         strict: bool = False,
+        providers: Optional[RuntimeProviders] = None,
     ) -> None:
         self.limits = limits or SchedulerLimits()
         self.context = context or TraceContext()
@@ -328,6 +331,8 @@ class ParallelScheduler:
             limits=trace_limits or TraceLimits(),
         )
         self.strict = strict
+        self.providers = providers
+        self.trace_options = TraceOptions(providers=providers)
         self.common_tasks: List[_Task] = []
         self.map_tasks: dict[int, _Task] = {}
         self._retired_tasks: List[_Task] = []
@@ -389,6 +394,7 @@ class ParallelScheduler:
                         record,
                         self.context,
                         source=source,
+                        options=self.trace_options,
                     ),
                     record=record,
                     not_before_frame=self.context.frame,
@@ -492,6 +498,7 @@ class ParallelScheduler:
                     active_page,
                     self.context,
                     source=source,
+                    options=self.trace_options,
                 ),
                 record=active_page,
                 not_before_frame=current_frame if initial else current_frame + 1,

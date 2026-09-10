@@ -28,6 +28,10 @@ if str(RENDERING_DIR) not in sys.path:
     sys.path.insert(0, str(RENDERING_DIR))
 
 from picture_state import PictureState  # noqa: E402
+from runtime_providers import (  # noqa: E402
+    ProviderDecision,
+    RuntimeProviders,
+)
 
 
 SHOW_MESSAGE = 10110
@@ -62,16 +66,16 @@ COMMENT_CONTINUATION = 22410
 
 PICTURE_COMMANDS = {SHOW_PICTURE, MOVE_PICTURE, ERASE_PICTURE}
 COMMENT_COMMANDS = {COMMENT, COMMENT_CONTINUATION}
-EXTERNAL_INPUT_COMMANDS = {
-    SHOW_MESSAGE,
-    SHOW_MESSAGE_CONTINUATION,
+MESSAGE_COMMANDS = {SHOW_MESSAGE, SHOW_MESSAGE_CONTINUATION}
+CHOICE_COMMANDS = {
     SHOW_CHOICE,
     SHOW_CHOICE_OPTION,
     SHOW_CHOICE_END,
-    KEY_INPUT,
-    MOVE_EVENT,
-    PROCEED_WITH_MOVEMENT,
 }
+MOVEMENT_COMMANDS = {MOVE_EVENT, PROCEED_WITH_MOVEMENT}
+KEYBOARD_COMMANDS = {KEY_INPUT}
+PROVIDER_COMMANDS = MESSAGE_COMMANDS | MOVEMENT_COMMANDS | KEYBOARD_COMMANDS
+EXTERNAL_INPUT_COMMANDS = PROVIDER_COMMANDS | CHOICE_COMMANDS
 FACING_TO_KEYPAD = {0: 8, 1: 6, 2: 2, 3: 4}
 
 
@@ -167,6 +171,7 @@ class TraceOptions:
     """Per-run controls that do not belong to the emulated game state."""
 
     stop_after_wait: bool = False
+    providers: Optional[RuntimeProviders] = None
 
 
 @dataclass
@@ -504,6 +509,169 @@ class EventTraceRunner:
         if duration < 0:
             raise TraceValidationError(f"negative wait duration {duration}")
         return max(1, duration * context.fps // 10)
+
+    @staticmethod
+    def _apply_character_updates(
+        context: TraceContext,
+        updates: Mapping[int, Mapping[str, object]],
+    ) -> Tuple[Optional[dict], Optional[_Outcome]]:
+        """Validate and apply explicit movement-provider character snapshots."""
+
+        allowed = {"map_id", "x", "y", "facing", "screen_x", "screen_y"}
+        replacements: List[Tuple[int, CharacterState]] = []
+        changed: List[dict] = []
+        for character_id, update in updates.items():
+            character = context.characters.get(character_id)
+            if character is None:
+                return None, _Outcome(
+                    "invalid_data",
+                    f"movement provider references missing character {character_id}",
+                )
+            unknown = set(update) - allowed
+            if unknown:
+                return None, _Outcome(
+                    "invalid_data",
+                    f"movement provider has unknown character fields {sorted(unknown)}",
+                )
+            values = {
+                "map_id": character.map_id,
+                "x": character.x,
+                "y": character.y,
+                "facing": character.facing,
+                "screen_x": character.screen_x,
+                "screen_y": character.screen_y,
+            }
+            values.update(update)
+            for field_name, value in values.items():
+                if field_name in {"screen_x", "screen_y"}:
+                    valid = value is None or (
+                        isinstance(value, int) and not isinstance(value, bool)
+                    )
+                else:
+                    valid = isinstance(value, int) and not isinstance(value, bool)
+                if not valid:
+                    return None, _Outcome(
+                        "invalid_data",
+                        f"movement provider has invalid {field_name} for character {character_id}",
+                    )
+            replacement = CharacterState(**values)
+            replacements.append((character_id, replacement))
+            changed.append(
+                {
+                    "id": character_id,
+                    "before": {
+                        "x": character.x,
+                        "y": character.y,
+                        "facing": character.facing,
+                    },
+                    "after": {
+                        "x": replacement.x,
+                        "y": replacement.y,
+                        "facing": replacement.facing,
+                    },
+                }
+            )
+        for character_id, replacement in replacements:
+            context.characters[character_id] = replacement
+        return {"changed_characters": changed}, None
+
+    def _provider_outcome(
+        self,
+        decision: object,
+        command: Mapping[str, object],
+        context: TraceContext,
+        *,
+        action: str,
+        start_frame: int,
+        defer_wait: bool,
+    ) -> _Outcome:
+        """Apply one provider result without inventing missing runtime state."""
+
+        if not isinstance(decision, ProviderDecision):
+            return _Outcome(
+                "invalid_data",
+                f"{action} provider returned an invalid decision object",
+            )
+        detail = dict(decision.detail)
+        if decision.status != "completed":
+            return _Outcome(
+                decision.status,
+                decision.reason,
+                action=action,
+                detail=detail,
+            )
+
+        if action == "keyboard":
+            values = _parameters(command, 1)
+            if values is None or values[0] < 1:
+                return _Outcome("invalid_data", "KeyInputProc has an invalid target variable")
+            if decision.value is None:
+                return _Outcome(
+                    "invalid_data",
+                    "keyboard provider completed without a key value",
+                )
+            variable_id = values[0]
+            before = int(context.variables.get(variable_id, 0))
+            context.variables[variable_id] = decision.value
+            detail.setdefault(
+                "changed_variable",
+                {"id": variable_id, "before": before, "after": decision.value},
+            )
+            context.actions.append(
+                {
+                    "action": "key_input",
+                    "variable_id": variable_id,
+                    "value": decision.value,
+                }
+            )
+        elif action == "movement":
+            changes, error = self._apply_character_updates(
+                context,
+                decision.character_updates,
+            )
+            if error is not None:
+                return error
+            if changes is not None:
+                detail.update(changes)
+            context.actions.append(
+                {
+                    "action": "movement",
+                    "code": _code(command),
+                    "changed_characters": detail.get("changed_characters", []),
+                }
+            )
+        elif action == "message":
+            context.actions.append(
+                {
+                    "action": "show_message",
+                    "text": command.get("string", ""),
+                    "continuation": _code(command) == SHOW_MESSAGE_CONTINUATION,
+                }
+            )
+
+        wait_frames = decision.wait_frames
+        if wait_frames:
+            detail.setdefault("wait_frames", wait_frames)
+            if defer_wait:
+                return _Outcome(
+                    reason=decision.reason,
+                    action=action,
+                    detail=detail,
+                    yield_frames=wait_frames,
+                )
+            budget_error = self._advance(
+                context,
+                wait_frames,
+                start_frame=start_frame,
+                limits=self.limits,
+            )
+            if budget_error is not None:
+                return _Outcome("budget_exhausted", budget_error, action=action)
+        return _Outcome(
+            reason=decision.reason,
+            action=action,
+            detail=detail,
+        )
 
     @staticmethod
     def _advance(
@@ -930,10 +1098,56 @@ class EventTraceRunner:
             return _Outcome(reason="event erase recorded", action="erase_event")
         if code in COMMENT_COMMANDS or code in (END, END_BRANCH):
             return _Outcome(reason="structural marker")
+        providers = options.providers
+        if code in MESSAGE_COMMANDS:
+            provider = providers.message if providers is not None else None
+            if provider is None:
+                return _Outcome(
+                    "awaiting_input",
+                    f"command {code} requires an external input or movement provider",
+                )
+            return self._provider_outcome(
+                provider.show_message(command, context),
+                command,
+                context,
+                action="message",
+                start_frame=start_frame,
+                defer_wait=defer_wait,
+            )
+        if code in KEYBOARD_COMMANDS:
+            provider = providers.keyboard if providers is not None else None
+            if provider is None:
+                return _Outcome(
+                    "awaiting_input",
+                    f"command {code} requires an external input or movement provider",
+                )
+            return self._provider_outcome(
+                provider.read_key(command, context),
+                command,
+                context,
+                action="keyboard",
+                start_frame=start_frame,
+                defer_wait=defer_wait,
+            )
+        if code in MOVEMENT_COMMANDS:
+            provider = providers.movement if providers is not None else None
+            if provider is None:
+                return _Outcome(
+                    "awaiting_input",
+                    f"command {code} requires an external input or movement provider",
+                )
+            return self._provider_outcome(
+                provider.move_event(command, context),
+                command,
+                context,
+                action="movement",
+                start_frame=start_frame,
+                defer_wait=defer_wait,
+            )
         if code in EXTERNAL_INPUT_COMMANDS:
             return _Outcome(
                 "awaiting_input",
-                f"command {code} requires an external input or movement provider",
+                f"command {code} requires an interactive choice provider",
             )
         if code == END_EVENT_PROCESSING:
             return _Outcome("unsupported", "EndEventProcessing is not implemented")
@@ -947,6 +1161,7 @@ class EventTraceRunner:
         source: object = None,
         start_index: int = 0,
         stop_index: Optional[int] = None,
+        options: Optional[TraceOptions] = None,
     ) -> TraceSession:
         """Create a cooperative session backed by this trace runner."""
 
@@ -957,6 +1172,7 @@ class EventTraceRunner:
             source=source,
             start_index=start_index,
             stop_index=stop_index,
+            options=options,
         )
 
     def run(
@@ -1119,6 +1335,7 @@ class TraceSession:
         source: object = None,
         start_index: int = 0,
         stop_index: Optional[int] = None,
+        options: Optional[TraceOptions] = None,
     ) -> None:
         command_list = _commands_from(commands)
         if start_index < 0 or start_index > len(command_list):
@@ -1129,6 +1346,7 @@ class TraceSession:
             raise ValueError("stop_index is outside the command list")
         self.runner = runner
         self.context = context or TraceContext()
+        self.options = options or TraceOptions()
         self.source = _normalize_source(source)
         self.root_frame = _Frame(
             commands=command_list,
@@ -1260,7 +1478,7 @@ class TraceSession:
                 self.context,
                 command_index=command_index,
                 start_frame=frame,
-                options=TraceOptions(),
+                options=self.options,
                 defer_wait=True,
             )
             path_record = {
@@ -1319,4 +1537,6 @@ __all__ = [
     "TraceSession",
     "TraceSessionStep",
     "TraceValidationError",
+    "ProviderDecision",
+    "RuntimeProviders",
 ]

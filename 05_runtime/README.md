@@ -27,6 +27,13 @@ parallele Common Events und Map-Events. `run_scheduler.py` führt einen
 begrenzten Frame-Ausschnitt gegen eine Map aus und schreibt dieselbe Art
 JSON-Diagnose mit Task-Lebenszyklen, gemeinsamem Zustand und Timeline.
 
+`runtime_providers.py` definiert außerdem explizite Anbieter-Verträge für
+Nachrichten, Tasteneingaben und Bewegungsbefehle. `ProviderDecision` beschreibt
+dabei sowohl einen erfolgreichen Dienstaufruf mit optionalem Wait als auch
+sichtbare Haltepunkte oder Fehler. `ScriptedRuntimeProviders` ist ein kleiner
+deterministischer Anbieter für Replay-Profile und Tests; ohne konfigurierten
+Anbieter bleiben diese Befehle absichtlich blockiert.
+
 Der Renderer nutzt diesen Kern über `03_rendering/runtime_preview.py`. Eine
 Profil- oder Trace-Datei kann damit konkrete Map-Events und Common Events als
 begrenzte Zustandsfolge ausführen und den aktuellen Picture-Snapshot in eine
@@ -47,9 +54,11 @@ python3 05_runtime/run_trace.py \
   --common-event 14 --variable 113=1 --variable 122=19
 ```
 
-Nachrichten, Tasteneingaben, Choices und Bewegungsrouten führen weiterhin zu
-einem expliziten `awaiting_input`- oder `unsupported`-Ergebnis. Dadurch werden
-fehlende Laufzeitdienste nicht als erfolgreich simuliert.
+Choices und unbekannte Bewegungssemantik führen weiterhin zu einem expliziten
+`awaiting_input`- oder `unsupported`-Ergebnis, solange kein passender Anbieter
+konfiguriert ist. Provider-Ergebnisse werden nur dann in Variablen,
+Charakter-Snapshots oder Aktionen übernommen, wenn sie diese Änderung
+ausdrücklich liefern.
 
 Beispiel für einen begrenzten Scheduler-Lauf gegen die Originaldaten:
 
@@ -63,7 +72,8 @@ python3 05_runtime/run_scheduler.py \
 
 ## Nächste Runtime-Grenzen
 
-Die nächste größere Erweiterung sind externe Anbieter für Nachrichten,
-Tasteneingaben und Bewegungsrouten sowie eine vollständige Auswertung der noch
-nicht unterstützten Seitenbedingungen. Kartenwechsel und persistente
-Speicherzustände bleiben bewusst außerhalb dieses Slices.
+Die nächste größere Erweiterung ist die Anbindung dieser Anbieter an eine
+echte macOS-Fenster-, Eingabe- und Bewegungsumgebung sowie eine vollständige
+Auswertung der noch nicht unterstützten Seitenbedingungen. Kartenwechsel und
+persistent gespeicherte Spielzustände bleiben bewusst außerhalb dieses
+Slices.
