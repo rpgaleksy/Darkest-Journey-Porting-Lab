@@ -16,7 +16,7 @@ Kein Tool in diesem Arbeitsbereich schreibt in das Originalspiel. Analysebericht
 - `02_parsing/` – LCF/LDB/LMT/LMU-Parser, Ressourcenauflösung und JSON-Export
 - `03_rendering/` – Map-Vorschauen und Ressourcen-Renderer
 - `04_compatibility/` – EasyRPG-/Runtime-Kompatibilität und bekannte Abweichungen
-- `05_runtime/` – spätere Laufzeit- oder Portierungsprototypen
+- `05_runtime/` – Event-Laufzeit, Scheduler und Portierungsprototypen
 - `06_reports/` – erzeugte Berichte, Tabellen und Diagramme
 - `tests/` – kleine reproduzierbare Tests für Parser und Konvertierung
 - `vendor/` – klar getrennte externe Werkzeuge oder Quellen, falls später benötigt
@@ -92,5 +92,11 @@ Event-Trace-Interpreter in `05_runtime/event_trace.py` umgesetzt. Er
 reproduziert die Taschenlampe, den dynamischen Menü-Pointer sowie ausgewählte
 Zug- und Herzsequenzen aus echten Spieldaten. Die Renderer-Anbindung liegt in
 `03_rendering/runtime_preview.py`; die reproduzierbaren Beispielszenarien liegen
-in `03_rendering/runtime_scenario_profiles.json`. Eingabe, Nachrichten und ein vollständiger
-Parallel-Scheduler bleiben dabei bewusst spätere Ausbaustufen.
+in `03_rendering/runtime_scenario_profiles.json`. Der kooperative
+Parallel-Scheduler und explizite Provider-Verträge für Nachrichten,
+Tasteneingabe und Bewegung sind inzwischen ebenfalls implementiert.
+
+Der nächste Schritt zum sichtbaren macOS-Prototyp ist in
+`05_runtime/interactive-host-design.md` festgelegt. Er trennt resumierbare
+Live-Requests und einen kleinen Tk-Diagnosehost bewusst von der deutlich
+größeren Bewegungs-, Kollisions- und Spielszenen-Laufzeit.

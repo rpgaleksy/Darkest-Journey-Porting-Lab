@@ -10,6 +10,7 @@ gegenüber einer vollständigen Engine stehen in:
 
 - [Event-Trace-Laufzeit für Pictures](event-trace-design.md)
 - [Kooperativer Scheduler für parallele Events](parallel-scheduler-design.md)
+- [Interaktiver macOS-Diagnosehost](interactive-host-design.md)
 
 ## Implementierter erster Slice
 
@@ -72,8 +73,9 @@ python3 05_runtime/run_scheduler.py \
 
 ## Nächste Runtime-Grenzen
 
-Die nächste größere Erweiterung ist die Anbindung dieser Anbieter an eine
-echte macOS-Fenster-, Eingabe- und Bewegungsumgebung sowie eine vollständige
-Auswertung der noch nicht unterstützten Seitenbedingungen. Kartenwechsel und
-persistent gespeicherte Spielzustände bleiben bewusst außerhalb dieses
-Slices.
+Der nächste Implementierungsslice ist im Host-Entwurf festgelegt: zunächst
+werden Provider-Requests für Nachrichten und wartende Tasteneingaben über
+Frames hinweg fortsetzbar. Danach folgt ein dünner Tk-Diagnosehost, der einen
+Originaldialog auf einer gecachten Map-Vorschau ausführt. Bewegungsrouten,
+Kollision, Kartenwechsel und persistent gespeicherte Spielzustände bleiben
+getrennte spätere Slices.
